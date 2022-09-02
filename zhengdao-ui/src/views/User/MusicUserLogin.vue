@@ -4,7 +4,7 @@
   </el-row>
   <el-row>
     <el-col :span="24">
-        <el-input v-model="input" placeholder="Please input" />
+        <el-input v-model="username" placeholder="Please input Username" />
     <div class="grid-content ep-bg-purple-dark" /></el-col>
   </el-row>
   <el-row>
@@ -12,15 +12,19 @@
   </el-row>
   <el-row>
     <el-col :span="24">
-        <el-input v-model="input" placeholder="Please input" />
+        <el-input v-model="password" placeholder="Please input Password" />
     <div class="grid-content ep-bg-purple-dark" /></el-col>
   </el-row>
+  <p v-if="!validpassword">Username or Password are invalid. Please check your provided data.</p>
 
-  <el-row>
-    <el-col :span="12">Forget Password<div class="grid-content ep-bg-purple" /></el-col>
-    <el-col :span="12">Yes<div class="grid-content ep-bg-purple-light" /></el-col>
-  </el-row>
-
+  <div>
+    <el-row>
+      <el-button type="Success" round @click="forgetpassword" >Forget Passwords</el-button>  
+    </el-row> 
+    <el-row>
+      <el-button type="Success" round @click="submitresult" >Login</el-button>  
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -30,7 +34,6 @@ export default{
       username: '',
       validusername:true,
       password:'',
-      secondpassword:'',
       validpassword:true,
       isloading:false,
       error: null,
@@ -38,25 +41,24 @@ export default{
   },
   methods:{
     submitresult(){
-      if(this.secondpassword !==this.password ){
-        this.validpassword = false;
-        return;
-      }
-      this.validpassword = true;
-      // console.log(this.validpassword)
-      // console.log(this.password)
-      // console.log(this.secondpassword)
+      
 
-      if(this.mode === 'login'){
+      // if(this.mode === 'login'){
         
-      }else{
-        this.$store.dispatch('signup',{
+      // }else{
+      //   this.$store.dispatch('signup',{
+      //     username: this.username,
+      //     password: this.password,
+      //   });
+      // }
+        this.$store.dispatch('login',{
           username: this.username,
           password: this.password,
         });
-      }
-    
-  }
+  },
+    forgetpassword(){
+
+    }
   },
 }
 </script>
