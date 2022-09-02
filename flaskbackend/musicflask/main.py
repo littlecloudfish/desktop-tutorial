@@ -133,6 +133,8 @@ def login():
     access_token = create_access_token(identity=user)
     return jsonify(access_token=access_token)
 
+
+
 @app.route("/who_am_i", methods=["GET"])
 @jwt_required()
 def protected():
@@ -146,8 +148,6 @@ def protected():
 @app.route("/register", methods = ['POST'])
 def register():
     
-    # password = request
-    # print(type(name))
     try:
         name = request.json.get("username",None)
         password = request.json.get('password',None)
@@ -163,16 +163,7 @@ def register():
 
     return make_response('success',201)
 
-# register page
-# @app.route("/register/<email>/<password>")
-# def register(email,password):
-#     newre=models.User(username=email,password=password)
-#     try:
-#         app.session.add(newre)
-#         app.session.commit()
-#     except Exception as e:
-#         return "Wrong"
-#     return 'Add %s record successfully' % email 
+
 
 #upload music page
 @app.route("/uploadmusic/<name>/<int:user_id>")
@@ -257,3 +248,4 @@ def remove_session(*args, **kwargs):
 if __name__ == '__main__':
 
     app.run(host = '127.0.0.1',port=1943,debug=True)
+
