@@ -1,8 +1,6 @@
 <template>
     <slot>
-        <!-- <div v-for="item in posts" :key="item.id">
-            {{postposition(item,1,1)}}
-        </div> -->
+        
         <div>{{postposition(props.posts,0).name}}</div>
         <div class="infinite-list-wrapper" style="overflow: auto">
             <ul

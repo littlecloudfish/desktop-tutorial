@@ -42,15 +42,6 @@ export default{
   methods:{
     submitresult(){
       
-
-      // if(this.mode === 'login'){
-        
-      // }else{
-      //   this.$store.dispatch('signup',{
-      //     username: this.username,
-      //     password: this.password,
-      //   });
-      // }
         this.$store.dispatch('login',{
           username: this.username,
           password: this.password,

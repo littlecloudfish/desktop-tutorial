@@ -1,7 +1,7 @@
 import axios from 'axios'
 export default {
     async login(context, payload){
-        console.log(payload.password);
+        
         const url = 'http://127.0.0.1:1943/login'
         const data ={
             username: payload.username,
@@ -18,25 +18,18 @@ export default {
          
         }).then((response) => {
             console.log(response);
+            context.commit('setUser',{
+                token: response.data.access_token,
+                userId: payload.username,
+            });
         }, (error) => {
             console.log(error);
         });
-        // const responseData = await response.json();
-        // console.log(response)
-        // context.commit('setUser',{
-        //     token: responseData.idToken
-        // })
+
     },
 
     async signup(context, payload){
         console.log(payload.password);
-        // const response = await fetch('http://127.0.0.1:1943/register',{
-        //     method:'POST',
-        //     body: JSON.stringify({
-        //         username: payload.username,
-        //         password: payload.password,
-        //     })
-        // });
         const url = 'http://127.0.0.1:1943/register'
         const data ={
             username: payload.username,
@@ -56,22 +49,7 @@ export default {
         }, (error) => {
             console.log(error);
         });
-    //     axios
-    //         .post(url, data,{
-    //             headers: {
-    //               Accept: "application/json",
-    //               "Content-Type": "application/json;charset=UTF-8",
-    //             },
-                
-    // })
-        // .then(({data}) => {
-        //     console.log(data);
-        // })
-        // const responseData = await response.json();
-        // console.log(response)
-        // context.commit('setUser',{
-        //     token: responseData.idToken
-        // })
+   
     },
 
 };
