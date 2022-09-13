@@ -109,6 +109,11 @@ def only_headers():
 #     access_token = create_access_token(identity=username)
 #     return jsonify(access_token=access_token)
 
+@app.route("/protected", methods=["GET", "POST"])
+@jwt_required()
+def protected():
+    return jsonify(foo="bar")
+
 
 @jwt.user_identity_loader
 def user_identity_lookup(user):
@@ -123,8 +128,8 @@ def user_lookup_callback(_jwt_header, jwt_data):
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-
     user = app.session.query(models.User).filter_by(username=username).one_or_none()
+    print(type(user))
     if not user or not user.check_password(password):
         return jsonify("Wrong username or password"), 401
     
@@ -137,8 +142,9 @@ def login():
 
 @app.route("/who_am_i", methods=["GET"])
 @jwt_required()
-def protected():
+def who_am_i():
     # We can now access our sqlalchemy User object via `current_user`.
+    # current_user = get_jwt_identity()
     return jsonify(
         id=current_user.id,
         full_name=current_user.full_name,
@@ -221,10 +227,6 @@ def add_record(name):
 #     return 'Bad login'
 
 
-# @app.route('/protected')
-# @flask_login.login_required
-# def protected():
-#     return 'Logged in as: ' + flask_login.current_user.email
 
 # @app.route('/logout')
 # def logout():
