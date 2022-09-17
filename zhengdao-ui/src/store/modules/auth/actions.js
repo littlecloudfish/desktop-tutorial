@@ -7,24 +7,35 @@ export default {
             username: payload.username,
             password: payload.password,
         }
-        axios({
-            method: 'post',
-            url: url,
-            data:data,
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json;charset=UTF-8",
-              },
-         
-        }).then((response) => {
-            console.log(response);
-            context.commit('setUser',{
-                token: response.data.access_token,
-                userId: payload.username,
-            });
-        }, (error) => {
-            console.log(error);
-        });
+
+
+        try{
+            const errmes = await axios({
+                method: 'post',
+                url: url,
+                data:data,
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json;charset=UTF-8",
+                  },
+             
+            }).then((response) => {
+                context.commit('setUser',{
+                    token: response.data.access_token,
+                    userId: payload.username,
+                });
+            })
+        }catch(err){
+            if (err.message == 'Request failed with status code 401'){
+                console.log('called if');
+                throw { message : "Wrong password or username" , number: 1000};
+            }
+            else {
+                throw err;
+            }
+        }
+
+       
 
     },
 

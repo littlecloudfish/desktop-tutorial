@@ -1,6 +1,6 @@
 export default{
-    async registeruser(context, data){
-        const token = context.rootGetters.token;
-        
+    async registeruser(context){
+        const token = context.rootgetters.Token;
+        console.log('token'+token);
     },
 }

@@ -1,9 +1,10 @@
 export default{
-    userId(state){
+    userid(state){
         // console.log("ss")
         return state.userId;
     },
-    token(state){
+    Token(state){
+        console.log(state.token);
         return state.token;
     }
 }

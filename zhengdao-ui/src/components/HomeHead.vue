@@ -7,7 +7,7 @@
               <div class="flex flex-wrap items-center">
                 <el-dropdown>
                   <el-button type="primary" >
-                    <a href="/about">User</a>
+                    <a href="/MusicUser">User</a>
                   </el-button>
                   <template #dropdown>
                     <el-dropdown-menu>

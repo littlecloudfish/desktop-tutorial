@@ -7,10 +7,6 @@ from database import SessionLocal, engine
 
 from flask_jwt_extended import create_access_token,jwt_required,JWTManager,set_access_cookies,unset_jwt_cookies,current_user
 
-# import flask_login
-# import flask
-
-# from flask_restful import Resource, Api
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -28,39 +24,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 jwt = JWTManager(app)
 
 
-
-
-
-# app.secret_key = 'super secret string'  
-# login_manager = flask_login.LoginManager()
-# login_manager.init_app(app)
-
-# api = Api(app)
-
-# @login_manager.user_loader
-# def user_loader(id):
-#     user=app.session.query(models.User).filter_by(id = id).first()
-#     if user is None:
-#         return
-    
-#     return user
-
-#not verified http://gouthamanbalaraman.com/blog/minimal-flask-login-example.html
-
-# @login_manager.request_loader
-# def request_loader(request):
-#     token = request.headers.get('Authorization')
-#     if token is None:
-#         token = request.args.get('token')
-#     else:
-#         username,password = token.split(":")
-#         user_entry = app.session.query(models.User).get(username)
-#         if (user_entry is not None):
-#             user = user_entry
-#             if (user.password == password):
-#                 return user
-    
-#     return
 
 
 
@@ -129,7 +92,6 @@ def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
     user = app.session.query(models.User).filter_by(username=username).one_or_none()
-    print(type(user))
     if not user or not user.check_password(password):
         return jsonify("Wrong username or password"), 401
     
@@ -147,7 +109,6 @@ def who_am_i():
     # current_user = get_jwt_identity()
     return jsonify(
         id=current_user.id,
-        full_name=current_user.full_name,
         username=current_user.username,
     )
 
@@ -205,26 +166,6 @@ def add_record(name):
         return "Wrong"
     return 'Add %s record successfully' % name
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if flask.request.method == 'GET':
-#         return '''
-#                <form action='login' method='POST'>
-#                 <input type='text' name='email' id='email' placeholder='email'/>
-#                 <input type='password' name='password' id='password' placeholder='password'/>
-#                 <input type='submit' name='submit'/>
-#                </form>
-#                '''
-
-#     email = flask.request.form['email']
-#     password = flask.request.form['password']
-#     user = app.session.query(models.User).filter_by(email = email).first()
-#     if user and user.password == password: 
-#         flask_login.login_user(user,remember= True)
-#         return flask.redirect(flask.url_for('protected'))
-
-
-#     return 'Bad login'
 
 
 
