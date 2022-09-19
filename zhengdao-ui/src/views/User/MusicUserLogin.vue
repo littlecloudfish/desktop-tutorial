@@ -21,15 +21,13 @@
   <p v-if="!validpassword">Username or Password are invalid. Please check your provided data.</p>
 
   <div>
-    <!-- <el-row>
-      <el-button type="Success" round @click="forgetpassword" >Forget Passwords</el-button>  
-    </el-row> 
     <el-row>
       <el-button type="Success" round @click="submitresult" >Login</el-button>  
-    </el-row> -->
-    <el-row>
-      <el-button type="Success" round @click="submitresult" >{{ submitButtonCaption }}</el-button>  
+      <!-- <el-button type="Success" round @click="forgetpassword" >Forget Passwords</el-button> -->
     </el-row>
+    <el-row>
+      <el-button type="Success" round  ><a href="/MusicUserRegister">Signup</a></el-button>  
+    </el-row> 
   </div>
 </template>
 
@@ -47,18 +45,11 @@ export default{
     };
   },
   computed:{
-    submitButtonCaption(){
-      if(this.mode === 'Login'){
-        return 'Login';
-      }else {
-        return 'Signup';
-      }
-    },
-    // switchModeButtonCaption(){
-    //   if (this.name === 'login'){
-    //     return 'Signup instead';
-    //   } else{
-    //     return 'Login instead';
+    // submitButtonCaption(){
+    //   if(this.mode === 'Login'){
+    //     return 'Login';
+    //   }else {
+    //     return 'Signup';
     //   }
     // },
   },
@@ -70,13 +61,18 @@ export default{
           password: this.password,
         };
         try{
-          if (this.mode === 'Login'){
-            await this.$store.dispatch('login',actionPaylod);}
-          else{
+          await this.$store.dispatch('login',actionPaylod);
+          // if (this.mode === 'Login'){
+          //   await this.$store.dispatch('login',actionPaylod);}
+          // else{
             // await this.$store.dispatch('signup', actionPayload); redirect to signup 
-          }
+          // }
         }catch(err){
           this.error = err.message || 'Failed to authenticate, try later';
+        }
+        // token if not null then change page
+        if (this.$store.getters.Token != null ){
+          this.$router.push({name: 'MusicUser'});
         }
         this.isloading= false;
 
@@ -84,12 +80,9 @@ export default{
   handleError(){
     this.error = null;
   },
-    // switchAuthMode(){
-    //   if (this.mode)
-    // },
-    forgetpassword(){
+  // forgetpassword(){
 
-    }
+  //   }
   },
 }
 </script>

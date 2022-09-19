@@ -7,14 +7,14 @@
               <div class="flex flex-wrap items-center">
                 <el-dropdown>
                   <el-button type="primary" >
-                    <a href="/MusicUser">User</a>
+                    <router-link to="/MusicUser">User</router-link>
                   </el-button>
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item><a href="/about">My Favorite Music</a></el-dropdown-item>
-                      <el-dropdown-item><a href="/about">My Favorite Singers</a></el-dropdown-item>
-                      <el-dropdown-item><a href="/about">My Publish</a></el-dropdown-item>
-                      <el-dropdown-item><a href="/about">Upload </a></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/about">My Favorite Music</router-link></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/about">My Favorite Singers</router-link></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/about">My Publish</router-link></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/about">Upload </router-link></el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
               </el-dropdown>
@@ -26,14 +26,14 @@
               <div class="flex flex-wrap items-center">
                 <el-dropdown>
                   <el-button type="primary" >
-                    <a href="/about">ScoreBoard</a>
+                    <router-link to="/about">ScoreBoard</router-link>
                   </el-button>
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item><a href="/about">Forever Legend</a></el-dropdown-item>
-                      <el-dropdown-item><a href="/about">Hottest Users</a></el-dropdown-item>
-                      <el-dropdown-item><a href="/about">Monthly Score</a></el-dropdown-item>
-                      <el-dropdown-item><a href="/about">Weekly Score</a></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/about">Forever Legend</router-link></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/about">Hottest Users</router-link></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/about">Monthly Score</router-link></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/about">Weekly Score</router-link></el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
               </el-dropdown>
