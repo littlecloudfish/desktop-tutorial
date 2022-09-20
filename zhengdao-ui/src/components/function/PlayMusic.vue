@@ -15,17 +15,34 @@
             <el-rate v-model="value" allow-half />
         </slot>
     </div>
+    <el-button type="Success" round @click="showcom" >Login</el-button> 
+
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default{
+
+    setup(){
+        // this.$store.dispatch('music/musicinfo')
+        
+    },
+    created(){
+        this.$store.dispatch('music/musicinfo');
+        
+        // console.log(...mapGetters(['MusicUserid',]))
+    },
     data(){
         return{
             value:null
         };
     },
     methods:{
-
+        
+        showcom(){
+        console.log(this.$store.getters['music/Musicaddress']);
+        
+        }
     },
 
 }

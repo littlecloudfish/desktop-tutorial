@@ -13,55 +13,15 @@
   </div>
 </template>
 <script>
-import { onBeforeMount } from '@vue/runtime-core';
-import axios from 'axios'
+// import { onBeforeMount } from '@vue/runtime-core';
+// import axios from 'axios'
 
 
   export default({
       
       setup() {
 
-        // success
-        // const accesstoken =  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2MzE2NTI4NywianRpIjoiNzQwN2YxY2MtNjcwMC00MjZjLTkxNzItZWZmMjZkYTUwOThmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTcsIm5iZiI6MTY2MzE2NTI4NywiY3NyZiI6ImY3Y2YwNzI4LWI0N2YtNDMzZi05YTFlLTY5NGRmNGQ3NTA5MiIsImV4cCI6MTY2MzE2NjE4N30.bz89011IOb2Kda3XoJDlz59NwHBUtCppXhnK2HRJdX8";
-        // const apiUrl = 'http://127.0.0.1:1943';
         
-        // axios.get('http://127.0.0.1:1943/who_am_i', {
-        //   headers: {
-        //       Accept: 'application/json',
-        //       Authorization: `Bearer ${accesstoken}`
-        //       }
-        // })
-        // .then((res) => {
-        //   console.log(res.data)
-        // })
-        // .catch((error) => {
-        //   console.error(error)
-        // })
-        // ;
-
-
-
-
-        // axios.get(apiUrl+'/protected',{ headers:{"Authorization" : 'Bearer $accesstoken'}})
-        //     .then(res => {
-        //       console.log(res);
-        //     })
-        //     .catch(error)
-        // const options = {
-        // method: 'get',
-        // headers: {
-        //   Authorization: `Bearer ${accesstoken}`,
-        //   }
-        // };
-        // const response = fetch('http://127.0.0.1:1943/who_am_i', options);
-        // console.log(response.json())
-  //       const authAxios = axios.create({
-  //       baseURL: apiUrl,
-  //       headers: {
-  //         Authorization: 'Bearer ${eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9}' 
-  //       },
-  // })
-  //       authAxios.get('/protected');
           
           },
       methods:{

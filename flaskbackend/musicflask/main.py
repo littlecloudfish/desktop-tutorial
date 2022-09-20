@@ -132,6 +132,11 @@ def show_musics():
     records = app.session.query(models.Music).all()
     return jsonify([record.to_dict() for record in records])
 
+@app.route("/music/<int:music_id>")
+def playmusic(music_id):
+    record = app.session.query(models.Music).get(music_id)
+    return jsonify([record.to_dict()])
+
 @app.route("/records/")
 def show_records():
     records = app.session.query(models.User).all()
@@ -153,9 +158,9 @@ def add_record(name):
 
 
 # escape
-@app.route("/<name>")
-def hello(name):
-    return f"Hello, {escape(name)}"
+# @app.route("/<name>")
+# def hello(name):
+#     return f"Hello, {escape(name)}"
 
 @app.teardown_appcontext
 def remove_session(*args, **kwargs):

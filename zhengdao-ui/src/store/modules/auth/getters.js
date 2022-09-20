@@ -4,7 +4,7 @@ export default{
         return state.userId;
     },
     Token(state){
-        console.log(state.token);
+        // console.log(state.token);
         return state.token;
     }
 }

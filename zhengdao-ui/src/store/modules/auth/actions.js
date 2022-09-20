@@ -27,7 +27,6 @@ export default {
             })
         }catch(err){
             if (err.message == 'Request failed with status code 401'){
-                console.log('called if');
                 throw { message : "Wrong password or username" , number: 1000};
             }
             else {

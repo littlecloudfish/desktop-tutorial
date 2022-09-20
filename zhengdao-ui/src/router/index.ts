@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/User/MusicUserUpload.vue') 
   },
   {
-    path: '/MusicPlay',
+    path: '/MusicPlay/:id',
     name: 'MusicPlay',
     component: () => import('../views/Music/MusicPlay.vue') 
   },
