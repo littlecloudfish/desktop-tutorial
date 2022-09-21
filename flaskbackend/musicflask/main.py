@@ -1,13 +1,14 @@
 from flask import Flask, jsonify, url_for,escape,request,make_response
 from flask_cors import CORS
 from sqlalchemy.orm import scoped_session
+from sqlalchemy.sql import func, extract
 
 import models
 from database import SessionLocal, engine
 
 from flask_jwt_extended import create_access_token,jwt_required,JWTManager,set_access_cookies,unset_jwt_cookies,current_user
 
-
+from datetime import date
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -124,12 +125,26 @@ def uploadmusic(name,user_id):
         app.session.commit()
     except Exception as e:
         return "Wrong"
-    return 'Add %s record successfully' % name
+    return 'Add %s and date record successfully' % name 
+
+# today:0,thisweek:1,thismonth:2,thisyear:3,all:4
+@app.route("/listmusics/<int:timeperiod>")
+def show_musics(timeperiod):
+    year,week_num,day_of_week = date.today().isocalendar()
+    if timeperiod == 4:
+        records = app.session.query(models.Music).all()
+    elif timeperiod == 3:
+        records = app.session.query(models.Music).filter(extract('year',models.Music.post_date)==year)
+    elif timeperiod == 2:
+        current_month = date.today().month
+        records = app.session.query(models.Music).filter(extract('month',models.Music.post_date)==current_month)
+    elif timeperiod == 0:
+        current_day = date.today().day
+        records = app.session.query(models.Music).filter(extract('day',models.Music.post_date)==current_day)
+    elif timeperiod == 1:
+        records = app.session.query(models.Music).filter(extract('week',models.Music.post_date)==week_num)
 
 
-@app.route("/musics/")
-def show_musics():
-    records = app.session.query(models.Music).all()
     return jsonify([record.to_dict() for record in records])
 
 @app.route("/music/<int:music_id>")
@@ -137,9 +152,20 @@ def playmusic(music_id):
     record = app.session.query(models.Music).get(music_id)
     return jsonify([record.to_dict()])
 
-@app.route("/records/")
-def show_records():
-    records = app.session.query(models.User).all()
+@app.route("/records/<int:user_id>/")
+def playerwork(user_id):
+    records = app.session.query(models.Music).filter(user_id=user_id).all()
+    return jsonify([record.to_dict() for record in records])
+
+# username
+@app.route("/usernamerecords/<user_name>")
+def usernamesearch(user_name):
+    try:
+        # records = app.session.query(models.User).all()
+        records = app.session.query(models.User).filter(models.User.username.contains(user_name)).all()
+    except:
+        return "Empty"
+
     return jsonify([record.to_dict() for record in records])
 
 
