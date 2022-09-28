@@ -7,4 +7,7 @@ export default{
         state.post_date = payload.post_date;
         state.user_id = payload.user_id;
     },
+    setlistofMusic(state, payload){
+        state.listofmusic = payload.listofMusic; 
+    },
 }

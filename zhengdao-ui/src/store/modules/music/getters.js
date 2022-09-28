@@ -18,5 +18,7 @@ export default{
         // console.log("ss")
         return state.user_id;
     },
-    
+    listofMusic(state){
+        return state.listofmusic;
+    }
 }

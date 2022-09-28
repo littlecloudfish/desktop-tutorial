@@ -117,8 +117,11 @@ def register():
 
 
 #upload music page
-@app.route("/uploadmusic/<name>/<int:user_id>")
-def uploadmusic(name,user_id):
+@app.route("/uploadmusic/")
+@jwt_required()
+def uploadmusic():
+    user_id = current_user.id
+    name = request.json.get("musicname",None) #musicname in json
     newre=models.Music(name=name,user_id=user_id)
     try:
         app.session.add(newre)

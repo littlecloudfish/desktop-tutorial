@@ -7,6 +7,7 @@
       </el-aside>
       <el-main>
         <div>
+            <webhead></webhead>
             <picturepost></picturepost>
             <display-music :posts="posts"></display-music>
             <displayplayer></displayplayer>
@@ -21,13 +22,14 @@
 import displayplayer from '../components/layout/displayplayer.vue';
 import picturepost from '../components/layout/picturepost.vue';
 import sidenavi from '../components/layout/sidenavi.vue';
-
+import webhead from '../components/layout/webhead.vue';
 
 export default ({
     components:{
         displayplayer,
         picturepost,
         sidenavi,
+        webhead,
     },
 
     setup() {

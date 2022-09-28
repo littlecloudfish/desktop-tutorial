@@ -3,7 +3,7 @@ import axios from 'axios';
 export default{
     async musicinfo(context, payload){
     const backapi = 'http://127.0.0.1:1943';
-    const musicnumber = 1;
+    const musicnumber = 4;
     try{
         const errmes =await axios({
             method: 'get',
@@ -29,6 +29,31 @@ export default{
             throw err;
         }
     }
+    },
+    async musiclistinfo(context, payload){
+        const backapi = 'http://127.0.0.1:1943';
+        const searchtype = 4;
+        try{
+            const errmes =await axios({
+                method: 'get',
+                url: backapi+'/listmusics/'+searchtype
+            }
+            ).then(function(response){
+
+                context.commit('setlistofMusic',{
+                    listofMusic : response.data,
+                });
+
+            });
+        }catch(err){
+            if (err.message == 'Request failed with status code 401'){
+                console.log('called if');
+                throw { message : "Wrong password or username" , number: 1000};
+            }
+            else {
+                throw err;
+            }
+        }
     },
 }
          
