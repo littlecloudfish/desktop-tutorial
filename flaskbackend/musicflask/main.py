@@ -1,17 +1,14 @@
 from flask import Flask, jsonify, url_for,escape,request,make_response
 from flask_cors import CORS
 from sqlalchemy.orm import scoped_session
+from sqlalchemy.sql import func, extract
 
 import models
 from database import SessionLocal, engine
 
 from flask_jwt_extended import create_access_token,jwt_required,JWTManager,set_access_cookies,unset_jwt_cookies,current_user
 
-# import flask_login
-# import flask
-
-# from flask_restful import Resource, Api
-
+from datetime import date
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -28,39 +25,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 jwt = JWTManager(app)
 
 
-
-
-
-# app.secret_key = 'super secret string'  
-# login_manager = flask_login.LoginManager()
-# login_manager.init_app(app)
-
-# api = Api(app)
-
-# @login_manager.user_loader
-# def user_loader(id):
-#     user=app.session.query(models.User).filter_by(id = id).first()
-#     if user is None:
-#         return
-    
-#     return user
-
-#not verified http://gouthamanbalaraman.com/blog/minimal-flask-login-example.html
-
-# @login_manager.request_loader
-# def request_loader(request):
-#     token = request.headers.get('Authorization')
-#     if token is None:
-#         token = request.args.get('token')
-#     else:
-#         username,password = token.split(":")
-#         user_entry = app.session.query(models.User).get(username)
-#         if (user_entry is not None):
-#             user = user_entry
-#             if (user.password == password):
-#                 return user
-    
-#     return
 
 
 
@@ -87,27 +51,15 @@ def logout_with_cookies():
     return response
 
 
-# @app.route("/protected", methods=["GET", "POST"])
-# @jwt_required()
-# def protected():
-#     return jsonify(foo="bar")
-
-
 @app.route("/only_headers")
 @jwt_required(locations=["headers"])
 def only_headers():
     return jsonify(foo="baz")
 
-# @app.route("/login", methods=["POST"])
-# def login():
-#     username = request.json.get("username", None)
-#     password = request.json.get("password", None)
-#     if username != "test" or password != "test":
-#         return jsonify({"msg": "Bad username or password"}), 401
-#     # print(type(username)) str
-
-#     access_token = create_access_token(identity=username)
-#     return jsonify(access_token=access_token)
+# @app.route("/protected", methods=["GET", "POST"])
+# @jwt_required()
+# def protected():
+#     return jsonify(foo="bar")
 
 
 @jwt.user_identity_loader
@@ -123,7 +75,6 @@ def user_lookup_callback(_jwt_header, jwt_data):
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-
     user = app.session.query(models.User).filter_by(username=username).one_or_none()
     if not user or not user.check_password(password):
         return jsonify("Wrong username or password"), 401
@@ -137,11 +88,11 @@ def login():
 
 @app.route("/who_am_i", methods=["GET"])
 @jwt_required()
-def protected():
+def who_am_i():
     # We can now access our sqlalchemy User object via `current_user`.
+    # current_user = get_jwt_identity()
     return jsonify(
         id=current_user.id,
-        full_name=current_user.full_name,
         username=current_user.username,
     )
 
@@ -166,25 +117,58 @@ def register():
 
 
 #upload music page
-@app.route("/uploadmusic/<name>/<int:user_id>")
-def uploadmusic(name,user_id):
+@app.route("/uploadmusic/")
+@jwt_required()
+def uploadmusic():
+    user_id = current_user.id
+    name = request.json.get("musicname",None) #musicname in json
     newre=models.Music(name=name,user_id=user_id)
     try:
         app.session.add(newre)
         app.session.commit()
     except Exception as e:
         return "Wrong"
-    return 'Add %s record successfully' % name
+    return 'Add %s and date record successfully' % name 
+
+# today:0,thisweek:1,thismonth:2,thisyear:3,all:4
+@app.route("/listmusics/<int:timeperiod>")
+def show_musics(timeperiod):
+    year,week_num,day_of_week = date.today().isocalendar()
+    if timeperiod == 4:
+        records = app.session.query(models.Music).all()
+    elif timeperiod == 3:
+        records = app.session.query(models.Music).filter(extract('year',models.Music.post_date)==year)
+    elif timeperiod == 2:
+        current_month = date.today().month
+        records = app.session.query(models.Music).filter(extract('month',models.Music.post_date)==current_month)
+    elif timeperiod == 0:
+        current_day = date.today().day
+        records = app.session.query(models.Music).filter(extract('day',models.Music.post_date)==current_day)
+    elif timeperiod == 1:
+        records = app.session.query(models.Music).filter(extract('week',models.Music.post_date)==week_num)
 
 
-@app.route("/musics/")
-def show_musics():
-    records = app.session.query(models.Music).all()
     return jsonify([record.to_dict() for record in records])
 
-@app.route("/records/")
-def show_records():
-    records = app.session.query(models.User).all()
+@app.route("/music/<int:music_id>")
+def playmusic(music_id):
+    record = app.session.query(models.Music).get(music_id)
+    return jsonify([record.to_dict()])
+
+@app.route("/records/<int:user_id>/")
+def playerwork(user_id):
+    records = app.session.query(models.Music).filter(user_id=user_id).all()
+    return jsonify([record.to_dict() for record in records])
+
+# username
+@app.route("/usernamerecords/<user_name>")
+def usernamesearch(user_name):
+    try:
+        # records = app.session.query(models.User).all()
+        records = app.session.query(models.User).filter(models.User.username.contains(user_name)).all()
+    except:
+        return "Empty"
+
     return jsonify([record.to_dict() for record in records])
 
 
@@ -199,41 +183,8 @@ def add_record(name):
         return "Wrong"
     return 'Add %s record successfully' % name
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if flask.request.method == 'GET':
-#         return '''
-#                <form action='login' method='POST'>
-#                 <input type='text' name='email' id='email' placeholder='email'/>
-#                 <input type='password' name='password' id='password' placeholder='password'/>
-#                 <input type='submit' name='submit'/>
-#                </form>
-#                '''
-
-#     email = flask.request.form['email']
-#     password = flask.request.form['password']
-#     user = app.session.query(models.User).filter_by(email = email).first()
-#     if user and user.password == password: 
-#         flask_login.login_user(user,remember= True)
-#         return flask.redirect(flask.url_for('protected'))
 
 
-#     return 'Bad login'
-
-
-# @app.route('/protected')
-# @flask_login.login_required
-# def protected():
-#     return 'Logged in as: ' + flask_login.current_user.email
-
-# @app.route('/logout')
-# def logout():
-#     flask_login.logout_user()
-#     return 'Logged out'
-
-# @login_manager.unauthorized_handler
-# def unauthorized_handler():
-#     return 'Unauthorized', 401
 
 # escape
 # @app.route("/<name>")

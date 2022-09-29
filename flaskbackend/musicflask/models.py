@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey,DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey,DateTime, Float
 from sqlalchemy.types import Date
 from sqlalchemy.orm import  relationship
 from sqlalchemy.sql import func
@@ -40,6 +40,9 @@ class User(Base,DictMixIn,UserMixin):
     postmusics = relationship(
         "Music", back_populates="user", cascade="all, delete-orphan"
     )
+    makescore = relationship(  
+        "Score", back_populates="user", cascade="all, delete-orphan"
+    )
     def check_password(self, password):
         #return compare_digest(password, "password")
         return password == self.password
@@ -55,5 +58,18 @@ class Music(Base,DictMixIn):
     post_date = Column(DateTime(timezone=True), nullable=False,server_default=func.now())
     user_id = Column(Integer, ForeignKey("user_account.id"), nullable=False)
     user = relationship("User", back_populates="postmusics")
+    musicscore = relationship("Score", back_populates="music",cascade = "all, delete-orphan")
+
     def __repr__(self):
         return f"Address(id={self.id!r}, name={self.name!r},user={self.user!r})"
+
+class Score(Base,DictMixIn):
+    __tablename__="scores"
+    id = Column(Integer, primary_key=True)
+    grade = Column(Float,nullable=False)
+    user_id = Column(Integer, ForeignKey("user_account.id"), nullable=False)
+    user = relationship("User", back_populates="makescore")
+    music_id = Column(Integer, ForeignKey("music.id"), nullable=False)
+    music = relationship("Music", back_populates="musicscore")
+
+

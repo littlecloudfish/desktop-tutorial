@@ -1,8 +1,6 @@
 <template>
     <slot>
-        <!-- <div v-for="item in posts" :key="item.id">
-            {{postposition(item,1,1)}}
-        </div> -->
+        
         <div>{{postposition(props.posts,0).name}}</div>
         <div class="infinite-list-wrapper" style="overflow: auto">
             <ul
@@ -13,7 +11,7 @@
             <li v-for="i in count" :key="i" class="list-item">
 
                 <el-row :gutter="20">
-                <el-col :span="6" v-for="n in 3" :key="n" ><div class="grid-content ep-bg-purple" />
+                <el-col :span="6" v-for="n in 4" :key="n" ><div class="grid-content ep-bg-purple" />
                 <!-- {{ postposition(posts,3*(i-1)+n-1).name }} -->
                     
                     <el-skeleton style="width: 240px" :loading="loading" animated>
@@ -134,15 +132,15 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
   height: 350px;
-  background: var(--el-color-danger-light-9);
+  background: var(--el-color-danger-light-1);
   color: var(--el-color-danger);
 }
 .infinite-list-wrapper .list-item + .list-item {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .el-row {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 .el-row:last-child {
   margin-bottom: 10;
