@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, url_for,escape,request,make_response
+import mimetypes
+from flask import Flask, jsonify, url_for,escape,request,make_response, send_file, Response
 from flask_cors import CORS
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.sql import func, extract
@@ -9,6 +10,7 @@ from database import SessionLocal, engine
 from flask_jwt_extended import create_access_token,jwt_required,JWTManager,set_access_cookies,unset_jwt_cookies,current_user
 
 from datetime import date
+from werkzeug.utils import secure_filename
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -114,21 +116,61 @@ def register():
 
     return make_response('success',201)
 
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     pic = request.files['pic']
+#     if not pic:
+#         return 'No pic uploaded!', 400
 
+#     filename = secure_filename(pic.filename)
+#     mimetype = pic.mimetype
+#     if not filename or not mimetype:
+#         return 'Bad upload!', 400
+
+#     img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
+#     app.session.session.add(img)
+#     app.session.session.commit()
+
+#     return 'Img Uploaded!', 200
 
 #upload music page
-@app.route("/uploadmusic/")
+@app.route("/uploadmusic/", methods = ['POST'])
 @jwt_required()
 def uploadmusic():
     user_id = current_user.id
     name = request.json.get("musicname",None) #musicname in json
+    pic = request.files['pic']
+    if not pic:
+        return make_response('No pic uploaded!', 400)
+    filename = secure_filename(pic.filename)
+    mimetype = pic.mimetype
+    if not filename or not mimetype:
+        return make_response('Bad upload',400)
+    
     newre=models.Music(name=name,user_id=user_id)
+    img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
+
     try:
         app.session.add(newre)
+        app.session.session.add(img)
         app.session.commit()
     except Exception as e:
         return "Wrong"
-    return 'Add %s and date record successfully' % name 
+    return make_response('Add %s and date record successfully' % name, 200) 
+
+#upload music page
+# @app.route("/uploadmusic/")
+# @jwt_required()
+# def uploadmusic():
+#     user_id = current_user.id
+#     name = request.json.get("musicname",None) #musicname in json
+#     newre=models.Music(name=name,user_id=user_id)
+#     try:
+#         app.session.add(newre)
+#         app.session.commit()
+#     except Exception as e:
+#         return "Wrong"
+#     return 'Add %s and date record successfully' % name 
 
 # today:0,thisweek:1,thismonth:2,thisyear:3,all:4
 @app.route("/listmusics/<int:timeperiod>")
@@ -183,6 +225,24 @@ def add_record(name):
         return "Wrong"
     return 'Add %s record successfully' % name
 
+#
+
+
+
+@app.route('/showimage/<int:id>')
+def get_img(id):
+    try:
+        img = models.Img.query.filter_by(id=id).first()
+        if not img:
+            return make_response('Img Not Found!', 404)
+    except Exception as e:
+        return make_response("Wrong",400)
+
+    return Response(img.img, mimetype=img.mimetype)
+
+# return image file 
+# @app.route('/get_image')
+# def get_image():
 
 
 

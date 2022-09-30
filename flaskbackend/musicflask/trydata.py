@@ -6,7 +6,7 @@ Base.metadata.create_all(engine)
 Session = SessionLocal
 
 with Session() as session:
-    numberone = Score(grade = 3.6)
+    numberone = Score(grade = 3.6,user_id=1,music_id=2)
     session.add(numberone)
     session.commit()
 stmt = select(Score)
