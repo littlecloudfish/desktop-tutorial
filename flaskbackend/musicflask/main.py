@@ -18,12 +18,18 @@ app = Flask(__name__)
 CORS(app)
 app.session = scoped_session(SessionLocal)
 
+UPLOAD_FOLDER = '/home/little/Documents/music_web/startproj/flaskbackend/savefile'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
 #change later
 app.config["JWT_COOKIE_SECURE"] = False
 
 app.config["JWT_SECRET_KEY"] = "GWDV4lTNj0UAuRm+pK1dao/Ol+Ik5ibP"
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
 jwt = JWTManager(app)
 
 
@@ -116,47 +122,52 @@ def register():
 
     return make_response('success',201)
 
-# @app.route('/upload', methods=['POST'])
-# def upload():
-#     pic = request.files['pic']
-#     if not pic:
-#         return 'No pic uploaded!', 400
 
-#     filename = secure_filename(pic.filename)
-#     mimetype = pic.mimetype
-#     if not filename or not mimetype:
-#         return 'Bad upload!', 400
 
-#     img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
-#     app.session.session.add(img)
-#     app.session.session.commit()
-
-#     return 'Img Uploaded!', 200
-
-#upload music page
-@app.route("/uploadmusic/", methods = ['POST'])
-@jwt_required()
-def uploadmusic():
-    user_id = current_user.id
-    name = request.json.get("musicname",None) #musicname in json
-    pic = request.files['pic']
+@app.route('/uploadimg', methods=['POST'])
+def upload():
+    if request.method == 'POST':
+        print(request.files)
+        pic = request.files['pic']
+        
     if not pic:
-        return make_response('No pic uploaded!', 400)
+        return 'No pic uploaded!', 400
+
     filename = secure_filename(pic.filename)
     mimetype = pic.mimetype
     if not filename or not mimetype:
-        return make_response('Bad upload',400)
-    
-    newre=models.Music(name=name,user_id=user_id)
-    img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
+        return 'Bad upload!', 400
 
-    try:
-        app.session.add(newre)
-        app.session.session.add(img)
-        app.session.commit()
-    except Exception as e:
-        return "Wrong"
-    return make_response('Add %s and date record successfully' % name, 200) 
+    img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
+    app.session.add(img)
+    app.session.commit()
+
+    return 'Img Uploaded!', 200
+
+#upload music page
+# @app.route("/uploadmusic/", methods = ['POST'])
+# @jwt_required()
+# def uploadmusic():
+#     user_id = current_user.id
+#     name = request.json.get("musicname",None) #musicname in json
+#     pic = request.files['pic']
+#     if not pic:
+#         return make_response('No pic uploaded!', 400)
+#     filename = secure_filename(pic.filename)
+#     mimetype = pic.mimetype
+#     if not filename or not mimetype:
+#         return make_response('Bad upload',400)
+    
+#     newre=models.Music(name=name,user_id=user_id)
+#     img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
+
+#     try:
+#         app.session.add(newre)
+#         app.session.session.add(img)
+#         app.session.commit()
+#     except Exception as e:
+#         return "Wrong"
+#     return make_response('Add %s and date record successfully' % name, 200) 
 
 #upload music page
 # @app.route("/uploadmusic/")
