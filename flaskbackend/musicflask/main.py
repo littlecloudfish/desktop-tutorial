@@ -243,10 +243,11 @@ def add_record(name):
 @app.route('/showimage/<int:id>')
 def get_img(id):
     try:
-        img = models.Img.query.filter_by(id=id).first()
+        img = app.session.query(models.Img).filter_by(id=id).first()
         if not img:
             return make_response('Img Not Found!', 404)
     except Exception as e:
+        print(e)
         return make_response("Wrong",400)
 
     return Response(img.img, mimetype=img.mimetype)
