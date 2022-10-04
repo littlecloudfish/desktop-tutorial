@@ -19,7 +19,7 @@ CORS(app)
 app.session = scoped_session(SessionLocal)
 
 UPLOAD_FOLDER = '/home/little/Documents/music_web/startproj/flaskbackend/savefile'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','mp3'}
 
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
 #change later
@@ -125,7 +125,7 @@ def register():
 
 
 @app.route('/uploadimg', methods=['POST'])
-def upload():
+def uploadimg():
     if request.method == 'POST':
         print(request.files)
         pic = request.files['pic']
@@ -135,6 +135,7 @@ def upload():
 
     filename = secure_filename(pic.filename)
     mimetype = pic.mimetype
+    print(mimetype)
     if not filename or not mimetype:
         return 'Bad upload!', 400
 
@@ -143,6 +144,29 @@ def upload():
     app.session.commit()
 
     return 'Img Uploaded!', 200
+
+@app.route('/uploadmp3', methods = ['POST'])
+def uploadmp3():
+    if request.method == 'POST':
+        print(request.files)
+        mp3 = request.files['mp3']
+        
+    if not mp3:
+        return 'No pic uploaded!', 400
+
+    filename = secure_filename(mp3.filename)
+    mimetype = mp3.mimetype
+    print(mimetype)
+    print(type(mimetype))
+    print(filename)
+    if not filename or not mimetype:
+        return 'Bad upload!', 400
+
+    mp3 = models.StoreMusic(mp3=mp3.read(), name=filename, mimetypes=mimetype)
+    app.session.add(mp3)
+    app.session.commit()
+
+    return 'Music Uploaded!', 200
 
 #upload music page
 # @app.route("/uploadmusic/", methods = ['POST'])
@@ -208,6 +232,30 @@ def playmusic(music_id):
     record = app.session.query(models.Music).get(music_id)
     return jsonify([record.to_dict()])
 
+@app.route('/enjoymusic/<int:id>')
+def enjoymusic(id):
+    try:
+        music = app.session.query(models.StoreMusic).filter_by(id=id).first()
+        if not music:
+            return make_response('Img Not Found!', 404)
+    except Exception as e:
+        print(e)
+        return make_response("Wrong",400)
+
+    return Response(music.mp3, mimetype=music.mimetypes)
+
+@app.route('/showimage/<int:id>')
+def get_img(id):
+    try:
+        img = app.session.query(models.Img).filter_by(id=id).first()
+        if not img:
+            return make_response('Img Not Found!', 404)
+    except Exception as e:
+        print(e)
+        return make_response("Wrong",400)
+
+    return Response(img.img, mimetype=img.mimetype)
+
 @app.route("/records/<int:user_id>/")
 def playerwork(user_id):
     records = app.session.query(models.Music).filter(user_id=user_id).all()
@@ -239,18 +287,6 @@ def add_record(name):
 #
 
 
-
-@app.route('/showimage/<int:id>')
-def get_img(id):
-    try:
-        img = app.session.query(models.Img).filter_by(id=id).first()
-        if not img:
-            return make_response('Img Not Found!', 404)
-    except Exception as e:
-        print(e)
-        return make_response("Wrong",400)
-
-    return Response(img.img, mimetype=img.mimetype)
 
 # return image file 
 # @app.route('/get_image')
