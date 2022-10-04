@@ -12,7 +12,7 @@ from flask_jwt_extended import create_access_token,jwt_required,JWTManager,set_a
 from datetime import date
 from werkzeug.utils import secure_filename
 
-models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine, checkfirst=True)
 
 app = Flask(__name__)
 CORS(app)
