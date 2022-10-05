@@ -86,7 +86,7 @@
 
     
     <div>
-      <input type="file" @change="onFileSelected">
+      <input type="file"  @change="onFileSelected">
       <input type="file" @change="onMusicFileSelected">
     </div>
     <div>
@@ -120,26 +120,12 @@ export default{
       const fd = new FormData();
       fd.append('pic', this.selectedFile, this.selectedFile.name)
       fd.append('mp3', this.musicfile, this.musicfile.name)
-      // this.$store.dispatch('request/uploadmusic',fd);
-      console.log(fd)
       try{
         await this.$store.dispatch('request/uploadmusic',fd);
       }catch(err){
         this.error = err.message || "Fail to enter try again";
       }
 
-        // axios({
-        //   method:'POST',
-        //   url: 'http://127.0.0.1:1943/uploadmusic',
-        //   data: fd,
-        //   headers: {
-        //       Accept: 'application/json',
-        //       Authorization: `Bearer ${accesstoken}`
-        //       }
-          
-        // }).then(res => {
-        //     console.log(res)
-        // })
     },
     onFileSelected(event){
             this.selectedFile = event.target.files[0]
