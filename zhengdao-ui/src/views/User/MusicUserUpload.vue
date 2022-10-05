@@ -11,7 +11,8 @@
         <div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
     </div>
-    <div>
+    
+    <!-- <div>
       <el-row>
         <el-col :span="24">Input Music Link<div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
@@ -20,7 +21,7 @@
             <el-input v-model="musiclink" placeholder="Please input Music Link" />
         <div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
-    </div>
+    </div> -->
       <!-- <el-row>
         <el-col :span="24">Input Music Performers(DiscordId)<div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
@@ -61,7 +62,7 @@
             <el-input v-model="input" placeholder="Please input Producer" />
         <div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>-->
-    <div>
+    <!-- <div>
       <el-row>
         <el-col :span="24">Input Music Release Date<div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
@@ -81,8 +82,13 @@
         <div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
 
-    </div>
+    </div> -->
 
+    
+    <div>
+      <input type="file" @change="onFileSelected">
+      <input type="file" @change="onMusicFileSelected">
+    </div>
     <div>
       <el-row>
         <el-button type="Success" round @click="submitresult" >Submit</el-button>  
@@ -92,6 +98,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default{
   data(){
     return{
@@ -108,14 +116,38 @@ export default{
     };
   },
   methods:{
-    submitresult(){
-      this.validmusicname = true;
-      console.log(this.musicname)
-      console.log(this.musiclink)
-      console.log(this.musiclyrics)
+    async submitresult(){
+      const fd = new FormData();
+      fd.append('pic', this.selectedFile, this.selectedFile.name)
+      fd.append('mp3', this.musicfile, this.musicfile.name)
+      // this.$store.dispatch('request/uploadmusic',fd);
+      console.log(fd)
+      try{
+        await this.$store.dispatch('request/uploadmusic',fd);
+      }catch(err){
+        this.error = err.message || "Fail to enter try again";
+      }
 
-
+        // axios({
+        //   method:'POST',
+        //   url: 'http://127.0.0.1:1943/uploadmusic',
+        //   data: fd,
+        //   headers: {
+        //       Accept: 'application/json',
+        //       Authorization: `Bearer ${accesstoken}`
+        //       }
+          
+        // }).then(res => {
+        //     console.log(res)
+        // })
     },
+    onFileSelected(event){
+            this.selectedFile = event.target.files[0]
+        },
+    onMusicFileSelected(event){
+        this.musicfile = event.target.files[0]  //not sure 0 or 1
+    },
+
     },
 
 };

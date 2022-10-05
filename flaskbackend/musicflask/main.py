@@ -129,69 +129,62 @@ def uploadimg():
     if request.method == 'POST':
         print(request.files)
         pic = request.files['pic']
-        
     if not pic:
         return 'No pic uploaded!', 400
-
     filename = secure_filename(pic.filename)
     mimetype = pic.mimetype
-    print(mimetype)
     if not filename or not mimetype:
         return 'Bad upload!', 400
-
     img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
     app.session.add(img)
     app.session.commit()
-
     return 'Img Uploaded!', 200
 
 @app.route('/uploadmp3', methods = ['POST'])
 def uploadmp3():
     if request.method == 'POST':
         print(request.files)
-        mp3 = request.files['mp3']
-        
+        mp3 = request.files['mp3']      
     if not mp3:
         return 'No pic uploaded!', 400
-
     filename = secure_filename(mp3.filename)
     mimetype = mp3.mimetype
-    print(mimetype)
-    print(type(mimetype))
-    print(filename)
     if not filename or not mimetype:
         return 'Bad upload!', 400
-
     mp3 = models.StoreMusic(mp3=mp3.read(), name=filename, mimetypes=mimetype)
     app.session.add(mp3)
     app.session.commit()
-
     return 'Music Uploaded!', 200
 
 #upload music page
-# @app.route("/uploadmusic/", methods = ['POST'])
+@app.route("/uploadmusic", methods = ['POST'])
 # @jwt_required()
-# def uploadmusic():
-#     user_id = current_user.id
-#     name = request.json.get("musicname",None) #musicname in json
-#     pic = request.files['pic']
-#     if not pic:
-#         return make_response('No pic uploaded!', 400)
-#     filename = secure_filename(pic.filename)
-#     mimetype = pic.mimetype
-#     if not filename or not mimetype:
-#         return make_response('Bad upload',400)
-    
-#     newre=models.Music(name=name,user_id=user_id)
-#     img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
+def uploadmusic():
+    # user_id = current_user.id
+    user_id = 1
+#    musicname = request.json.get("musicname",None) #musicname in json
+    musicname = "test"
+    pic = request.files['pic']
+    # musicfile = request.files['mp3']
+    # if not pic or not musicfile:
+    #     return make_response('No pic uploaded!', 400)
+    # imagename = secure_filename(pic.filename)
+    # imagemimetype = pic.mimetype
+    # musicfilename = secure_filename(musicfile.name)
+    # musicmimetype = musicfile.mimetype
+    # if not imagename or not imagemimetype or not musicfilename or not musicmimetype:
+    #     return make_response('Bad upload',400)
+    # image = models.Img(img=pic.read(), name=imagename, mimetype=imagemimetype)
+    # storemusic = models.StoreMusic(mp3=musicfile.read(), name=musicfilename, mimetypes=musicmimetype)
+    # newre=models.Music(name=musicname,user_id=user_id, coverimg=image,music_store=storemusic)
 
-#     try:
-#         app.session.add(newre)
-#         app.session.session.add(img)
-#         app.session.commit()
-#     except Exception as e:
-#         return "Wrong"
-#     return make_response('Add %s and date record successfully' % name, 200) 
+    # try:
+    #     app.session.add(newre)
+    #     app.session.session.add(image)
+    #     app.session.commit()
+    # except Exception as e:
+    #     return "Wrong"
+    return make_response('Add %s and date record successfully' % musicname, 200) 
 
 #upload music page
 # @app.route("/uploadmusic/")
@@ -286,13 +279,9 @@ def add_record(name):
 
 #
 
-
-
 # return image file 
 # @app.route('/get_image')
 # def get_image():
-
-
 
 # escape
 # @app.route("/<name>")

@@ -14,7 +14,7 @@
                       <el-dropdown-item><router-link to="/about">My Favorite Music</router-link></el-dropdown-item>
                       <el-dropdown-item><router-link to="/about">My Favorite Singers</router-link></el-dropdown-item>
                       <el-dropdown-item><router-link to="/about">My Publish</router-link></el-dropdown-item>
-                      <el-dropdown-item><router-link to="/about">Upload </router-link></el-dropdown-item>
+                      <el-dropdown-item><router-link to="/MusicUserUpload">Upload Music </router-link></el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
               </el-dropdown>
