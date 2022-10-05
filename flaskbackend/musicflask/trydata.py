@@ -34,4 +34,10 @@ Session = SessionLocal
 
 # for user in session.scalars(stmt):
 #     print(user)
-select(Music).where(name="test")
+with Session() as session:
+    test = session.query(Music).filter_by(name="test").one()
+    print(test)
+    print(test.coverimg)    #a list
+    print(test.music_store[0])
+    image = test.coverimg[0]
+print(image.name)
