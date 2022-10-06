@@ -1,4 +1,31 @@
 <template>
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+            <webhead>
+              
+            </webhead> 
+            <picturepost></picturepost>
+      </el-header>
+      <el-main>
+        <el-container>
+          <el-aside >
+            <sidenavi></sidenavi>
+          </el-aside>
+          <el-main>
+            <div>
+                <display-music :posts="posts"></display-music>
+                <displayplayer></displayplayer>
+            </div>
+          </el-main>
+        </el-container>
+      </el-main>
+      <el-footer>Footer create mode 100644 zhengdao-ui/node_modules/.cache/babel-loader/f6e4bce43e6d9099b737ca918452a5dc.json</el-footer>
+    </el-container>
+  </div>
+</template>
+
+<!-- <template>
     <div class="common-layout">
     <el-container>
       <el-aside >
@@ -17,7 +44,7 @@
     <el-backtop :right="100" :bottom="100" />
   </div>
     
-</template>
+</template> -->
 <script>
 import displayplayer from '../components/layout/displayplayer.vue';
 import picturepost from '../components/layout/picturepost.vue';
@@ -68,4 +95,8 @@ export default ({
   background-color: #0b1c2c;
 
 }
+.el-header{
+  height:600px;
+}
+
 </style>
