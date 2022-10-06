@@ -60,3 +60,12 @@ export default ({
     },
 })
 </script>
+<style scoped>
+.el-aside{
+  background-color: #0b1c2c;
+}
+.el-main{
+  background-color: #0b1c2c;
+
+}
+</style>

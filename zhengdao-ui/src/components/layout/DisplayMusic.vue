@@ -15,7 +15,7 @@
                 <!-- {{ postposition(posts,3*(i-1)+n-1).name }} -->
                     
                     <el-skeleton style="width: 240px" :loading="loading" animated>
-                        <template #template>
+                        <template #template >
                             <el-skeleton-item variant="image" style="width: 240px; height: 240px" />
                             <div style="padding: 14px">
                             <el-skeleton-item variant="h3" style="width: 50%" />
@@ -26,6 +26,7 @@
                                 justify-items: space-between;
                                 margin-top: 16px;
                                 height: 16px;
+                                
                                 "
                             >
                                 <el-skeleton-item variant="text" style="margin-right: 16px" />
@@ -33,8 +34,8 @@
                             </div>
                             </div>
                         </template>
-                        <template #default>
-                            <el-card :body-style="{ padding: '0px', marginBottom: '1px' }">
+                        <template #default >
+                            <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
                             <img
                                 src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
                                 class="image"

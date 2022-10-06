@@ -1,44 +1,102 @@
 <template>
     <el-row class="tac">
-      <el-col :span="45">
-        <h5 class="mb-2">Custom colors</h5>
+      <el-col :span="45"  >
         <el-menu
           active-text-color="#ffd04b"
-          background-color="#545c64"
+          background-color="#0b1c2c"
           class="el-menu-vertical-demo"
           default-active="2"
           text-color="#fff"
           @open="handleOpen"
           @close="handleClose"
         >
-          <el-sub-menu index="1">
+        <router-link to="/about">
+          <el-menu-item index="1">
+            <span>
+                  <el-button color="#103057"  type="primary" >
+                    <el-icon><House /></el-icon>
+                    Home
+                  </el-button>
+            </span>
+          </el-menu-item>
+        </router-link>
+          <el-sub-menu index="2">
             <template #title>
-              <el-icon><location /></el-icon>
-              <span>Navigator One</span>
+              <span>
+                  <el-button color="#103057" type="primary" >
+                    <el-icon><location /></el-icon>
+                    <router-link to="/MusicUser">User</router-link>
+                  </el-button>
+              </span>
             </template>
             <el-menu-item-group title="Group One">
-              <el-menu-item index="1-1">item one</el-menu-item>
-              <el-menu-item index="1-2">item two</el-menu-item>
+              <el-menu-item index="1-1">
+                <router-link to="/about">
+                  <el-button color="#103057" type="primary" >
+                    <el-icon><Medal /></el-icon>
+                    My Favorite Music
+                  </el-button>
+                </router-link>
+              </el-menu-item>
+              <el-menu-item index="1-2">
+                <router-link to="/about">
+                  <el-button color="#103057" type="primary" >
+                    <el-icon><Medal /></el-icon>
+                    My Favorite Singer
+                  </el-button>
+                </router-link>
+              </el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="Group Two">
-              <el-menu-item index="1-3">item three</el-menu-item>
+              <el-menu-item index="1-3">
+                <router-link to="/about">
+                  <el-button color="#103057" type="primary" >
+                    <el-icon><Medal /></el-icon>
+                    My Publish
+                  </el-button>
+                </router-link>
+              </el-menu-item>
             </el-menu-item-group>
-            <el-sub-menu index="1-4">
-              <template #title>item four</template>
-              <el-menu-item index="1-4-1">item one</el-menu-item>
-            </el-sub-menu>
+            <el-menu-item index="1-4">
+              <template #title>
+                <router-link to="/about">
+                  <el-button color="#103057" type="primary" >
+                    <el-icon><Medal /></el-icon>
+                    My Publish
+                  </el-button>
+                </router-link>
+              </template>
+              <!-- <el-menu-item index="1-4-1">item one</el-menu-item> -->
+            </el-menu-item>
           </el-sub-menu>
-          <el-menu-item index="2">
-            <el-icon><icon-menu /></el-icon>
-            <span>Navigator Two</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <el-icon><document /></el-icon>
-            <span>Navigator Three</span>
+          
+          <el-menu-item index="3">
+            <router-link to="/about">
+                  <el-button color="#103057" type="primary" >
+                    <el-icon><Medal /></el-icon>
+                    Score Board
+                  </el-button>
+              </router-link>
           </el-menu-item>
           <el-menu-item index="4">
-            <el-icon><setting /></el-icon>
-            <span>Navigator Four</span>
+            <span>
+              <router-link to="/about">
+                  <el-button color="#103057" type="primary" >
+                    <el-icon><Sugar /></el-icon>
+                    Singer
+                  </el-button>
+              </router-link>
+            </span>
+          </el-menu-item>
+          <el-menu-item index="5">
+            <span>
+              <router-link to="/about">
+                  <el-button color="#103057" type="primary" >
+                    <el-icon><Grid /></el-icon>
+                    Music Type
+                  </el-button>
+              </router-link>
+            </span>
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -59,3 +117,4 @@
     console.log(key, keyPath)
   }
   </script>
+
