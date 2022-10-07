@@ -2,9 +2,7 @@
   <div class="common-layout">
     <el-container>
       <el-header>
-            <webhead>
-              
-            </webhead> 
+            <webhead></webhead> 
             <picturepost></picturepost>
       </el-header>
       <el-main>
@@ -14,13 +12,17 @@
           </el-aside>
           <el-main>
             <div>
+              <el-main v-if="dataready">
                 <display-music :posts="posts"></display-music>
-                <displayplayer></displayplayer>
+              </el-main>
+                <displayplayer></displayplayer> 
             </div>
           </el-main>
         </el-container>
       </el-main>
-      <el-footer>Footer create mode 100644 zhengdao-ui/node_modules/.cache/babel-loader/f6e4bce43e6d9099b737ca918452a5dc.json</el-footer>
+      <el-footer>
+
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -64,28 +66,37 @@ export default ({
     },
     data() {
         return{
-            posts:[
-                    {
-                        "cover_address": "/demopicture/example.png",
-                        "id": 1,
-                        "music_address": "/DEMOMUSIC/crimanal.mp3",
-                        "name": "crimanal",
-                        "post_date": "2022-08-17T20:13:19",
-                        "user_id": 1
-                    },
-                    {
-                        "cover_address": "/demopicture/example.png",
-                        "id": 2,
-                        "music_address": "/DEMOMUSIC/crimanal.mp3",
-                        "name": "dangerous",
-                        "post_date": "2022-08-17T20:13:19",
-                        "user_id": 2
-                    },]
-
+            // posts:[
+            //         {
+            //             "cover_address": "/demopicture/example.png",
+            //             "id": 1,
+            //             "music_address": "/DEMOMUSIC/crimanal.mp3",
+            //             "name": "crimanal",
+            //             "post_date": "2022-08-17T20:13:19",
+            //             "user_id": 1
+            //         },
+            //         {
+            //             "cover_address": "/demopicture/example.png",
+            //             "id": 2,
+            //             "music_address": "/DEMOMUSIC/crimanal.mp3",
+            //             "name": "dangerous",
+            //             "post_date": "2022-08-17T20:13:19",
+            //             "user_id": 2
+            //         },]
+              posts: null,
+              dataready:false
             
         }
     },
+    async beforeCreate(){
+        this.$store.dispatch('music/musiclistinfo').then(() => {
+            this.posts = this.$store.getters['music/listofMusic'];
+            this.dataready = true;
+        })
+    },
 })
+
+
 </script>
 <style scoped>
 .el-aside{
@@ -94,6 +105,9 @@ export default ({
 .el-main{
   background-color: #0b1c2c;
 
+}
+.el-header{
+  background-color: #0b1c2c;
 }
 .el-header{
   height:600px;
