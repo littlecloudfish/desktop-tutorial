@@ -40,16 +40,17 @@
                                   src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
                                   class="image"
                               /> -->
-                              <el-image style="width: 150px; height: 150px" :src="url" :fit="scale-down" />
-
+                              <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id"> 
+                                <el-image style="width: 150px; height: 150px" :src="url" :fit="scale-down" />
+                              </router-link> 
                               <div style="padding: 25px">
                                   <span>{{ postposition(posts,4*(i-1)+n-1).name }}</span>
                                   <div class="bottom card-header">
                                   <div class="time">{{ postposition(posts,4*(i-1)+n-1).post_date }}</div>
                                   <el-button text class="button">
-                                    <!-- <router-link :to="">
+                                    <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id">
                                       open
-                                    </router-link> -->
+                                    </router-link>
                                   </el-button>
                                   </div>
                               </div>
