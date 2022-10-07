@@ -100,16 +100,25 @@ export default{
     };
   },
   methods:{
+    // async submitresult(){
+    //   const fd = new FormData();
+    //   fd.append('pic', this.selectedFile, this.selectedFile.name)
+    //   fd.append('mp3', this.musicfile, this.musicfile.name)
+    //   try{
+    //     await this.$store.dispatch('request/uploadmusic',fd);
+    //   }catch(err){
+    //     this.error = err.message || "Fail to enter try again";
+    //   };
     async submitresult(){
-      const fd = new FormData();
-      fd.append('pic', this.selectedFile, this.selectedFile.name)
-      fd.append('mp3', this.musicfile, this.musicfile.name)
-      try{
-        await this.$store.dispatch('request/uploadmusic',fd);
-      }catch(err){
-        this.error = err.message || "Fail to enter try again";
-      }
-
+        const fd = new FormData();
+        fd.append('pic', this.selectedFile, this.selectedFile.name)
+        fd.append('mp3', this.musicfile, this.musicfile.name)
+        fd.append('musicname',this.musicname)
+        try{
+          await this.$store.dispatch('request/uploadmusicinfo',fd);
+        }catch(err){
+          this.error = err.message || "Fail to enter try again";
+        }
     },
     onFileSelected(event){
             this.selectedFile = event.target.files[0]
