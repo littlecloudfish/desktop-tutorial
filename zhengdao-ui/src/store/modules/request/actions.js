@@ -28,25 +28,42 @@ export default {
   
     //   context.commit('addRequest', newRequest);
     // },
-    async fetchRequests(context) {
-        const accesstoken = context.rootGetters.Token;
-        // console.log(accesstoken);
-        const apiUrl = 'http://127.0.0.1:1943';
-        axios.get(apiUrl+'/who_am_i', {
-          headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${accesstoken}`
-              }
-        })
-        .then((res) => {
-          console.log(res.data)
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-        ;
+  async fetchRequests(context) {
+      const accesstoken = context.rootGetters.Token;
+      // console.log(accesstoken);
+      const apiUrl = 'http://127.0.0.1:1943';
+      axios.get(apiUrl+'/who_am_i', {
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${accesstoken}`
+            }
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((error) => {
+        console.error(error)
+      });
 
-    },
+  },
+  async uploadmusic(context, payload){
+    const accesstoken = context.rootGetters.Token;
+    axios({
+      method:'POST',
+      url: 'http://127.0.0.1:1943/uploadmusic',
+      data: payload,
+      headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${accesstoken}`
+          }
+    }).then(res => {
+        console.log(res)
+    })
+    .catch((error)=>{
+      console.error(error)
+    })
+
+  }
 
     // async fetchRequests(context) {
     //   const coachId = context.rootGetters.userId;

@@ -4,7 +4,7 @@
 <el-main v-if="dataready">
     <display-music :posts="posts"></display-music>
 </el-main>
-<div v-if="dataready" >{{posts}}</div>
+<!-- <div v-if="dataready" >{{posts}}</div> -->
 </template>
 
 

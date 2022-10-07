@@ -1,22 +1,22 @@
 <template>
     <slot>
         
-        <div>{{postposition(props.posts,0).name}}</div>
+        <div>{{postposition(props.posts,0).post_date}}</div>
         <div class="infinite-list-wrapper" style="overflow: auto">
             <ul
             v-infinite-scroll="load"
             class="list"
             :infinite-scroll-disabled="disabled"
             >
-            <li v-for="i in count" :key="i" class="list-item">
+            <li v-for="i in count" :key="i" class="list-item"  >
 
                 <el-row :gutter="20">
                 <el-col :span="6" v-for="n in 4" :key="n" ><div class="grid-content ep-bg-purple" />
                 <!-- {{ postposition(posts,3*(i-1)+n-1).name }} -->
                     
                     <el-skeleton style="width: 240px" :loading="loading" animated>
-                        <template #template>
-                            <el-skeleton-item variant="image" style="width: 240px; height: 240px" />
+                        <template #template >
+                            <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
                             <div style="padding: 14px">
                             <el-skeleton-item variant="h3" style="width: 50%" />
                             <div
@@ -24,8 +24,9 @@
                                 display: flex;
                                 align-items: center;
                                 justify-items: space-between;
-                                margin-top: 16px;
-                                height: 16px;
+                                margin-top: 0px;
+                                height:0px;
+                                
                                 "
                             >
                                 <el-skeleton-item variant="text" style="margin-right: 16px" />
@@ -33,19 +34,26 @@
                             </div>
                             </div>
                         </template>
-                        <template #default>
-                            <el-card :body-style="{ padding: '0px', marginBottom: '1px' }">
-                            <img
-                                src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                class="image"
-                            />
-                            <div style="padding: 14px">
-                                <span>Delicious hamburger</span>
-                                <div class="bottom card-header">
-                                <div class="time">{{ currentDate }}</div>
-                                <el-button text class="button">Operation button</el-button>
-                                </div>
-                            </div>
+                        <template #default  >
+                            <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
+                              <!-- <img
+                                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                                  class="image"
+                              /> -->
+                              <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id"> 
+                                <el-image style="width: 150px; height: 150px" :src="url" :fit="scale-down" />
+                              </router-link> 
+                              <div style="padding: 25px">
+                                  <span>{{ postposition(posts,4*(i-1)+n-1).name }}</span>
+                                  <div class="bottom card-header">
+                                  <div class="time">{{ postposition(posts,4*(i-1)+n-1).post_date }}</div>
+                                  <el-button text class="button">
+                                    <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id">
+                                      open
+                                    </router-link>
+                                  </el-button>
+                                  </div>
+                              </div>
                             </el-card>
                         </template>
                         </el-skeleton>
@@ -66,8 +74,8 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 // import { Component, Prop, Vue } from 'vue-property-decorator'
-
-const count = ref(10)
+const url = "http://127.0.0.1:1943/showimage/9"
+const count = ref(1)
 const loading = ref(false)
 const noMore = computed(() => count.value >= 20)
 const disabled = computed(() => loading.value || noMore.value)
@@ -118,13 +126,17 @@ const props = defineProps({
 
 <style>
 .infinite-list-wrapper {
-  height: 900px;
+  height: 600px;
   text-align: center;
+  background: "0b1c2c"; 
+  color: "0b1c2c";
 }
 .infinite-list-wrapper .list {
   padding: 0;
   margin: 0;
   list-style: none;
+  background: "0b1c2c"; 
+  color: "0b1c2c";
 }
 
 .infinite-list-wrapper .list-item {
@@ -132,26 +144,37 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
   height: 350px;
-  background: var(--el-color-danger-light-1);
-  color: var(--el-color-danger);
+  /* background: var(--el-color-danger-light-1);
+  color: var(--el-color-danger); */
+  background: "0b1c2c"; 
+  color: "0b1c2c";
 }
 .infinite-list-wrapper .list-item + .list-item {
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 .el-row {
-  margin-bottom: 5px;
+  margin-bottom: 0px;
+  background: "0b1c2c"; 
+  color: "0b1c2c";
 }
 .el-row:last-child {
-  margin-bottom: 10;
+  margin-bottom: 0;
 }
 .el-col {
-  border-radius: 4px;
+  border-radius: 0px;
 }
 
 .grid-content {
-  border-radius: 4px;
-  min-height: 36px;
+  border-radius: 0px;
+  min-height: 0px;
 }
-
+.list-item{
+  background: "0b1c2c"; 
+  color: "0b1c2c";
+}
+.grid-content ep-bg-purple{
+  background: "0b1c2c"; 
+  color: "0b1c2c";
+}
 </style>

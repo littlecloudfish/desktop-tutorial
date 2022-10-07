@@ -3,7 +3,7 @@
         
             <div class="scrollbar-flex-content">
                 <p v-for="item in 10" :key="item" class="scrollbar-demo-item">
-                    <div class="demo-basic--circle"> 
+                    <div class="demo-basic--circle" > 
                         <el-row>
                             <el-avatar :size="60" :src="circleUrl" />
                         </el-row>
@@ -45,7 +45,7 @@
     margin: 0px;
     text-align: center;
     border-radius: 4px;
-    background: var(--el-color-danger-light-9); /* change to 1  */
+    background: "0b1c2c"; /* change to 1  */
     color: var(--el-color-danger);
   }
  
@@ -53,6 +53,10 @@
   text-align: center;
 
 }
+
+  .demo-basic--circle{
+    background-color:"0b1c2c";
+} 
 /*  
     .demo-basic .sub-title {
     margin-bottom: 10px;

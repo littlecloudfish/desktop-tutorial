@@ -1,11 +1,20 @@
-from sqlalchemy import Column, Integer, String, ForeignKey,DateTime, Float
+import mimetypes
+from sqlalchemy import Column, Integer, String, ForeignKey,DateTime, Float, Text,TypeDecorator,Unicode,VARCHAR
 from sqlalchemy.types import Date
 from sqlalchemy.orm import  relationship
 from sqlalchemy.sql import func
 from database import Base
 import datetime
-from flask_login import UserMixin
-from hmac import compare_digest
+# user_login package
+from flask_login import UserMixin  
+#sqlalchemy media
+# from sqlalchemy_media import File, MagicAnalyzer, ContentTypeValidator
+# from sqlalchemy_media.constants import MB, KB
+# import json
+
+# from hmac import compare_digest
+
+
 class DictMixIn:
     def to_dict(self):
         return {
@@ -16,17 +25,26 @@ class DictMixIn:
             else getattr(self, column.name).isoformat()
             for column in self.__table__.columns
         }
+#sqlalchemy media
+# class CV(File):
+#     __pre_processors__ = [
+#         MagicAnalyzer(),
+#         ContentTypeValidator(['application/pdf', 'image/jpeg'])
+#     ]
+#     __max_length__ = 16*MB
+#     __min_length__ = 10*KB
 
+# class Json(TypeDecorator):
+#     impl = Unicode
 
-class Record(Base, DictMixIn):
-    __tablename__ = "Records"
+#     def process_bind_param(self, value, engine):
+#         return json.dumps(value)
 
-    id = Column(Integer, primary_key=True, index=True)
-    date = Column(Date)
-    country = Column(String, index=True)
-    cases = Column(Integer)
-    deaths = Column(Integer)
-    recoveries = Column(Integer)
+#     def process_result_value(self, value, engine):
+#         if value is None:
+#             return None
+#         return json.loads(value)
+
 
 class User(Base,DictMixIn,UserMixin):
     __tablename__ = "user_account"
@@ -43,6 +61,14 @@ class User(Base,DictMixIn,UserMixin):
     makescore = relationship(  
         "Score", back_populates="user", cascade="all, delete-orphan"
     )
+    profileimg = relationship("Img", back_populates="user")
+    makefeedback = relationship(  
+        "Music_Feedback", back_populates="user", cascade="all, delete-orphan"
+    )
+# change for file
+    # cv = Column(CV.as_mutable(Json))
+
+
     def check_password(self, password):
         #return compare_digest(password, "password")
         return password == self.password
@@ -53,12 +79,15 @@ class Music(Base,DictMixIn):
     __tablename__ = "music"
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    music_address = Column(String, nullable=False,server_default="/DEMOMUSIC/crimanal.mp3")
-    cover_address = Column(String, nullable=False,server_default="/demopicture/example.png")
+    # music_address = Column(String, nullable=False,server_default="/DEMOMUSIC/crimanal.mp3")
+    # cover_address = Column(String, nullable=False,server_default="/demopicture/example.png")
     post_date = Column(DateTime(timezone=True), nullable=False,server_default=func.now())
     user_id = Column(Integer, ForeignKey("user_account.id"), nullable=False)
     user = relationship("User", back_populates="postmusics")
     musicscore = relationship("Score", back_populates="music",cascade = "all, delete-orphan")
+    coverimg = relationship("Img", back_populates="music")
+    musicfeedback = relationship("Music_Feedback", back_populates="music",cascade = "all, delete-orphan")
+    music_store = relationship("StoreMusic", back_populates = "music" )
 
     def __repr__(self):
         return f"Address(id={self.id!r}, name={self.name!r},user={self.user!r})"
@@ -72,4 +101,32 @@ class Score(Base,DictMixIn):
     music_id = Column(Integer, ForeignKey("music.id"), nullable=False)
     music = relationship("Music", back_populates="musicscore")
 
+class Img(Base):
+    __tablename__="imagetable"
+    id = Column(Integer, primary_key=True)
+    img = Column(VARCHAR(6500), unique=True, nullable = False)
+    name = Column(VARCHAR(350), nullable=False)
+    mimetype = Column(VARCHAR(150), nullable=False)
+    music_id = Column(Integer, ForeignKey("music.id"))
+    music = relationship("Music", back_populates="coverimg")
+    user_id = Column(Integer, ForeignKey("user_account.id"))
+    user = relationship("User", back_populates="profileimg")
 
+class Music_Feedback(Base,DictMixIn):
+    __tablename__="music_feedback"
+    id = Column(Integer, primary_key=True)
+    feedbackcomment = Column(VARCHAR(650),nullable=False)
+    user_id = Column(Integer, ForeignKey("user_account.id"), nullable=False)
+    user = relationship("User", back_populates="makefeedback")
+    music_id = Column(Integer, ForeignKey("music.id"), nullable=False)
+    music = relationship("Music", back_populates="musicfeedback")
+
+class StoreMusic(Base):
+    __tablename__='storemusic'
+    id = Column(Integer, primary_key=True)
+    mp3 = Column(VARCHAR(19200), nullable = False)
+    name = Column(VARCHAR(350), nullable = False)
+    mimetypes = Column(VARCHAR(150), nullable = False)
+    music_id = Column(Integer, ForeignKey("music.id"))
+    music = relationship("Music", back_populates="music_store")
+    

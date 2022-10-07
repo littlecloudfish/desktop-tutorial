@@ -5,13 +5,13 @@ from sqlalchemy import select
 Base.metadata.create_all(engine)
 Session = SessionLocal
 
-with Session() as session:
-    numberone = Score(grade = 3.6)
-    session.add(numberone)
-    session.commit()
-stmt = select(Score)
-for ss in session.scalars(stmt):
-    print(ss)
+# with Session() as session:
+#     numberone = Score(grade = 3.6,user_id=1,music_id=2)
+#     session.add(numberone)
+#     session.commit()
+# stmt = select(Score)
+# for ss in session.scalars(stmt):
+#     print(ss)
 # with Session() as session:
 #     spongebob = User(
 #         username="spongebob",
@@ -30,8 +30,14 @@ for ss in session.scalars(stmt):
 #     session.add_all([spongebob, sandy, patrick])
 #     session.commit()
 
-
 # stmt = select(User).where(User.username.in_(["spongebob", "sandy"]))
 
 # for user in session.scalars(stmt):
 #     print(user)
+with Session() as session:
+    test = session.query(Music).filter_by(name="test").one()
+    print(test)
+    print(test.coverimg)    #a list
+    print(test.music_store[0])
+    image = test.coverimg[0]
+print(image.name)
