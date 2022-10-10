@@ -65,26 +65,6 @@ export default {
     })
 
   },
-  // test
-  async uploadmusicinfo(context, payload){
-    // console.log(payload)
-    const accesstoken = context.rootGetters.Token;
-    axios({
-      method:'POST',
-      url: 'http://127.0.0.1:1943/uploadmusicinfo',
-      data: payload,
-      headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${accesstoken}`
-          }
-    }).then(res => {
-        console.log(res)
-    })
-    .catch((error)=>{
-      console.error(error)
-    })
-
-  }
 
     // async fetchRequests(context) {
     //   const coachId = context.rootGetters.userId;

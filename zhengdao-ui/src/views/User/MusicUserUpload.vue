@@ -6,18 +6,18 @@
         <el-col :span="24">Input Music Name<div class="grid-content ep-bg-purple-dark" /></el-col>
       
         <el-col :span="20">
-            <el-input v-model="musicname" placeholder="Please input Music Name" />
+            <el-input v-model.trim="musicname" placeholder="Please input Music Name" />
         <div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
     </div>
-    <div>
+    <!-- <div>
       <el-row>
         <el-col :span="24">Input Music Link<div class="grid-content ep-bg-purple-dark" /></el-col>
         <el-col :span="20">
             <el-input v-model="musiclink" placeholder="Please input Music Link" />
         <div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
-    </div> 
+    </div>  -->
        <!-- <el-row>
         <el-col :span="24">Input Music Performers(DiscordId)<div class="grid-content ep-bg-purple-dark" /></el-col>
         <el-col :span="24">
@@ -49,20 +49,31 @@
      <div>
       <el-row>
         <el-col :span="24">Input Music Release Date<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="20">
+        <!-- <el-col :span="20">
             <el-input v-model="releasedate" placeholder="Please input" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
+        <div class="grid-content ep-bg-purple-dark" /></el-col> -->
+      <div class="demo-date-picker">
+        <div class="block">
+          <el-date-picker
+            v-model="value1"
+            type="date"
+            placeholder="Pick a day"
+            size="large"
+            format="YYYY/MM/DD"
+            value-format="YYYY-MM-DD"
+          />
+        </div>
+      </div>
       </el-row>
     </div>
-    <div>
+    <!-- <div>
       <el-row>
         <el-col :span="24">Input Music Lyrics<div class="grid-content ep-bg-purple-dark" /></el-col>
         <el-col :span="20">
             <el-input v-model="musiclyrics" placeholder="Please Input Lyrics" />
         <div class="grid-content ep-bg-purple-dark" /></el-col>
       </el-row>
-
-    </div>
+    </div> -->
     <div>
       <el-row>
         <el-col :span="24">Input Music Cover Picture<div class="grid-content ep-bg-purple-dark" /></el-col>
@@ -97,6 +108,7 @@ export default{
       validmusicperformer:true,
       releasedate:'',
       error: null,
+      value1: null,
     };
   },
   methods:{
@@ -114,8 +126,9 @@ export default{
         fd.append('pic', this.selectedFile, this.selectedFile.name)
         fd.append('mp3', this.musicfile, this.musicfile.name)
         fd.append('musicname',this.musicname)
+        fd.append('releasedate',this.value1)
         try{
-          await this.$store.dispatch('request/uploadmusicinfo',fd);
+          await this.$store.dispatch('request/uploadmusic',fd);
         }catch(err){
           this.error = err.message || "Fail to enter try again";
         }

@@ -9,7 +9,7 @@ from database import SessionLocal, engine
 
 from flask_jwt_extended import create_access_token,jwt_required,JWTManager,set_access_cookies,unset_jwt_cookies,current_user
 
-from datetime import date
+from datetime import date, datetime
 from werkzeug.utils import secure_filename
 
 models.Base.metadata.create_all(bind=engine, checkfirst=True)
@@ -162,10 +162,11 @@ def register():
 def uploadmusic():
     # user_id = current_user.id
     user_id = 1
-#    musicname = request.json.get("musicname",None) #musicname in json
-    musicname = "test"
     pic = request.files['pic']
     musicfile = request.files['mp3']
+    musicname = request.form['musicname']
+    release_date =datetime.strptime(request.form['releasedate'], '%Y-%m-%d')
+    print(type(release_date))
     if not pic or not musicfile:
         return make_response('No pic uploaded!', 400)
     imagename = secure_filename(pic.filename)
@@ -176,7 +177,7 @@ def uploadmusic():
         return make_response('Bad upload',400)
     image = models.Img(img=pic.read(), name=imagename, mimetype=imagemimetype)
     storemusic = models.StoreMusic(mp3=musicfile.read(), name=musicfilename, mimetypes=musicmimetype)
-    newre=models.Music(name=musicname,user_id=user_id, coverimg=[image],music_store=[storemusic])
+    newre=models.Music(name=musicname,user_id=user_id, coverimg=[image],post_date=release_date ,music_store=[storemusic])
 
     try:
         app.session.add(newre)
@@ -187,36 +188,6 @@ def uploadmusic():
         return make_response(e,500)
     return make_response('Add %s and date record successfully' % musicname, 200) 
 
-@app.route("/uploadmusicinfo", methods = ['POST'])
-# @jwt_required()
-def uploadmusicinfo():
-    # user_id = current_user.id
-    user_id = 1
-#    musicname = request.json.get("musicname",None) #musicname in json
-    musicname = "test"
-    pic = request.files['pic']
-    musicfile = request.files['mp3']
-    print(request.form['musicname'])
-    if not pic or not musicfile:
-        return make_response('No pic uploaded!', 400)
-    imagename = secure_filename(pic.filename)
-    imagemimetype = pic.mimetype
-    musicfilename = secure_filename(musicfile.filename)
-    musicmimetype = musicfile.mimetype
-    if not imagename or not imagemimetype or not musicfilename or not musicmimetype:
-        return make_response('Bad upload',400)
-    # image = models.Img(img=pic.read(), name=imagename, mimetype=imagemimetype)
-    # storemusic = models.StoreMusic(mp3=musicfile.read(), name=musicfilename, mimetypes=musicmimetype)
-    # newre=models.Music(name=musicname,user_id=user_id, coverimg=[image],music_store=[storemusic])
-
-    # try:
-    #     app.session.add(newre)
-    #     app.session.add(image)
-    #     app.session.add(storemusic)
-    #     app.session.commit()
-    # except Exception as e:
-    #     return make_response(e,500)
-    return make_response('Add %s and date record successfully' % musicname, 200) 
 # today:0,thisweek:1,thismonth:2,thisyear:3,all:4
 @app.route("/listmusics/<int:timeperiod>")
 def show_musics(timeperiod):
