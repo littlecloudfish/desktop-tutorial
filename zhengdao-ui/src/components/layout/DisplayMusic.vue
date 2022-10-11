@@ -179,7 +179,17 @@ const props = defineProps({
   border: 0px;
   border-radius: 0px;
 }
-
+.infinite-list-wrapper::-webkit-scrollbar{
+  width: 5px;
+}
+/* .infinite-list-wrapper::-webkit-scrollbar-track{
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+} */
+.infinite-list-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(82, 122, 180, 0.3); 
+  border-radius: 10px;
+}
 /* .scrollbar-demo-item {
   display: flex;
   align-items: center;
