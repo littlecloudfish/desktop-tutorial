@@ -10,11 +10,11 @@
           <el-aside >
             <sidenavi></sidenavi>
           </el-aside>
-          <el-main>
+          <el-main class="inside-main"> 
             <div>
-              <el-main v-if="dataready">
+              <div v-if="dataready">
                 <display-music :posts="posts"></display-music>
-              </el-main>
+              </div>
                 <displayplayer></displayplayer> 
             </div>
           </el-main>
@@ -104,13 +104,24 @@ export default ({
 }
 .el-main{
   background-color: #0b1c2c;
-
+  padding-right:150px;
+  padding-left:150px;
+}
+.el-main.inside-main{
+  padding-left:0px;
+  padding-right:50px;
 }
 .el-header{
   background-color: #0b1c2c;
 }
 .el-header{
   height:600px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+ 
+.common-layout{
+  margin-bottom: 0px;
 }
 
 </style>

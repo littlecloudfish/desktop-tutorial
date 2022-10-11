@@ -9,7 +9,6 @@
 <script>
 import HomeHead from './components/HomeHead.vue'
 import PlayMusic from './components/function/PlayMusic.vue';
-import DisplayMusic from './components/layout/DisplayMusic.vue';
 
 export default{
   components: {
@@ -27,3 +26,8 @@ export default{
 
 };
 </script>
+
+<style>
+
+body { margin: 0 ; }
+</style>

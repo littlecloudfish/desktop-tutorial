@@ -19,8 +19,6 @@
             </template>
         </el-autocomplete>    
       </el-affix>
-      
-
     </div>
 </template>
 
@@ -83,7 +81,9 @@
   .affix-container {
     text-align: center;
     height: 60px;
-    border-radius: 4px;
-    background: var(--el-color-primary-light-9);
+    border-radius: 0px;
+    /* background: var(--el-color-primary-light-9); */
+    background-color: rgba(0,0,0,0.2);
   }
+  
   </style>

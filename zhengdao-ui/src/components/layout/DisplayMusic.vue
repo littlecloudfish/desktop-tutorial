@@ -1,7 +1,5 @@
 <template>
     <slot>
-        
-        <div>{{postposition(props.posts,0).post_date}}</div>
         <div class="infinite-list-wrapper" style="overflow: auto">
             <ul
             v-infinite-scroll="load"
