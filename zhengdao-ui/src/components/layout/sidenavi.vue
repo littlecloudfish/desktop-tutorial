@@ -114,5 +114,7 @@
   </script>
 
 <style>
-
+.el-menu{
+  border-right: 0px;
+}
 </style>

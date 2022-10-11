@@ -5,7 +5,7 @@
                 <p v-for="item in 10" :key="item" class="scrollbar-demo-item">
                     <div class="demo-basic--circle" > 
                         <el-row>
-                            <el-avatar :size="60" :src="circleUrl" />
+                            <el-avatar :size="60" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
                         </el-row>
                         <el-row>
                             bigblueass
@@ -16,18 +16,10 @@
         
     </el-scrollbar>
 </template>
-  
-<script lang="ts" setup>
-    import { reactive, toRefs } from 'vue'
+
+<script>
     
-    const state = reactive({
-      circleUrl:
-        'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-      
-      sizeList: ['small', '', 'large'] as const,
-    })
-    
-    const { circleUrl, sizeList } = toRefs(state)
+
 </script>
 
 

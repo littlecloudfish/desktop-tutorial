@@ -21,7 +21,7 @@
         </el-container>
       </el-main>
       <bfooter>
-        
+
       </bfooter>
     </el-container>
   </div>
@@ -125,5 +125,19 @@ export default ({
 .common-layout{
   margin-bottom: 0px;
 }
+
+.scrollbar-demo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    text-align: center;
+    border-radius: 4px;
+    background: "0b1c2c"; /* change to 1  */
+    color: var(--el-color-danger);
+  }
 
 </style>

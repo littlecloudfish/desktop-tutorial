@@ -175,4 +175,20 @@ const props = defineProps({
   background: "0b1c2c"; 
   color: "0b1c2c";
 }
+.el-card{
+  border: 0px;
+  border-radius: 0px;
+}
+
+/* .scrollbar-demo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 4px;
+  background: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
+} */
 </style>
