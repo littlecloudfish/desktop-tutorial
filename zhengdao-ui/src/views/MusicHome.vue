@@ -20,9 +20,9 @@
           </el-main>
         </el-container>
       </el-main>
-      <el-footer>
-
-      </el-footer>
+      <bfooter>
+        
+      </bfooter>
     </el-container>
   </div>
 </template>
@@ -52,6 +52,7 @@ import displayplayer from '../components/layout/displayplayer.vue';
 import picturepost from '../components/layout/picturepost.vue';
 import sidenavi from '../components/layout/sidenavi.vue';
 import webhead from '../components/layout/webhead.vue';
+import bfooter from '../components/layout/bottomfooter.vue';
 
 export default ({
     components:{
@@ -59,6 +60,7 @@ export default ({
         picturepost,
         sidenavi,
         webhead,
+        bfooter,
     },
 
     setup() {

@@ -10,7 +10,7 @@
           @open="handleOpen"
           @close="handleClose"
         >
-        <router-link to="/about">
+        <router-link to="/about" style="text-decoration: none; color: inherit;">
           <el-menu-item index="1">
             <span>
                   <el-button color="#103057"  type="primary" >
@@ -25,13 +25,13 @@
               <span>
                   <el-button color="#103057" type="primary" >
                     <el-icon><location /></el-icon>
-                    <router-link to="/MusicUser">User</router-link>
+                    <router-link to="/MusicUser" style="text-decoration: none; color: inherit;">User</router-link>
                   </el-button>
               </span>
             </template>
             <el-menu-item-group title="Group One">
               <el-menu-item index="1-1">
-                <router-link to="/about">
+                <router-link to="/about" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Medal /></el-icon>
                     My Favorite Music
@@ -39,7 +39,7 @@
                 </router-link>
               </el-menu-item>
               <el-menu-item index="1-2">
-                <router-link to="/about">
+                <router-link to="/about" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Medal /></el-icon>
                     My Favorite Singer
@@ -49,7 +49,7 @@
             </el-menu-item-group>
             <el-menu-item-group title="Group Two">
               <el-menu-item index="1-3">
-                <router-link to="/about">
+                <router-link to="/about" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Medal /></el-icon>
                     My Publish
@@ -59,7 +59,7 @@
             </el-menu-item-group>
             <el-menu-item index="1-4">
               <template #title>
-                <router-link to="/about">
+                <router-link to="/about" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Medal /></el-icon>
                     My Publish
@@ -71,7 +71,7 @@
           </el-sub-menu>
           
           <el-menu-item index="3">
-            <router-link to="/about">
+            <router-link to="/about" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Medal /></el-icon>
                     Score Board
@@ -80,7 +80,7 @@
           </el-menu-item>
           <el-menu-item index="4">
             <span>
-              <router-link to="/about">
+              <router-link to="/about" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Sugar /></el-icon>
                     Singer
@@ -90,7 +90,7 @@
           </el-menu-item>
           <el-menu-item index="5">
             <span>
-              <router-link to="/about">
+              <router-link to="/about" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Grid /></el-icon>
                     Music Type
@@ -104,12 +104,7 @@
   </template>
   
   <script lang="ts" setup>
-  import {
-    Document,
-    Menu as IconMenu,
-    Location,
-    Setting,
-  } from '@element-plus/icons-vue'
+  
   const handleOpen = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
   }
@@ -118,3 +113,6 @@
   }
   </script>
 
+<style>
+
+</style>
