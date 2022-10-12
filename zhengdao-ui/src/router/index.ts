@@ -61,6 +61,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Music/MusicScoreBoard.vue') 
   },
   {
+    path: '/MusicType',
+    name: 'MusicType',
+    component: () => import('../views/Music/Musictype.vue') 
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('../views/AboutView.vue') 

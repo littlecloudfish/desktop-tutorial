@@ -10,7 +10,7 @@
           @open="handleOpen"
           @close="handleClose"
         >
-        <router-link to="/about" style="text-decoration: none; color: inherit;">
+        <router-link to="/" style="text-decoration: none; color: inherit;">
           <el-menu-item index="1">
             <span>
                   <el-button color="#103057"  type="primary" >
@@ -71,7 +71,7 @@
           </el-sub-menu>
           
           <el-menu-item index="3">
-            <router-link to="/about" style="text-decoration: none; color: inherit;">
+            <router-link to="/MusicScoreBoard" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Medal /></el-icon>
                     Score Board
@@ -90,7 +90,7 @@
           </el-menu-item>
           <el-menu-item index="5">
             <span>
-              <router-link to="/about" style="text-decoration: none; color: inherit;">
+              <router-link to="/MusicType" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Grid /></el-icon>
                     Music Type
