@@ -96,6 +96,6 @@
     background-color: rgba(0,0,0,0.2);
   }
   b{
-    padding-left: 1450px;
+    padding-left: 70%;
   }
   </style>

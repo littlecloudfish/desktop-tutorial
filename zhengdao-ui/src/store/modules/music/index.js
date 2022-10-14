@@ -13,6 +13,7 @@ export default{
             post_date: null,
             user_id: null,
             listofmusic: [],
+            listofmusicinfo:[],
         };
     },
     mutations,

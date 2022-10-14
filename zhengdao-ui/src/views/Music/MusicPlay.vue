@@ -10,17 +10,17 @@
               <sidenavi></sidenavi>
             </el-aside>
             <el-main class="inside-main"> 
-              <div>
-                <play-music ></play-music>
-                <!-- <aplayer autoplay
-  :music="{
-    title: 'secret base~君がくれたもの~',
-    artist: 'Silent Siren',
-    src: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.mp3',
-    pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
-  }"
-/> -->
-              </div>
+              <el-row>
+                <!-- <play-music ></play-music> -->
+                <el-col :span="120">
+                    <el-image style="width: 100px; height: 100px" src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg" fit="fill" />
+
+                </el-col>
+                <el-col :span="12">
+                    <musicaudio></musicaudio>
+                </el-col>
+                
+            </el-row>
             </el-main>
           </el-container>
         </el-main>
@@ -34,12 +34,14 @@
   import sidenavi from '../../components/layout/sidenavi.vue';
   import webhead from '../../components/layout/webhead.vue';
   import bfooter from '../../components/layout/bottomfooter.vue';
-  
+  import musicaudio from '../../components/function/musicaudio.vue';
+
   export default ({
       components:{
           sidenavi,
           webhead,
           bfooter,
+          musicaudio,
       },
   
       setup() {

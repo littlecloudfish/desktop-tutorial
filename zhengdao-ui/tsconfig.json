@@ -12,6 +12,7 @@
     "useDefineForClassFields": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "noImplicitAny": false,
     //change
     "allowJs": true,
     "checkJs": false,

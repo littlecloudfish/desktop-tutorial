@@ -20,5 +20,8 @@ export default{
     },
     listofMusic(state){
         return state.listofmusic;
+    },
+    listofmusicinfo(state){
+        return state.listofmusicinfo;
     }
 }

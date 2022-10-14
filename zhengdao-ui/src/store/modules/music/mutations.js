@@ -10,4 +10,7 @@ export default{
     setlistofMusic(state, payload){
         state.listofmusic = payload.listofMusic; 
     },
+    setlistofmusicinfo(state, payload){
+        state.listofmusicinfo = payload.listofmusicinfo;
+    }
 }

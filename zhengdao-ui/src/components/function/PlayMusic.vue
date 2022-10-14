@@ -13,7 +13,10 @@
                 :bar-color="['#FFF','rgb(102, 255, 51)','rgb(153, 102, 255)']"
                 playtime-font="18px Monaco"
                 cors-anonym="true"
-                :audio-src="'http://127.0.0.1:1943/enjoymusic/'+this.musicid">
+                :audio-src="'http://127.0.0.1:1943/enjoymusic/'+this.musicid"
+                audio-class="audioplayer"
+                canv-class="barshow"
+                >
             </av-bars> 
             <el-rate v-model="value" allow-half /> 
             <!-- <audio controls>
@@ -51,5 +54,17 @@ export default{
         }
     },
 }
+
 </script>
 
+<style>
+.audioplayer::-webkit-media-controls-panel {
+  background-color: #0b1c2c;
+  border: none !important;
+  border-radius: 0px;
+}
+/* .barshow{ 
+} */
+
+
+</style>
