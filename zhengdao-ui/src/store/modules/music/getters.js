@@ -22,6 +22,7 @@ export default{
         return state.listofmusic;
     },
     listofmusicinfo(state){
+        console.log('musicinfo')
         return state.listofmusicinfo;
     }
 }

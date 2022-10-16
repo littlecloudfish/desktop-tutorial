@@ -30,6 +30,7 @@ export default{
     // }
     // },
     async musicinfo(context, payload){
+        console.log('commit action');
         const backapi = 'http://127.0.0.1:1943';
         const musicnumber = payload;
         try{

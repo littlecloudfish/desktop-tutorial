@@ -12,5 +12,6 @@ export default{
     },
     setlistofmusicinfo(state, payload){
         state.listofmusicinfo = payload.listofmusicinfo;
+        // console.log(state.listofmusicinfo)
     }
 }
