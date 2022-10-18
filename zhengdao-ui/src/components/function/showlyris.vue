@@ -1,14 +1,21 @@
 <template>
     <div>
-        <b>This text is bold</b>
+        <b style="white-space: pre;">{{lyris}}</b>
     </div>
 </template>
-<script>
-import { defineComponent } from 'vue'
+<script async setup lang="ts">
 
-export default defineComponent({
+import { defineComponent } from 'vue'
+import {useStore} from 'vuex'
+import { inject } from 'vue'
+
+defineComponent({
     setup() {
         
     },
 })
+const store = useStore();
+await store.dispatch('music/musiclyrics', inject('musicid'))
+const lyris = await store.getters['music/musiclyrics']
+
 </script>

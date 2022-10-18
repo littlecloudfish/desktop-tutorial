@@ -23,10 +23,14 @@
               </el-row>
               <el-row>
                   <el-col :span="120">
-                    <showmusicinfo></showmusicinfo>
+                    <suspense timeout="100">
+                      <showmusicinfo></showmusicinfo>
+                    </suspense>
                   </el-col>
                   <el-col :span="12">
-                    <showlyris></showlyris>
+                    <suspense timeout="100">
+                      <showlyris></showlyris>
+                    </suspense>
                   </el-col>
               </el-row>
             </el-main>

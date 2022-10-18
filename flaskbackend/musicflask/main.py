@@ -237,6 +237,13 @@ def get_img(id):
 
     return Response(img.img, mimetype=img.mimetype)
 
+@app.route('/showlyrics/<int:id>')
+def showlyrics(id):
+    lyrics ="今天我寒夜里看雪飘过\n怀著冷却了的心窝飘远方\n风雨里追赶\n雾里分不清影踪\n天空海阔你与我\n可会变(谁没在变)\n多少次迎著冷眼与嘲笑\n从没有放弃过心中的理想\n一刹那恍惚\n若有所失的感觉\n不知不觉已变淡\n心里爱(谁明白我)\n原谅我这一生不羁放纵爱自由\n也会怕有一天会跌倒\n被弃了理想谁人都可以\n那会怕有一天只你共我\nMusic\n仍然自由自我\n永远高唱我歌\n走遍千里 "
+    return { 'lyrics':lyrics}
+    # return jsonify()
+
+
 @app.route("/records/<int:user_id>/")
 def playerwork(user_id):
     records = app.session.query(models.Music).filter(user_id=user_id).all()

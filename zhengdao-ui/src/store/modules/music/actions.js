@@ -30,7 +30,6 @@ export default{
     // }
     // },
     async musicinfo(context, payload){
-        console.log('commit action');
         const backapi = 'http://127.0.0.1:1943';
         const musicnumber = payload;
         try{
@@ -53,6 +52,32 @@ export default{
                 throw err;
             }
         }
+    },
+    async musiclyrics(context, payload){
+        console.log('commit lyrics');
+        const backapi = 'http://127.0.0.1:1943';
+        const musicnumber = payload;
+        try{
+            const errmes =await axios({
+                method: 'get',
+                url: backapi+'/showlyrics/'+musicnumber
+            }
+            ).then(function(response){
+                context.commit('setmusiclyrics',{
+                    musiclyrics : response.data,
+                    
+                });
+            });
+        }catch(err){
+            if (err.message == 'Request failed with status code 401'){
+                console.log('called if');
+                throw { message : "Wrong password or username" , number: 1000};
+            }
+            else {
+                throw err;
+            }
+        }
+    
     },
     async musiclistinfo(context, payload){
         const backapi = 'http://127.0.0.1:1943';

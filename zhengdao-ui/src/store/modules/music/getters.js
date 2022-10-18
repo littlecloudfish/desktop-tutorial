@@ -22,7 +22,9 @@ export default{
         return state.listofmusic;
     },
     listofmusicinfo(state){
-        console.log('musicinfo')
         return state.listofmusicinfo;
+    },
+    musiclyrics(state){
+        return state.musiclyrics.lyrics;
     }
 }
