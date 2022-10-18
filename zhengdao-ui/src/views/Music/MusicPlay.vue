@@ -20,7 +20,15 @@
                         <musicaudio></musicaudio>
                     </suspense>
                 </el-col>
-            </el-row>
+              </el-row>
+              <el-row>
+                  <el-col :span="120">
+                    <showmusicinfo></showmusicinfo>
+                  </el-col>
+                  <el-col :span="12">
+                    <showlyris></showlyris>
+                  </el-col>
+              </el-row>
             </el-main>
           </el-container>
         </el-main>
@@ -35,6 +43,8 @@
   import webhead from '../../components/layout/webhead.vue';
   import bfooter from '../../components/layout/bottomfooter.vue';
   import musicaudio from '../../components/function/musicaudio.vue';
+  import showmusicinfo from '../../components/function/showmusicinfo.vue'
+  import showlyris from '../../components/function/showlyris.vue'
 
   export default ({
       components:{
@@ -42,6 +52,8 @@
           webhead,
           bfooter,
           musicaudio,
+          showmusicinfo,
+          showlyris
       },
   
       setup() {

@@ -76,8 +76,8 @@
     // },
     methods: {
       handleBeforePlay(next) {
-        // There are a few things you can do here...
-        this.currentAudioName = this.audioList[this.$refs.audioPlayer.currentPlayIndex].name
+        //There are a few things you can do here...
+        this.currentAudioName = this.otherList[this.$refs.audioPlayer.currentPlayIndex].name
         next() 
       },
     //   async setData(){
@@ -87,8 +87,8 @@
     //   }
     },
     
-    async created(){
-        this,this.otherList = audioList;
+    async beforeUpdate(){
+        this.otherList = audioList;
         // console.log('injected data '+this.trylist);
         // await  this.$store.dispatch('music/musicinfo',this.musicid);
         // console.log(this.$store.getters['music/listofmusicinfo']);
