@@ -1,163 +1,95 @@
 <template>
-  <h2>Upload Music</h2>
-  <form>
-    <div>
-      <el-row>
-        <el-col :span="24">Input Music Name<div class="grid-content ep-bg-purple-dark" /></el-col>
-      
-        <el-col :span="20">
-            <el-input v-model.trim="musicname" placeholder="Please input Music Name" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-    </div>
-    <!-- <div>
-      <el-row>
-        <el-col :span="24">Input Music Link<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="20">
-            <el-input v-model="musiclink" placeholder="Please input Music Link" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-    </div>  -->
-       <!-- <el-row>
-        <el-col :span="24">Input Music Performers(DiscordId)<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="24">
-            <el-input v-model="musicperformer" placeholder="Please input Performers" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24">Input Music Composer(DiscordId)<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="24">
-            <el-input v-model="input" placeholder="Please input Composer" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24">Input Music Editor(DiscordId)<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="24">
-            <el-input v-model="input" placeholder="Please input Editor" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24">Input Music Songwriter(DiscordId)<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="24">
-            <el-input v-model="input" placeholder="Please input Songwriter" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="24">Input Music Producer(DiscordId)<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="24">
-            <el-input v-model="input" placeholder="Please input Producer" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row> -->
-     <div>
-      <el-row>
-        <el-col :span="24">Input Music Release Date<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <!-- <el-col :span="20">
-            <el-input v-model="releasedate" placeholder="Please input" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col> -->
-      <div class="demo-date-picker">
-        <div class="block">
-          <el-date-picker
-            v-model="value1"
-            type="date"
-            placeholder="Pick a day"
-            size="large"
-            format="YYYY/MM/DD"
-            value-format="YYYY-MM-DD"
-          />
-        </div>
-      </div>
-      </el-row>
-    </div>
-    <!-- <div>
-      <el-row>
-        <el-col :span="24">Input Music Lyrics<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <el-col :span="20">
-            <el-input v-model="musiclyrics" placeholder="Please Input Lyrics" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-    </div> -->
-    <div>
-      <el-row>
-        <el-col :span="24">Input Music Cover Picture<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <input type="file"  @change="onFileSelected">
-      </el-row>
-      <el-row>
-        <el-col :span="24">Input Music Mp3 file<div class="grid-content ep-bg-purple-dark" /></el-col>
-        <input type="file" @change="onMusicFileSelected">
-      </el-row>
-    </div>
-    <div>
-      <el-row>
-        <el-button type="primary" round @click="submitresult" >Submit</el-button>  
-      </el-row>
-    </div>
-  </form>
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+            <webhead></webhead> 
+      </el-header>
+      <el-main>
+        <el-container>
+          <el-aside >
+            <sidenavi></sidenavi>
+          </el-aside>
+          <el-main class="inside-main"> 
+            <div>
+              <musicinput></musicinput>
+            </div>
+          </el-main>
+        </el-container>
+      </el-main>
+      <bfooter>
+
+      </bfooter>
+    </el-container>
+  </div>
 </template>
-
 <script>
-import axios from 'axios';
+import sidenavi from '../../components/layout/sidenavi.vue';
+import webhead from '../../components/layout/webhead.vue';
+import bfooter from '../../components/layout/bottomfooter.vue';
+import musicinput from '../../components/function/uploadui.vue';
 
-export default{
-  data(){
-    return{
-      musicname: '',
-      validmusicname:true,
-      musiclink:'',
-      validmusiclink:true,
-      musiclyrics:'',
-      validelyrics:true,
-      musicperformer:'',
-      validmusicperformer:true,
-      releasedate:'',
-      error: null,
-      value1: null,
-    };
-  },
-  methods:{
-    // async submitresult(){
-    //   const fd = new FormData();
-    //   fd.append('pic', this.selectedFile, this.selectedFile.name)
-    //   fd.append('mp3', this.musicfile, this.musicfile.name)
-    //   try{
-    //     await this.$store.dispatch('request/uploadmusic',fd);
-    //   }catch(err){
-    //     this.error = err.message || "Fail to enter try again";
-    //   };
-    async submitresult(){
-        const fd = new FormData();
-        fd.append('pic', this.selectedFile, this.selectedFile.name)
-        fd.append('mp3', this.musicfile, this.musicfile.name)
-        fd.append('musicname',this.musicname)
-        fd.append('releasedate',this.value1)
-        try{
-          await this.$store.dispatch('request/uploadmusic',fd);
-        }catch(err){
-          this.error = err.message || "Fail to enter try again";
+export default ({
+    components:{
+        sidenavi,
+        webhead,
+        bfooter,
+        musicinput,
+    },
+
+    setup() {
+        
+    },
+    data() {
+        return{
+                       
         }
     },
-    onFileSelected(event){
-            this.selectedFile = event.target.files[0]
-        },
-    onMusicFileSelected(event){
-        this.musicfile = event.target.files[0]  //not sure 0 or 1
+    async beforeCreate(){
+      
     },
+})
 
-    },
 
-};
 </script>
+<style scoped>
+.el-aside{
+  background-color: #0b1c2c;
+}
+.el-main{
+  background-color: #0b1c2c;
+  padding-right:50px;
+  padding-left:50px;
+  padding-block-start: 0px;
+}
+.el-main.inside-main{
+  padding-left:20px;
+  padding-right:150px;
+}
+.el-header{
+  background-color: #0b1c2c;
+}
+.el-header{
+  height:60px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+ 
+.common-layout{
+  margin-bottom: 0px;
+}
 
-<style lang="scss">
-.el-row {
-  margin-bottom: 3px;
-}
-.el-row:last-child {
-  margin-bottom: 0;
-}
-.el-col {
-  border-radius: 4px;
-}
+.scrollbar-demo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    text-align: center;
+    border-radius: 4px;
+    background: "0b1c2c"; /* change to 1  */
+    color: var(--el-color-danger);
+  }
 
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
 </style>

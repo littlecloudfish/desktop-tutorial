@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b style="white-space: pre;">{{lyris}}</b>
+        <b style="white-space: pre; color:bisque">{{lyris}}</b>
     </div>
 </template>
 <script async setup lang="ts">

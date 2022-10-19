@@ -10,19 +10,23 @@
               <sidenavi></sidenavi>
             </el-aside>
             <el-main class="inside-main"> 
-              <el-row>
+              <el-row class="titleofpage">
+                <el-icon><Headset /></el-icon>
+                Music Play
+              </el-row>
+              <el-row class="audioborder">
                 <!-- <play-music ></play-music> -->
-                <el-col :span="120">
-                    <el-image style="width: 100px; height: 100px" src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg" fit="fill" />
+                <el-col :span="200" >
+                    <el-image style="width: 150px; height: 150px" src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg" fit="fill" />
                 </el-col>
                 <el-col :span="12">
                     <suspense timeout="100">
-                        <musicaudio></musicaudio>
+                        <musicaudio class="audiobar"></musicaudio>
                     </suspense>
                 </el-col>
               </el-row>
               <el-row>
-                  <el-col :span="120">
+                  <el-col :span=200>
                     <suspense timeout="100">
                       <showmusicinfo></showmusicinfo>
                     </suspense>
@@ -126,7 +130,14 @@
     padding-left: 0px;
     padding-right: 0px;
   }
-   
+  .titleofpage{
+    color:beige;
+    padding-top:1%;
+    padding-bottom:1%;
+  }
+  .el-icon{
+    color:deeppink;
+  }
   .common-layout{
     margin-bottom: 0px;
   }
@@ -144,6 +155,18 @@
       background: "0b1c2c"; /* change to 1  */
       color: var(--el-color-danger);
     }
-  
+  .audioborder{
+    border-radius: 18px;
+    padding-bottom: 3%;
+    background:#0f2743;
+  } 
+  .audiobar{
+    padding-left:50px;
+    padding-top:3%;
+  }
+  .el-image{
+    padding-top:20%;
+    padding-left:10%;
+  }
   </style>
 
