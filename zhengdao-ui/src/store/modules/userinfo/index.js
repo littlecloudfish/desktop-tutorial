@@ -7,6 +7,8 @@ export default{
     state(){
         return{
         listofuser:null,
+        personuserinfo:null,
+        personmusic:null,
         };
     },
     mutations,

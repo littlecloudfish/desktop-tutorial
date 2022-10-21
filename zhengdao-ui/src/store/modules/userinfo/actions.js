@@ -7,11 +7,11 @@ export default{
     },
     async userlist(context, payload){
         const backapi = 'http://127.0.0.1:1943';
-        const searchtype = 4;
+        const usernumber = payload;
         try{
             const errmes =await axios({
                 method: 'get',
-                url: backapi+'/listofuser/'+searchtype
+                url: backapi+'/listofuser/'+usernumber
             }
             ).then(function(response){
 
@@ -30,4 +30,55 @@ export default{
             }
         }
     },
+    async personinfo(context, payload){
+        const backapi = 'http://127.0.0.1:1943';
+        const usernumber = payload;
+        try{
+            const errmes =await axios({
+                method: 'get',
+                url: backapi+'/userinfo/'+usernumber
+            }
+            ).then(function(response){
+
+                context.commit('setpersoninfo',{
+                    listofuser : response.data,
+                });
+
+            });
+        }catch(err){
+            if (err.message == 'Request failed with status code 401'){
+                console.log('called if');
+                throw { message : "Wrong password or username" , number: 1000};
+            }
+            else {
+                throw err;
+            }
+        }
+    },
+    async personmusic(context, payload){
+        const backapi = 'http://127.0.0.1:1943';
+        const searchtype = payload;
+        try{
+            const errmes =await axios({
+                method: 'get',
+                url: backapi+'/records/'+searchtype
+            }
+            ).then(function(response){
+
+                context.commit('serpersonmusic',{
+                    listofuser : response.data,
+                });
+
+            });
+        }catch(err){
+            if (err.message == 'Request failed with status code 401'){
+                console.log('called if');
+                throw { message : "Wrong password or username" , number: 1000};
+            }
+            else {
+                throw err;
+            }
+        }
+    },
+
 }

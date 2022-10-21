@@ -1,74 +1,101 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="200px">
-        Aside
-
-      </el-aside>
+      <el-header>
+            <webhead></webhead> 
+      </el-header>
       <el-main>
-        <el-button type="Success" round @click="getaccesstoken" >Login</el-button> 
-        <!-- <display-music :posts="posts"></display-music> -->
+        <el-container>
+          <el-aside >
+            <sidenavi></sidenavi>
+          </el-aside>
+          <el-main class="inside-main"> 
+            <div>
+              <userinfo></userinfo>
+            </div>
+          </el-main>
+        </el-container>
       </el-main>
+      <bfooter>
+
+      </bfooter>
     </el-container>
   </div>
 </template>
 <script>
-// import { onBeforeMount } from '@vue/runtime-core';
-// import axios from 'axios'
+import sidenavi from '../../components/layout/sidenavi.vue';
+import webhead from '../../components/layout/webhead.vue';
+import bfooter from '../../components/layout/bottomfooter.vue';
+import userinfo from '../../components/layout/userinfo.vue';
 
+export default ({
+    components:{
+        sidenavi,
+        webhead,
+        bfooter,
+        userinfo,
+    },
 
-  export default({
-      
-      setup() {
-
+    setup() {
         
-          
-          },
-      methods:{
-        getaccesstoken(){
-          // this.$store.dispatch('userInfo/registeruser');
-
-         }
-      },
+    },
+    data() {
+        return{
+                       
+        }
+    },
+    async beforeCreate(){
       
-      data() {
-          return{
-              posts:[
-                      {
-                          "cover_address": "/demopicture/example.png",
-                          "id": 1,
-                          "music_address": "/DEMOMUSIC/crimanal.mp3",
-                          "name": "crimanal",
-                          "post_date": "2022-08-17T20:13:19",
-                          "user_id": 1
-                      },
-                      {
-                          "cover_address": "/demopicture/example.png",
-                          "id": 2,
-                          "music_address": "/DEMOMUSIC/crimanal.mp3",
-                          "name": "dangerous",
-                          "post_date": "2022-08-17T20:13:19",
-                          "user_id": 2
-                      },]
-  
-              
-          }
-      },
-      created(){
-        // this.$store.dispatch('userInfo/registeruser');
-        this.$store.dispatch('request/fetchRequests')
+    },
+    provide(){
+        return{
+            userid: this.$route.params.id,
+            // trylist: this.tryList,
+        }
+})
 
 
-      },
-      beforeMount(){
-        // this.$store.dispatch('userInfo/registeruser');
-      }
-      // computed:{
-      //   userinfo(){
-      //       return this.$store.getters;
-      //   },
-    // }
-  })
-  </script>
-  
+</script>
+<style scoped>
+.el-aside{
+  background-color: #0b1c2c;
+}
+.el-main{
+  background-color: #0b1c2c;
+  padding-right:50px;
+  padding-left:50px;
+  padding-block-start: 0px;
+}
+.el-main.inside-main{
+  padding-left:20px;
+  padding-right:150px;
+}
+.el-header{
+  background-color: #0b1c2c;
+}
+.el-header{
+  height:60px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+ 
+.common-layout{
+  margin-bottom: 0px;
+}
+
+.scrollbar-demo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    text-align: center;
+    border-radius: 4px;
+    background: "0b1c2c"; /* change to 1  */
+    color: var(--el-color-danger);
+  }
+
+</style>
 

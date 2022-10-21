@@ -2,15 +2,17 @@
     <el-scrollbar>
         
             <div class="scrollbar-flex-content">
-                <p v-for="item in 10" :key="item" class="scrollbar-demo-item">
-                    <div class="demo-basic--circle" > 
-                        <el-row>
-                            <el-avatar :size="60" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-                        </el-row>
-                        <el-row>
-                            bigblueass
-                        </el-row> 
-                   </div>
+                <p v-for="item in listofuser" :key="item" class="scrollbar-demo-item">
+                  <router-link :to="'MusicUser/'+item.id">
+                      <div class="demo-basic--circle" > 
+                          <el-row>
+                              <el-avatar :size="60" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+                          </el-row>
+                          <el-row>
+                              {{item.fullname}}
+                          </el-row> 
+                    </div>
+                  </router-link>
                 </p>
             </div>
         
@@ -30,7 +32,7 @@ import { inject } from 'vue'
 const store = useStore();
 await store.dispatch('userInfo/userlist');
 const listofuser = await store.getters['userInfo/listofuser']
-console.log(listofuser)
+// for append
 </script>
 
 
@@ -59,6 +61,7 @@ console.log(listofuser)
 
   .demo-basic--circle{
     background-color:"0b1c2c";
+    width: auto;
 } 
 /*  
     .demo-basic .sub-title {
