@@ -41,7 +41,7 @@ export default{
             ).then(function(response){
 
                 context.commit('setpersoninfo',{
-                    listofuser : response.data,
+                    personinfo : response.data,
                 });
 
             });
@@ -66,7 +66,7 @@ export default{
             ).then(function(response){
 
                 context.commit('serpersonmusic',{
-                    listofuser : response.data,
+                    personmusic : response.data,
                 });
 
             });

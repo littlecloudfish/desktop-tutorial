@@ -275,12 +275,12 @@ def listofuser(listtype):
     
 @app.route('/userinfo/<int:user_id>/')
 def oneuserinfo(user_id):
-    record = app.session.query(models.User).filter(user_id=user_id).one()
+    record = app.session.query(models.User).filter(models.User.id==user_id).one()
     return jsonify(record.to_dict())
 
 @app.route("/records/<int:user_id>/")
 def playerwork(user_id):
-    records = app.session.query(models.Music).filter(user_id=user_id).all()
+    records = app.session.query(models.Music).filter(models.User.id==user_id).all()
     return jsonify([record.to_dict() for record in records])
 
 # username

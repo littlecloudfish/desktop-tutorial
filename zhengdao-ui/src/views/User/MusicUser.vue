@@ -52,6 +52,7 @@ export default ({
             userid: this.$route.params.id,
             // trylist: this.tryList,
         }
+    },
 })
 
 

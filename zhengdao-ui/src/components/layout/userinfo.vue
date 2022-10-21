@@ -14,11 +14,11 @@
     inject:['userid'],
     async setup (){
         const store = useStore()
-        await store.dispatch('music/musicinfo', inject('useris'))
-        const trylist = await store.getters['music/listofmusicinfo']
+        await store.dispatch('userInfo/personinfo', inject('userid'))
+        const userinfomation = await store.getters['userInfo/personinfo']
         
         return{
-            trylist,
+            userinfomation,
             audioList,
 
         }
