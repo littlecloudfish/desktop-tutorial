@@ -1,7 +1,7 @@
 import mimetypes
 from flask import Flask, jsonify, url_for,escape,request,make_response, send_file, Response
 from flask_cors import CORS
-from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import scoped_session, selectinload
 from sqlalchemy.sql import func, extract
 
 import models
@@ -225,10 +225,10 @@ def enjoymusic(id):
 
     return Response(music.mp3, mimetype=music.mimetypes)
 
-@app.route('/showimage/<int:id>')
-def get_img(id):
+@app.route('/showmusicimage/<int:id>')
+def get_musicimg(id):
     try:
-        img = app.session.query(models.Img).filter_by(id=id).first()
+        img = app.session.query(models.Music,models.Img).filter(id == models.Img.music_id).with_entities(models.Img.img,models.Img.mimetype).first()
         if not img:
             return make_response('Img Not Found!', 404)
     except Exception as e:
@@ -236,12 +236,43 @@ def get_img(id):
         return make_response("Wrong",400)
 
     return Response(img.img, mimetype=img.mimetype)
+@app.route('/showuserimage/<int:id>')
+def get_userimg(id):
+    try:
+        img = app.session.query(models.User,models.Img).filter(id == models.Img.user_id).with_entities(models.Img.img,models.Img.mimetype).first()
+        if not img:
+            return make_response('Img Not Found!', 404)
+    except Exception as e:
+        print(e)
+        return make_response("Wrong",400)
+
+    return Response(img.img, mimetype=img.mimetype)
+    # try:
+    #     img = app.session.query(models.Img).filter_by(id=id).first()
+    #     if not img:
+    #         return make_response('Img Not Found!', 404)
+    # except Exception as e:
+    #     print(e)
+    #     return make_response("Wrong",400)
+
+    # return Response(img.img, mimetype=img.mimetype)
 
 @app.route('/showlyrics/<int:id>')
 def showlyrics(id):
     lyrics ="今天我寒夜里看雪飘过\n怀著冷却了的心窝飘远方\n风雨里追赶\n雾里分不清影踪\n天空海阔你与我\n可会变(谁没在变)\n多少次迎著冷眼与嘲笑\n从没有放弃过心中的理想\n一刹那恍惚\n若有所失的感觉\n不知不觉已变淡\n心里爱(谁明白我)\n原谅我这一生不羁放纵爱自由\n也会怕有一天会跌倒\n被弃了理想谁人都可以\n那会怕有一天只你共我\nMusic\n仍然自由自我\n永远高唱我歌\n走遍千里 "
     return { 'lyrics':lyrics}
     # return jsonify()
+
+@app.route('/listofuser/<int:listtype>')
+def listofuser(listtype):
+    if listtype == 4:
+        records=app.session.query(models.User).all()
+        # musicrecord = app.session.query(models.Music).all()
+        # print(app.session.query(models.Music).options(selectinload(models.Music.coverimg)).all())
+        # print(app.session.query(models.Music,models.Img).filter(models.Music.id == models.Img.music_id).with_entities(models.Img.img).all())
+        # print(records)
+    return jsonify([record.to_dict() for record in records])
+    
 
 
 @app.route("/records/<int:user_id>/")

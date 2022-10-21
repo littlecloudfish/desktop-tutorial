@@ -17,9 +17,20 @@
     </el-scrollbar>
 </template>
 
-<script>
-    
+<script async lang="ts" setup>
+import { defineComponent } from 'vue'
+import {useStore} from 'vuex'
+import { inject } from 'vue'
 
+// defineComponent({
+//     setup() {
+        
+//     },
+// })
+const store = useStore();
+await store.dispatch('userInfo/userlist');
+const listofuser = await store.getters['userInfo/listofuser']
+console.log(listofuser)
 </script>
 
 

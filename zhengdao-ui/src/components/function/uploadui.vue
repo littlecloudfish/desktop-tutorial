@@ -71,7 +71,7 @@
           <el-col :span="24">Input Music Lyrics</el-col>
           <el-col :span="20">
             <el-input v-model="musiclyrics" 
-              :autosize="{ minRows: 2, maxRows: 4 }"
+              :autosize="{ minRows: 5, maxRows: 100 }"
               placeholder="Please Input Lyrics"
               type="textarea"
                />
@@ -126,16 +126,17 @@
       //     this.error = err.message || "Fail to enter try again";
       //   };
       async submitresult(){
-          const fd = new FormData();
-          fd.append('pic', this.selectedFile, this.selectedFile.name)
-          fd.append('mp3', this.musicfile, this.musicfile.name)
-          fd.append('musicname',this.musicname)
-          fd.append('releasedate',this.value1)
-          try{
-            await this.$store.dispatch('request/uploadmusic',fd);
-          }catch(err){
-            this.error = err.message || "Fail to enter try again";
-          }
+        console.log(this.musiclyrics)
+        //   const fd = new FormData();
+        //   fd.append('pic', this.selectedFile, this.selectedFile.name)
+        //   fd.append('mp3', this.musicfile, this.musicfile.name)
+        //   fd.append('musicname',this.musicname)
+        //   fd.append('releasedate',this.value1)
+        //   try{
+        //     await this.$store.dispatch('request/uploadmusic',fd);
+        //   }catch(err){
+        //     this.error = err.message || "Fail to enter try again";
+        //   }
       },
       onFileSelected(event){
               this.selectedFile = event.target.files[0]

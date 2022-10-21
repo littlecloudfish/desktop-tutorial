@@ -1,105 +1,95 @@
 <template>
-  <base-dialog :show="!!error" title="An error occurred" @close="handleError">
-      <p>{{ error }}</p>
-  </base-dialog>
-  <el-row>
-    <el-col :span="24">Input Username<div class="grid-content ep-bg-purple-dark" /></el-col>
-  </el-row>
-  <el-row>
-    <el-col :span="24">
-        <el-input v-model="username" placeholder="Please input Username" />
-    <div class="grid-content ep-bg-purple-dark" /></el-col>
-  </el-row>
-  <el-row>
-    <el-col :span="24">Input Password<div class="grid-content ep-bg-purple-dark" /></el-col>
-  </el-row>
-  <el-row>
-    <el-col :span="24">
-        <el-input v-model="password" placeholder="Please input Password" />
-    <div class="grid-content ep-bg-purple-dark" /></el-col>
-  </el-row>
-  <p v-if="!validpassword">Username or Password are invalid. Please check your provided data.</p>
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+            <webhead></webhead> 
+      </el-header>
+      <el-main>
+        <el-container>
+          <el-aside >
+            <sidenavi></sidenavi>
+          </el-aside>
+          <el-main class="inside-main"> 
+            <div>
+              <userlogin></userlogin>
+            </div>
+          </el-main>
+        </el-container>
+      </el-main>
+      <bfooter>
 
-  <div>
-    <el-row>
-      <el-button type="Success" round @click="submitresult" >Login</el-button>  
-      <!-- <el-button type="Success" round @click="forgetpassword" >Forget Passwords</el-button> -->
-    </el-row>
-    <el-row>
-      <el-button type="Success" round  ><a href="/MusicUserRegister">Signup</a></el-button>  
-    </el-row> 
+      </bfooter>
+    </el-container>
   </div>
 </template>
-
 <script>
-export default{
-  data(){
-    return{
-      username: '',
-      validusername:true,
-      password:'',
-      validpassword:true,
-      isloading:false,
-      error: null,
-      mode: 'Login',
-    };
-  },
-  computed:{
-    // submitButtonCaption(){
-    //   if(this.mode === 'Login'){
-    //     return 'Login';
-    //   }else {
-    //     return 'Signup';
-    //   }
-    // },
-  },
-  methods:{
-    async submitresult(){
-        this.isloading = true;
-        const actionPaylod = {
-          username: this.username,
-          password: this.password,
-        };
-        try{
-          await this.$store.dispatch('login',actionPaylod);
-          // if (this.mode === 'Login'){
-          //   await this.$store.dispatch('login',actionPaylod);}
-          // else{
-            // await this.$store.dispatch('signup', actionPayload); redirect to signup 
-          // }
-        }catch(err){
-          this.error = err.message || 'Failed to authenticate, try later';
-        }
-        // token if not null then change page
-        if (this.$store.getters.Token != null ){
-          this.$router.push({name: 'MusicUser'});
-        }
-        this.isloading= false;
+import sidenavi from '../../components/layout/sidenavi.vue';
+import webhead from '../../components/layout/webhead.vue';
+import bfooter from '../../components/layout/bottomfooter.vue';
+import userlogin from '../../components/function/login.vue';
 
-  },
-  handleError(){
-    this.error = null;
-  },
-  // forgetpassword(){
+export default ({
+    components:{
+        sidenavi,
+        webhead,
+        bfooter,
+        userlogin,
+    },
 
-  //   }
-  },
-}
+    setup() {
+        
+    },
+    data() {
+        return{
+                       
+        }
+    },
+    async beforeCreate(){
+      
+    },
+})
+
+
 </script>
+<style scoped>
+.el-aside{
+  background-color: #0b1c2c;
+}
+.el-main{
+  background-color: #0b1c2c;
+  padding-right:50px;
+  padding-left:50px;
+  padding-block-start: 0px;
+}
+.el-main.inside-main{
+  padding-left:20px;
+  padding-right:150px;
+}
+.el-header{
+  background-color: #0b1c2c;
+}
+.el-header{
+  height:60px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+ 
+.common-layout{
+  margin-bottom: 0px;
+}
 
-<style lang="scss">
-.el-row {
-  margin-bottom: 20px;
-}
-.el-row:last-child {
-  margin-bottom: 0;
-}
-.el-col {
-  border-radius: 4px;
-}
+.scrollbar-demo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    text-align: center;
+    border-radius: 4px;
+    background: "0b1c2c"; /* change to 1  */
+    color: var(--el-color-danger);
+  }
 
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
 </style>

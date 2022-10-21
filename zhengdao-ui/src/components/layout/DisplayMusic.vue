@@ -9,7 +9,7 @@
             <li v-for="i in count" :key="i" class="list-item"  >
 
                 <el-row :gutter="20">
-                <el-col :span="6" v-for="n in 4" :key="n" ><div class="grid-content ep-bg-purple" />
+                <el-col :span="6" v-for="n in 4" :key="n" >
                 <!-- {{ postposition(posts,3*(i-1)+n-1).name }} -->
                     
                     <el-skeleton style="width: 240px" :loading="loading" animated>
@@ -72,7 +72,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 // import { Component, Prop, Vue } from 'vue-property-decorator'
-const url = "http://127.0.0.1:1943/showimage/9"
+const url = "http://127.0.0.1:1943/showmusicimage/9"
 const count = ref(1)
 const loading = ref(false)
 const noMore = computed(() => count.value >= 20)

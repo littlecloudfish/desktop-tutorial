@@ -4,7 +4,11 @@ import getters from './getters.js';
 
 export default{
     namespaced: true,
-    state(){},
+    state(){
+        return{
+        listofuser:null,
+        };
+    },
     mutations,
     actions,
     getters,

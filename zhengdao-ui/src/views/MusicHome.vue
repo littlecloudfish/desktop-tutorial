@@ -15,7 +15,9 @@
               <div v-if="dataready">
                 <display-music :posts="posts"></display-music>
               </div>
-                <displayplayer></displayplayer> 
+              <suspense timeout="100">
+                <displayplayer></displayplayer>
+              </suspense> 
             </div>
           </el-main>
         </el-container>
