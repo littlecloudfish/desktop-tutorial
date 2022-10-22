@@ -10,19 +10,21 @@
           <el-aside >
             <sidenavi></sidenavi>
           </el-aside>
-          <el-main>
+          <el-main class="inside-main"> 
             <div>
-              <el-main v-if="dataready">
+              <div v-if="dataready">
                 <display-music :posts="posts"></display-music>
-              </el-main>
-                <displayplayer></displayplayer> 
+              </div>
+              <suspense timeout="100">
+                <displayplayer></displayplayer>
+              </suspense> 
             </div>
           </el-main>
         </el-container>
       </el-main>
-      <el-footer>
+      <bfooter>
 
-      </el-footer>
+      </bfooter>
     </el-container>
   </div>
 </template>
@@ -52,6 +54,7 @@ import displayplayer from '../components/layout/displayplayer.vue';
 import picturepost from '../components/layout/picturepost.vue';
 import sidenavi from '../components/layout/sidenavi.vue';
 import webhead from '../components/layout/webhead.vue';
+import bfooter from '../components/layout/bottomfooter.vue';
 
 export default ({
     components:{
@@ -59,6 +62,7 @@ export default ({
         picturepost,
         sidenavi,
         webhead,
+        bfooter,
     },
 
     setup() {
@@ -104,13 +108,38 @@ export default ({
 }
 .el-main{
   background-color: #0b1c2c;
-
+  padding-right:150px;
+  padding-left:150px;
+}
+.el-main.inside-main{
+  padding-left:0px;
+  padding-right:50px;
 }
 .el-header{
   background-color: #0b1c2c;
 }
 .el-header{
   height:600px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
+ 
+.common-layout{
+  margin-bottom: 0px;
+}
+
+.scrollbar-demo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    text-align: center;
+    border-radius: 4px;
+    background: "0b1c2c"; /* change to 1  */
+    color: var(--el-color-danger);
+  }
 
 </style>

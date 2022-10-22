@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/MusicHome.vue') 
   },
   {
-    path: '/MusicUser',
+    path: '/MusicUser/:id',
     name: 'MusicUser',
     component: () => import('../views/User/MusicUser.vue') 
   },
@@ -59,6 +59,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/MusicScoreBoard',
     name: 'MusicScoreBoard',
     component: () => import('../views/Music/MusicScoreBoard.vue') 
+  },
+  {
+    path: '/MusicType',
+    name: 'MusicType',
+    component: () => import('../views/Music/Musictype.vue') 
   },
   {
     path: '/:pathMatch(.*)*',

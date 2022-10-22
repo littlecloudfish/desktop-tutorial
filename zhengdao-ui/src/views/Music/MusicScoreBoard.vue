@@ -1,54 +1,108 @@
 <template>
-    <div class="infinite-list-wrapper" style="overflow: auto">
-      <ul
-        v-infinite-scroll="load"
-        class="list"
-        :infinite-scroll-disabled="disabled"
-      >
-        <li v-for="i in count" :key="i" class="list-item">{{ i }}</li>
-      </ul>
-      <p v-if="loading">Loading...</p>
-      <p v-if="noMore">No more</p>
-    </div>
-  </template>
-  
-  <script lang="ts" setup>
-  import { computed, ref } from 'vue'
-  
-  const count = ref(10)
-  const loading = ref(false)
-  const noMore = computed(() => count.value >= 20)
-  const disabled = computed(() => loading.value || noMore.value)
-  const load = () => {
-    loading.value = true
-    setTimeout(() => {
-      count.value += 2
-      loading.value = false
-    }, 2000)
-  }
-  </script>
-  
-  <style>
-  .infinite-list-wrapper {
-    height: 300px;
-    text-align: center;
-  }
-  .infinite-list-wrapper .list {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  
-  .infinite-list-wrapper .list-item {
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+            <webhead></webhead> 
+      </el-header>
+      <el-main>
+        <el-container>
+          <el-aside >
+            <sidenavi></sidenavi>
+          </el-aside>
+          <el-main class="inside-main"> 
+            <div>
+              <singlepicture></singlepicture>
+              <div v-if="dataready">
+                <display-music :posts="posts"></display-music>
+              </div>
+                
+            </div>
+          </el-main>
+        </el-container>
+      </el-main>
+      <bfooter>
+
+      </bfooter>
+    </el-container>
+  </div>
+</template>
+
+<script>
+import sidenavi from '../../components/layout/sidenavi.vue';
+import webhead from '../../components/layout/webhead.vue';
+import bfooter from '../../components/layout/bottomfooter.vue';
+import singlepicture from '../../components/layout/singlepicture.vue';
+
+export default ({
+    components:{
+
+        
+        sidenavi,
+        webhead,
+        bfooter,
+        singlepicture
+    },
+
+    setup() {
+        
+    },
+    data() {
+        return{
+           
+              posts: null,
+              dataready:false
+            
+        }
+    },
+    async beforeCreate(){
+        this.$store.dispatch('music/musiclistinfo').then(() => {
+            this.posts = this.$store.getters['music/listofMusic'];
+            this.dataready = true;
+        })
+    },
+})
+
+
+</script>
+<style scoped>
+.el-aside{
+  background-color: #0b1c2c;
+}
+.el-main{
+  background-color: #0b1c2c;
+  padding-right:50px;
+  padding-left:50px;
+  padding-block-start: 0px;
+}
+.el-main.inside-main{
+  padding-left:20px;
+  padding-right:150px;
+}
+.el-header{
+  background-color: #0b1c2c;
+}
+.el-header{
+  height:60px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+ 
+.common-layout{
+  margin-bottom: 0px;
+}
+
+.scrollbar-demo-item {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
-    background: var(--el-color-danger-light-9);
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    text-align: center;
+    border-radius: 4px;
+    background: "0b1c2c"; /* change to 1  */
     color: var(--el-color-danger);
   }
-  .infinite-list-wrapper .list-item + .list-item {
-    margin-top: 0px;
-  }
-  </style>
-  
+
+</style>

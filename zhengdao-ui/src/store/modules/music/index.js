@@ -12,7 +12,9 @@ export default{
             name: null,
             post_date: null,
             user_id: null,
+            musiclyrics:null,
             listofmusic: [],
+            listofmusicinfo:[],
         };
     },
     mutations,

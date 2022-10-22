@@ -19,9 +19,17 @@
             </template>
         </el-autocomplete>    
       </el-affix>
-      
-
+      <b style="color:#FFFFFF">
+        <router-link to="/about" style="text-decoration: none; color: inherit;" >
+          Login
+        </router-link>
+        /
+        <router-link to="/about" style="text-decoration: none; color: inherit;" >
+          Register
+        </router-link>
+      </b>
     </div>
+    
 </template>
 
 
@@ -83,7 +91,11 @@
   .affix-container {
     text-align: center;
     height: 60px;
-    border-radius: 4px;
-    background: var(--el-color-primary-light-9);
+    border-radius: 0px;
+    /* background: var(--el-color-primary-light-9); */
+    background-color: rgba(0,0,0,0.2);
+  }
+  b{
+    padding-left: 70%;
   }
   </style>

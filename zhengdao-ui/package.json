@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
+    "@liripeng/vue-audio-player": "^1.5.0",
+    "@vime/core": "^5.3.3",
+    "@vime/vue-next": "^5.3.3",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "bootstrap-vue": "^2.22.0",
@@ -19,6 +22,7 @@
     "vue-axios": "^3.4.1",
     "vue-plyr": "^7.0.0",
     "vue-router": "^4.0.3",
+    "vuetify-audio": "^0.3.3",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

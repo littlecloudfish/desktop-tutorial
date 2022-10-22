@@ -12,10 +12,14 @@ import BaseDialog from './components/ui/BaseDialog.vue';
 import BaseButton from './components/ui/BaseButton.vue';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+// import Vuetify from 'vuetify';
+import AudioPlayer from '@liripeng/vue-audio-player'
+
+
 
 const app = createApp(App)
 
-app.use(ElementPlus).use(VueAxios, axios).use(store).use(router).use(AudioVisual).mount('#app')
+app.use(ElementPlus).use(VueAxios, axios).use(store).use(AudioPlayer).use(router).use(AudioVisual).mount('#app')
 app.component('PlayMusic',PlayMusic);
 app.component('DisplayMusic',DisplayMusic);
 app.component('BaseDialog',BaseDialog);

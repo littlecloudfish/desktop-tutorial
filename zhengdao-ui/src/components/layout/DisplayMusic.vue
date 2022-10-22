@@ -1,7 +1,5 @@
 <template>
     <slot>
-        
-        <div>{{postposition(props.posts,0).post_date}}</div>
         <div class="infinite-list-wrapper" style="overflow: auto">
             <ul
             v-infinite-scroll="load"
@@ -11,7 +9,7 @@
             <li v-for="i in count" :key="i" class="list-item"  >
 
                 <el-row :gutter="20">
-                <el-col :span="6" v-for="n in 4" :key="n" ><div class="grid-content ep-bg-purple" />
+                <el-col :span="6" v-for="n in 4" :key="n" >
                 <!-- {{ postposition(posts,3*(i-1)+n-1).name }} -->
                     
                     <el-skeleton style="width: 240px" :loading="loading" animated>
@@ -74,7 +72,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 // import { Component, Prop, Vue } from 'vue-property-decorator'
-const url = "http://127.0.0.1:1943/showimage/9"
+const url = "http://127.0.0.1:1943/showmusicimage/9"
 const count = ref(1)
 const loading = ref(false)
 const noMore = computed(() => count.value >= 20)
@@ -177,4 +175,30 @@ const props = defineProps({
   background: "0b1c2c"; 
   color: "0b1c2c";
 }
+.el-card{
+  border: 0px;
+  border-radius: 0px;
+}
+.infinite-list-wrapper::-webkit-scrollbar{
+  width: 5px;
+}
+/* .infinite-list-wrapper::-webkit-scrollbar-track{
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+} */
+.infinite-list-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(82, 122, 180, 0.3); 
+  border-radius: 10px;
+}
+/* .scrollbar-demo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 4px;
+  background: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
+} */
 </style>

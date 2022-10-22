@@ -1,129 +1,95 @@
 <template>
-  <h2>Register an account </h2>
-  <form >
-    <div class="form-control">
-      <el-row>
-        <el-col :span="24">Input Username<div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="20">
-            <el-input v-model.trim="username" placeholder="Please input Username" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <p v-if="!validusername">Username cannot be empty or start with space </p>
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+            <webhead></webhead> 
+      </el-header>
+      <el-main>
+        <el-container>
+          <el-aside >
+            <sidenavi></sidenavi>
+          </el-aside>
+          <el-main class="inside-main"> 
+            <div>
+              <userregister></userregister>
+            </div>
+          </el-main>
+        </el-container>
+      </el-main>
+      <bfooter>
 
-    </div>
-    <div class="form-control">
-      <el-row>
-        <el-col :span="24">Input Password<div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="20">
-            <el-input v-model="password" placeholder="Please input Password" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-    </div>
-    <div class="form-control">
-      <el-row>
-        <el-col :span="24">Input Password Again<div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="20">
-            <el-input v-model="secondpassword" placeholder="Please input Password Again" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <p v-if="!validpassword">One or more input fields are invalid. Please check your provided data.</p>
-    </div>
-    <div class="form-control">
-      <el-row>
-        <el-col :span="24">Input Email<div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="20">
-            <el-input v-model="email" placeholder="Please input Email" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <p v-if="!validemail">Must be valid Email Address</p>
-
-    </div>
-    <div class="form-control">
-      <el-row>
-        <el-col :span="20">Input discord ID with #<div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="20">
-            <el-input v-model="discordId" placeholder="Please input discord ID with #" />
-        <div class="grid-content ep-bg-purple-dark" /></el-col>
-      </el-row>
-      <p v-if="!validediscord">Must be DiscordID with #</p>
-
-    </div>
-    <div>
-      <el-row>
-        <el-button type="Success" round @click="submitresult" >Submit</el-button>  
-      </el-row>
-    </div>
-  </form>
+      </bfooter>
+    </el-container>
+  </div>
 </template>
-
-
-
 <script>
-// import axios from 'axios'
+import sidenavi from '../../components/layout/sidenavi.vue';
+import webhead from '../../components/layout/webhead.vue';
+import bfooter from '../../components/layout/bottomfooter.vue';
+import userregister from '../../components/function/registration.vue';
 
-export default{
-  data(){
-    return{
-      username: '',
-      validusername:true,
-      password:'',
-      secondpassword:'',
-      validpassword:true,
-      email:'',
-      validemail:true,
-      discordId:'',
-      validediscord:true,
-      error: null,
-    };
-  },
-  methods:{
-    submitresult(){
-      if(this.secondpassword !==this.password ){
-        this.validpassword = false;
-        return;
-      }
-      this.validpassword = true;
-      // console.log(this.validpassword)
-      // console.log(this.password)
-      // console.log(this.secondpassword)
+export default ({
+    components:{
+        sidenavi,
+        webhead,
+        bfooter,
+        userregister,
+    },
 
-      if(this.mode === 'login'){
+    setup() {
         
-      }else{
-        this.$store.dispatch('signup',{
-          username: this.username,
-          password: this.password,
-        });
-      }
-    
-  }
-  },
-}
+    },
+    data() {
+        return{
+                       
+        }
+    },
+    async beforeCreate(){
+      
+    },
+})
+
+
 </script>
+<style scoped>
+.el-aside{
+  background-color: #0b1c2c;
+}
+.el-main{
+  background-color: #0b1c2c;
+  padding-right:50px;
+  padding-left:50px;
+  padding-block-start: 0px;
+}
+.el-main.inside-main{
+  padding-left:20px;
+  padding-right:150px;
+}
+.el-header{
+  background-color: #0b1c2c;
+}
+.el-header{
+  height:60px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+ 
+.common-layout{
+  margin-bottom: 0px;
+}
 
-<style lang="scss">
-.el-row {
-  margin-bottom: 20px;
-}
-.el-row:last-child {
-  margin-bottom: 0;
-}
-.el-col {
-  border-radius: 4px;
-}
+.scrollbar-demo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    text-align: center;
+    border-radius: 4px;
+    background: "0b1c2c"; /* change to 1  */
+    color: var(--el-color-danger);
+  }
 
-.grid-content {
-  border-radius: 4px;
-  min-height: 12px;
-}
 </style>

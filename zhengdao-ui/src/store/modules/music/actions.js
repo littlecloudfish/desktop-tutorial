@@ -1,34 +1,83 @@
 import axios from 'axios';
 
 export default{
+    // async musicinfo(context, payload){
+    // const backapi = 'http://127.0.0.1:1943';
+    // const musicnumber = payload;
+    // try{
+    //     const errmes =await axios({
+    //         method: 'get',
+    //         url: backapi+'/music/'+musicnumber
+    //     }
+    //     ).then(function(response){
+    //         context.commit('setMusic',{
+    //             musicid : response.data[0].id,
+    //             cover_address : response.data[0].cover_address,
+    //             music_address : response.data[0].music_address,
+    //             musicname : response.data[0].name,
+    //             post_date : response.data[0].post_date,
+    //             user_id : response.data[0].user_id,
+    //         });
+    //     });
+    // }catch(err){
+    //     if (err.message == 'Request failed with status code 401'){
+    //         console.log('called if');
+    //         throw { message : "Wrong password or username" , number: 1000};
+    //     }
+    //     else {
+    //         throw err;
+    //     }
+    // }
+    // },
     async musicinfo(context, payload){
-    const backapi = 'http://127.0.0.1:1943';
-    const musicnumber = 4;
-    try{
-        const errmes =await axios({
-            method: 'get',
-            url: backapi+'/music/'+musicnumber
-        }
-        ).then(function(response){
-            context.commit('setMusic',{
-                musicid : response.data[0].id,
-                cover_address : response.data[0].cover_address,
-                music_address : response.data[0].music_address,
-                musicname : response.data[0].name,
-                post_date : response.data[0].post_date,
-                user_id : response.data[0].user_id,
+        const backapi = 'http://127.0.0.1:1943';
+        const musicnumber = payload;
+        try{
+            const errmes =await axios({
+                method: 'get',
+                url: backapi+'/music/'+musicnumber
+            }
+            ).then(function(response){
+                context.commit('setlistofmusicinfo',{
+                    listofmusicinfo : response.data,
+                    
+                });
             });
-            // console.log(post_date);
-        });
-    }catch(err){
-        if (err.message == 'Request failed with status code 401'){
-            console.log('called if');
-            throw { message : "Wrong password or username" , number: 1000};
+        }catch(err){
+            if (err.message == 'Request failed with status code 401'){
+                console.log('called if');
+                throw { message : "Wrong password or username" , number: 1000};
+            }
+            else {
+                throw err;
+            }
         }
-        else {
-            throw err;
+    },
+    async musiclyrics(context, payload){
+        console.log('commit lyrics');
+        const backapi = 'http://127.0.0.1:1943';
+        const musicnumber = payload;
+        try{
+            const errmes =await axios({
+                method: 'get',
+                url: backapi+'/showlyrics/'+musicnumber
+            }
+            ).then(function(response){
+                context.commit('setmusiclyrics',{
+                    musiclyrics : response.data,
+                    
+                });
+            });
+        }catch(err){
+            if (err.message == 'Request failed with status code 401'){
+                console.log('called if');
+                throw { message : "Wrong password or username" , number: 1000};
+            }
+            else {
+                throw err;
+            }
         }
-    }
+    
     },
     async musiclistinfo(context, payload){
         const backapi = 'http://127.0.0.1:1943';

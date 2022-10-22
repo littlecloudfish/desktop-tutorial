@@ -47,6 +47,7 @@ export default {
 
   },
   async uploadmusic(context, payload){
+    // console.log(payload)
     const accesstoken = context.rootGetters.Token;
     axios({
       method:'POST',
@@ -63,7 +64,7 @@ export default {
       console.error(error)
     })
 
-  }
+  },
 
     // async fetchRequests(context) {
     //   const coachId = context.rootGetters.userId;
