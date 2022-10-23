@@ -11,7 +11,10 @@
           </el-aside>
           <el-main class="inside-main"> 
             <div>
-              <userinfo></userinfo>
+              <suspense timeout="100">
+                <userinfo></userinfo>
+              </suspense>
+              
             </div>
           </el-main>
         </el-container>

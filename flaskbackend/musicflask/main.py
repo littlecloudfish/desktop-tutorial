@@ -280,7 +280,7 @@ def oneuserinfo(user_id):
 
 @app.route("/records/<int:user_id>/")
 def playerwork(user_id):
-    records = app.session.query(models.Music).filter(models.User.id==user_id).all()
+    records = app.session.query(models.Music).filter(models.Music.user_id==user_id).all()
     return jsonify([record.to_dict() for record in records])
 
 # username

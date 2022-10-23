@@ -1,22 +1,27 @@
 <template>
-  <div class="hello">
-    <h1>{{ count }}</h1>
-  </div>
+
+  <image-compressor
+    :done="getFiles"
+    :scale="scale"
+    :quality="quality">
+  </image-compressor>
+
 </template>
 
 
 <script>
-export default {
-  name: "HelloWorld", 
-  data() {
-    return {
-      shopNumber: 2
+
+  import imageCompressor from 'vue-image-compressor';
+
+  export default {
+
+    components: { imageCompressor },
+
+    methods: {
+      getFiles(obj){
+        console.log(obj);
+      }
     }
-  },
-  computed: {
-    count: function() {
-      return 'The shop number is ' 
-    }
-  }
-};
+  };
+
 </script>

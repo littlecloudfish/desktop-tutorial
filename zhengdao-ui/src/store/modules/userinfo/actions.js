@@ -7,7 +7,7 @@ export default{
     },
     async userlist(context, payload){
         const backapi = 'http://127.0.0.1:1943';
-        const usernumber = payload;
+        const usernumber = 4;
         try{
             const errmes =await axios({
                 method: 'get',
