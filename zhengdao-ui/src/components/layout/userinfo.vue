@@ -16,7 +16,7 @@
                 <display-music :posts=userpublish></display-music>
             </div>
         <el-row>
-
+        
         </el-row>   
     </div>
 </template>

@@ -1,9 +1,9 @@
 <template>
-    <h2>Register an account </h2>
+    <h2 style="color:white">Register an account </h2>
     <form >
       <div class="form-control">
         <el-row>
-          <el-col :span="24">Input Username</el-col>
+          <el-col style="color:white" :span="24">Input Username</el-col>
         </el-row>
         <el-row>
           <el-col :span="20">
@@ -11,11 +11,10 @@
           </el-col>
         </el-row>
         <p v-if="!validusername">Username cannot be empty or start with space </p>
-  
       </div>
       <div class="form-control">
         <el-row>
-          <el-col :span="24">Input Password</el-col>
+          <el-col style="color:white" :span="24">Input Password</el-col>
         </el-row>
         <el-row>
           <el-col :span="20">
@@ -25,7 +24,7 @@
       </div>
       <div class="form-control">
         <el-row>
-          <el-col :span="24">Input Password Again</el-col>
+          <el-col style="color:white" :span="24">Input Password Again</el-col>
         </el-row>
         <el-row>
           <el-col :span="20">
@@ -36,7 +35,7 @@
       </div>
       <div class="form-control">
         <el-row>
-          <el-col :span="24">Input Email</el-col>
+          <el-col style="color:white" :span="24">Input Email</el-col>
         </el-row>
         <el-row>
           <el-col :span="20">
@@ -48,7 +47,7 @@
       </div>
       <div class="form-control">
         <el-row>
-          <el-col :span="20">Input discord ID with #</el-col>
+          <el-col style="color:white" :span="20">Input discord ID with #</el-col>
         </el-row>
         <el-row>
           <el-col :span="20">
@@ -58,6 +57,14 @@
         <p v-if="!validediscord">Must be DiscordID with #</p>
   
       </div>
+      <el-row>
+          <el-col style="color:white" :span="24">Input User Cover Picture</el-col>
+          <image-compressor
+            :done="getFiles"
+            :scale="scale"
+            :quality="quality">
+          </image-compressor>
+      </el-row>
       <div>
         <el-row>
           <el-button type="Success" round @click="submitresult" >Submit</el-button>  
@@ -70,8 +77,11 @@
   
   <script>
   // import axios from 'axios'
-  
+  import imageCompressor from 'vue-image-compressor';
+
   export default{
+    components: { imageCompressor },
+
     data(){
       return{
         username: '',
@@ -106,8 +116,16 @@
           });
         }
       
-    }
     },
+    onFileSelected(event){
+              this.selectedFile = event.target.files[0]
+          },
+    
+    getFiles(obj){
+        console.log(obj);
+      },
+    }
+
   }
   </script>
   
