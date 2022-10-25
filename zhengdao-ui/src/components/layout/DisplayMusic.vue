@@ -1,5 +1,9 @@
 <template>
     <slot>
+      <div v-if="posts.length === 0">
+       <p style="color:white">No Music Display </p>
+      </div>
+      <div v-else>
         <div class="infinite-list-wrapper" style="overflow: auto">
             <ul
             v-infinite-scroll="load"
@@ -7,72 +11,72 @@
             :infinite-scroll-disabled="disabled"
             >
             <li v-for="i in count" :key="i" class="list-item"  >
-
+              <div v-if="i != undefined">
                 <el-row :gutter="20">
                 <el-col :span="6" v-for="n in 4" :key="n" >
-                <!-- {{ postposition(posts,3*(i-1)+n-1).name }} -->
-                    
-                    <el-skeleton style="width: 240px" :loading="loading" animated>
-                        <template #template >
-                            <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
-                            <div style="padding: 14px">
-                            <el-skeleton-item variant="h3" style="width: 50%" />
-                            <div
-                                style="
-                                display: flex;
-                                align-items: center;
-                                justify-items: space-between;
-                                margin-top: 0px;
-                                height:0px;
-                                
-                                "
-                            >
-                                <el-skeleton-item variant="text" style="margin-right: 16px" />
-                                <el-skeleton-item variant="text" style="width: 30%" />
-                            </div>
-                            </div>
-                        </template>
-                        <template #default  >
-                            <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
-                              <!-- <img
-                                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                                  class="image"
-                              /> -->
-                              <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id"> 
-                                <el-image style="width: 150px; height: 150px" :src="url" :fit="scale-down" />
-                              </router-link> 
-                              <div style="padding: 25px">
-                                  <span>{{ postposition(posts,4*(i-1)+n-1).name }}</span>
-                                  <div class="bottom card-header">
-                                  <div class="time">{{ postposition(posts,4*(i-1)+n-1).post_date }}</div>
-                                  <el-button text class="button">
-                                    <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id">
-                                      open
-                                    </router-link>
-                                  </el-button>
-                                  </div>
+                    hello
+                      <el-skeleton style="width: 240px" :loading="loading" animated>
+                          <template #template >
+                              <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
+                              <div style="padding: 14px">
+                              <el-skeleton-item variant="h3" style="width: 50%" />
+                              <div
+                                  style="
+                                  display: flex;
+                                  align-items: center;
+                                  justify-items: space-between;
+                                  margin-top: 0px;
+                                  height:0px;
+                                  
+                                  "
+                              >
+                                  <el-skeleton-item variant="text" style="margin-right: 16px" />
+                                  <el-skeleton-item variant="text" style="width: 30%" />
                               </div>
-                            </el-card>
-                        </template>
-                        </el-skeleton>
-                
+                              </div>
+                          </template>
+                          <template #default  >
+                              <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
+                                
+                                <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id"> 
+                                  <el-image style="width: 150px; height: 150px" :src="url+postposition(posts,4*(i-1)+n-1).id " :fit="scale-down" />
+                                </router-link> 
+                                <div style="padding: 25px">
+                                    <span>{{ postposition(posts,4*(i-1)+n-1).name }}</span>
+                                    <div class="bottom card-header">
+                                    <div class="time">{{ postposition(posts,4*(i-1)+n-1).post_date }}</div>
+                                    <el-button text class="button">
+                                      <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id">
+                                        open
+                                      </router-link>
+                                    </el-button>
+                                    </div>
+                                </div>
+                              </el-card>
+                          </template>
+                          </el-skeleton>
                 </el-col>
                 </el-row>
-            
-            
+                
+              </div>
+              <div v-else>
+
+              </div>
             </li>
             </ul>
 
             <p v-if="loading">Loading...</p>
             <p v-if="noMore">No more</p>
         </div>
+      </div>
+        
     </slot>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 // import { Component, Prop, Vue } from 'vue-property-decorator'
-const url = "http://127.0.0.1:1943/showmusicimage/9"
+const url = "http://127.0.0.1:1943/showmusicimage/"
 const count = ref(1)
 const loading = ref(false)
 const noMore = computed(() => count.value >= 20)
