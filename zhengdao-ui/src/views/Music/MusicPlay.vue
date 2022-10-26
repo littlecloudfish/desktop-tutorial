@@ -30,6 +30,7 @@
                     <suspense timeout="100">
                       <showmusicinfo></showmusicinfo>
                     </suspense>
+                    <ratemusic></ratemusic>
                   </el-col>
                   <el-col :span="12">
                     <suspense timeout="100">
@@ -53,6 +54,7 @@
   import musicaudio from '../../components/function/musicaudio.vue';
   import showmusicinfo from '../../components/function/showmusicinfo.vue'
   import showlyris from '../../components/function/showlyris.vue'
+  import ratemusic from '../../components/function/ratemusic.vue'
 
   export default ({
       components:{
@@ -61,7 +63,8 @@
           bfooter,
           musicaudio,
           showmusicinfo,
-          showlyris
+          showlyris,
+          ratemusic
       },
   
       setup() {

@@ -54,7 +54,6 @@ export default{
         }
     },
     async musiclyrics(context, payload){
-        console.log('commit lyrics');
         const backapi = 'http://127.0.0.1:1943';
         const musicnumber = payload;
         try{
@@ -104,39 +103,27 @@ export default{
             }
         }
     },
+    async setmusicscore(context, payload){
+        const url = 'http://127.0.0.1:1943/ratemusic'
+        const data ={
+            musicid: payload.musicid,
+            musicscore: payload.musicscore,
+        }
+        axios({
+            method: 'post',
+            url: url,
+            data:data,
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8",
+              },
+         
+        }).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+   
+    },
 }
          
-        // }).then((response) => {
-        //     context.commit('setUser',{
-        //         token: response.data.access_token,
-        //         userId: payload.username,
-        //     });
-        // 0
-        // : 
-        // cover_address
-        // : 
-        // "/demopicture/example.png"
-        // id
-        // : 
-        // 1
-        // music_address
-        // : 
-        // "/DEMOMUSIC/crimanal.mp3"
-        // name
-        // : 
-        // "crimanal"
-        // post_date
-        // : 
-        // "2022-08-17T20:13:19"
-        // user_id
-        // : 
-        // 1
-        // [[Prototype]]
-        // : 
-        // Object
-        // length
-        // : 
-        // 1
-        // [[Prototype]]
-        // : 
-        // Array(0)

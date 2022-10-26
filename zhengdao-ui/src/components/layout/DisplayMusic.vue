@@ -39,7 +39,8 @@
                           <template #default  >
                               <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
                                 
-                                <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id"> 
+                                
+                                <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(i-1)+n-1).id}}">
                                   <el-image style="width: 150px; height: 150px" :src="url+postposition(posts,4*(i-1)+n-1).id " :fit="scale-down" />
                                 </router-link> 
                                 <div style="padding: 25px">
@@ -47,7 +48,7 @@
                                     <div class="bottom card-header">
                                     <div class="time">{{ postposition(posts,4*(i-1)+n-1).post_date }}</div>
                                     <el-button text class="button">
-                                      <router-link :to="'MusicPlay/'+postposition(posts,4*(i-1)+n-1).id">
+                                      <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(i-1)+n-1).id}}">
                                         open
                                       </router-link>
                                     </el-button>
@@ -62,8 +63,60 @@
               </div>
              
             </li>
+              <div v-if="remainder !=0">
+                <li class="list-item">
+                  <el-row :gutter="20">
+                <el-col :span="6" v-for="n in remainder" :key="n" >
+                    <!-- {{n}}
+                    {{count}}
+                    {{ 4*(count)+n-1 }} -->
+                      <el-skeleton style="width: 240px" :loading="loading" animated>
+                          <template #template >
+                              <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
+                              <div style="padding: 14px">
+                              <el-skeleton-item variant="h3" style="width: 50%" />
+                              <div
+                                  style="
+                                  display: flex;
+                                  align-items: center;
+                                  justify-items: space-between;
+                                  margin-top: 0px;
+                                  height:0px;
+                                  
+                                  "
+                              >
+                                  <el-skeleton-item variant="text" style="margin-right: 16px" />
+                                  <el-skeleton-item variant="text" style="width: 30%" />
+                              </div>
+                              </div>
+                          </template>
+                          <template #default  >
+                              <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
+                                
+                                  <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(count)+n-1).id}}">
+                                  <el-image style="width: 150px; height: 150px" :src="url+postposition(posts,4*(count)+n-1).id " :fit="scale-down" />
+                                </router-link> 
+                                <div style="padding: 25px">
+                                    <span>{{ postposition(posts,4*(count)+n-1).name }}</span>
+                                    <div class="bottom card-header">
+                                    <div class="time">{{ postposition(posts,4*(count)+n-1).post_date }}</div>
+                                    <el-button text class="button">
+                                      <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(count)+n-1).id}}">
+                                        open
+                                      </router-link>
+                                    </el-button>
+                                    </div>
+                                </div>
+                              </el-card>
+                          </template>
+                          </el-skeleton>
+                </el-col>
+                </el-row>
+                </li>
+              </div>
+
             </ul>
-            <p v-if="noMore">No more</p>
+            <p v-if="noMore && ifremain " style="color:white">No more Display</p>
             <p v-if="loading">Loading...</p>
             
         </div>
@@ -78,15 +131,17 @@ import { computed, ref, inject } from 'vue'
 const url = "http://127.0.0.1:1943/showmusicimage/"
 const lengthofpost = Math.floor( props.posts.length/4 )
 const remainder = props.posts.length%4
-const count = ref(1)
+const ifremain = ref(true)
+// const ifremain = computed(()=>{return remainder == 0;})
+
+const count = ref(0)
 const loading = ref(false)
-const noMore = computed(() => { console.log('call in nomore '+noMore.value )
+const noMore = computed(() => { 
   return count.value >= lengthofpost;
   
 }
 )
-console.log('no more ' + noMore.value)
-const disabled = computed(() => {  console.log('call in disable '+disabled.value )
+const disabled = computed(() => { 
 
   return loading.value || count.value >= lengthofpost;
 })

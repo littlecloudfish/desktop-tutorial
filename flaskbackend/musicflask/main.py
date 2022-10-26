@@ -211,8 +211,20 @@ def show_musics(timeperiod):
 @app.route("/music/<int:music_id>")
 def playmusic(music_id):
     record = app.session.query(models.Music).get(music_id)
+
     return jsonify([record.to_dict()])
 
+@app.route("/ratemusic",methods = ['POST'])
+# @jwt_required
+def ratemusic():
+    # user_id = current_user.id
+    musicid=request.json.get("musicid",None)
+    musicgrade = request.json.get("musicscore",None)
+    user_id =1 
+    scoremusic = models.Score(grade = musicgrade, user_id=user_id,music_id=musicid)
+    app.session.add(scoremusic)
+    app.session.commit()
+    return make_response('Add %s score successfully' % musicid, 200)
 @app.route('/enjoymusic/<int:id>')
 def enjoymusic(id):
     try:
