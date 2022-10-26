@@ -3,6 +3,7 @@
       <div v-if="posts.length === 0">
        <p style="color:white">No Music Display </p>
       </div>
+
       <div v-else>
         <div class="infinite-list-wrapper" style="overflow: auto">
             <ul
@@ -14,7 +15,7 @@
               <div v-if="i != undefined">
                 <el-row :gutter="20">
                 <el-col :span="6" v-for="n in 4" :key="n" >
-                    hello
+                    
                       <el-skeleton style="width: 240px" :loading="loading" animated>
                           <template #template >
                               <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
@@ -59,14 +60,12 @@
                 </el-row>
                 
               </div>
-              <div v-else>
-
-              </div>
+             
             </li>
             </ul>
-
-            <p v-if="loading">Loading...</p>
             <p v-if="noMore">No more</p>
+            <p v-if="loading">Loading...</p>
+            
         </div>
       </div>
         
@@ -74,38 +73,39 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, inject } from 'vue'
 // import { Component, Prop, Vue } from 'vue-property-decorator'
 const url = "http://127.0.0.1:1943/showmusicimage/"
+const lengthofpost = Math.floor( props.posts.length/4 )
+const remainder = props.posts.length%4
 const count = ref(1)
 const loading = ref(false)
-const noMore = computed(() => count.value >= 20)
-const disabled = computed(() => loading.value || noMore.value)
+const noMore = computed(() => { console.log('call in nomore '+noMore.value )
+  return count.value >= lengthofpost;
+  
+}
+)
+console.log('no more ' + noMore.value)
+const disabled = computed(() => {  console.log('call in disable '+disabled.value )
+
+  return loading.value || count.value >= lengthofpost;
+})
 const currentDate = new Date().toDateString()
 const load = () => {
   loading.value = true
   setTimeout(() => {
-    count.value += 2
-    loading.value = false
+    if(count.value <= lengthofpost){
+      count.value += 1
+      loading.value = false
+    }  
+    else{
+      loading.value = false
+      noMore
+      disabled
+    }
   }, 2000)
 }
-// let posts=[
-//   {
-//     "cover_address": "/demopicture/example.png",
-//     "id": 1,
-//     "music_address": "/DEMOMUSIC/crimanal.mp3",
-//     "name": "crimanal",
-//     "post_date": "2022-08-17T20:13:19",
-//     "user_id": 1
-//   },
-//   {
-//     "cover_address": "/demopicture/example.png",
-//     "id": 2,
-//     "music_address": "/DEMOMUSIC/crimanal.mp3",
-//     "name": "dangerous",
-//     "post_date": "2022-08-17T20:13:19",
-//     "user_id": 2
-//   },]
+
 function postposition(post,x){
     return post[x];
 }
@@ -113,8 +113,6 @@ function postposition(post,x){
 // export default defineComponent({
 //     props:['posts'],
 //     setup(){
-
-
 //     },
 // })
 

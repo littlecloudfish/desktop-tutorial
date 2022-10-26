@@ -50,7 +50,6 @@
      
     },
     async beforeUpdate(){
-        this.otherList = audioList;
       },
     
   }
