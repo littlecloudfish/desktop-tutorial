@@ -12,7 +12,7 @@
             :infinite-scroll-disabled="disabled"
             >
             <li v-for="i in count" :key="i" class="list-item"  >
-              <div v-if="i != undefined">
+              <div v-if="i != undefined && i != lengthofpost + 1">
                 <el-row :gutter="20">
                 <el-col :span="6" v-for="n in 4" :key="n" >
                     
@@ -38,8 +38,6 @@
                           </template>
                           <template #default  >
                               <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
-                                
-                                
                                 <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(i-1)+n-1).id}}">
                                   <el-image style="width: 150px; height: 150px" :src="url+postposition(posts,4*(i-1)+n-1).id " :fit="scale-down" />
                                 </router-link> 
@@ -58,63 +56,106 @@
                           </template>
                           </el-skeleton>
                 </el-col>
-                </el-row>
-                
+                </el-row>  
               </div>
+              <!-- <div v-if="i == lengthofpost + 1 && remainder !=0" class="list-single-item">
+                <el-row :gutter="20">
+                    <el-col :span="6" v-for="n in remainder" :key="n" >
+                          <el-skeleton style="width: 240px" :loading="loading" animated>
+                              <template #template >
+                                  <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
+                                  <div style="padding: 14px">
+                                  <el-skeleton-item variant="h3" style="width: 50%" />
+                                  <div
+                                      style="
+                                      display: flex;
+                                      align-items: center;
+                                      justify-items: space-between;
+                                      margin-top: 0px;
+                                      height:0px;
+                                      
+                                      "
+                                  >
+                                      <el-skeleton-item variant="text" style="margin-right: 16px" />
+                                      <el-skeleton-item variant="text" style="width: 30%" />
+                                  </div>
+                                  </div>
+                              </template>
+                              <template #default  >
+                                  <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
+                                    
+                                      <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(count)+n-1).id}}">
+                                      <el-image style="width: 150px; height: 150px" :src="url+postposition(posts,4*(count)+n-1).id " :fit="scale-down" />
+                                    </router-link> 
+                                    <div style="padding: 25px">
+                                        <span>{{ postposition(posts,4*(count)+n-1).name }}</span>
+                                        <div class="bottom card-header">
+                                        <div class="time">{{ postposition(posts,4*(count)+n-1).post_date }}</div>
+                                        <el-button text class="button">
+                                          <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(count)+n-1).id}}">
+                                            open
+                                          </router-link>
+                                        </el-button>
+                                        </div>
+                                    </div>
+                                  </el-card>
+                              </template>
+                              </el-skeleton>
+                    </el-col>
+                    </el-row>
+              </div> -->
              
             </li>
-              <div v-if="remainder !=0">
-                <li class="list-item">
-                  <el-row :gutter="20">
-                <el-col :span="6" v-for="n in remainder" :key="n" >
-                    <!-- {{n}}
-                    {{count}}
-                    {{ 4*(count)+n-1 }} -->
-                      <el-skeleton style="width: 240px" :loading="loading" animated>
-                          <template #template >
-                              <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
-                              <div style="padding: 14px">
-                              <el-skeleton-item variant="h3" style="width: 50%" />
-                              <div
-                                  style="
-                                  display: flex;
-                                  align-items: center;
-                                  justify-items: space-between;
-                                  margin-top: 0px;
-                                  height:0px;
-                                  
-                                  "
-                              >
-                                  <el-skeleton-item variant="text" style="margin-right: 16px" />
-                                  <el-skeleton-item variant="text" style="width: 30%" />
-                              </div>
-                              </div>
-                          </template>
-                          <template #default  >
-                              <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
-                                
-                                  <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(count)+n-1).id}}">
-                                  <el-image style="width: 150px; height: 150px" :src="url+postposition(posts,4*(count)+n-1).id " :fit="scale-down" />
-                                </router-link> 
-                                <div style="padding: 25px">
-                                    <span>{{ postposition(posts,4*(count)+n-1).name }}</span>
-                                    <div class="bottom card-header">
-                                    <div class="time">{{ postposition(posts,4*(count)+n-1).post_date }}</div>
-                                    <el-button text class="button">
+                <li v-if="remainder !=0 && count == lengthofpost" class="list-single-item">
+                  <div>
+                    <el-row :gutter="20">
+                    <el-col :span="3"></el-col>
+                    <el-col :span="6" v-for="n in remainder" :key="n" >
+                          <el-skeleton style="width: 240px" :loading="loading" animated>
+                              <template #template >
+                                  <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
+                                  <div style="padding: 14px">
+                                  <el-skeleton-item variant="h3" style="width: 50%" />
+                                  <div
+                                      style="
+                                      display: flex;
+                                      align-items: center;
+                                      justify-items: space-between;
+                                      margin-top: 0px;
+                                      height:0px;
+                                      
+                                      "
+                                  >
+                                      <el-skeleton-item variant="text" style="margin-right: 16px" />
+                                      <el-skeleton-item variant="text" style="width: 30%" />
+                                  </div>
+                                  </div>
+                              </template>
+                              <template #default  >
+                                  <el-card :body-style="{ padding: '0px', marginBottom: '0px', background: '#0b1c2c',  }">
+                                    
                                       <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(count)+n-1).id}}">
-                                        open
-                                      </router-link>
-                                    </el-button>
+                                      <el-image style="width: 150px; height: 150px" :src="url+postposition(posts,4*(count)+n-1).id " :fit="scale-down" />
+                                    </router-link> 
+                                    <div style="padding: 25px">
+                                        <span>{{ postposition(posts,4*(count)+n-1).name }}</span>
+                                        <div class="bottom card-header">
+                                        <div class="time">{{ postposition(posts,4*(count)+n-1).post_date }}</div>
+                                        <el-button text class="button">
+                                          <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(count)+n-1).id}}">
+                                            open
+                                          </router-link>
+                                        </el-button>
+                                        </div>
                                     </div>
-                                </div>
-                              </el-card>
-                          </template>
-                          </el-skeleton>
-                </el-col>
-                </el-row>
+                                  </el-card>
+                              </template>
+                              </el-skeleton>
+                    </el-col>
+                    </el-row>
+                  </div> 
                 </li>
-              </div>
-
+             
             </ul>
             <p v-if="noMore && ifremain " style="color:white">No more Display</p>
             <p v-if="loading">Loading...</p>
@@ -133,7 +174,6 @@ const lengthofpost = Math.floor( props.posts.length/4 )
 const remainder = props.posts.length%4
 const ifremain = ref(true)
 // const ifremain = computed(()=>{return remainder == 0;})
-
 const count = ref(0)
 const loading = ref(false)
 const noMore = computed(() => { 
@@ -149,11 +189,12 @@ const currentDate = new Date().toDateString()
 const load = () => {
   loading.value = true
   setTimeout(() => {
-    if(count.value <= lengthofpost){
-      count.value += 1
+    if(count.value <= lengthofpost-2){
+      count.value += 2
       loading.value = false
     }  
     else{
+      count.value += 1
       loading.value = false
       noMore
       disabled
@@ -196,6 +237,16 @@ const props = defineProps({
 
 .infinite-list-wrapper .list-item {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
+  /* background: var(--el-color-danger-light-1);
+  color: var(--el-color-danger); */
+  background: "0b1c2c"; 
+  color: "0b1c2c";
+}
+.infinite-list-wrapper .list-single-item{
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   height: 350px;

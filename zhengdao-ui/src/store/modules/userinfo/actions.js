@@ -23,7 +23,7 @@ export default{
         }catch(err){
             if (err.message == 'Request failed with status code 401'){
                 console.log('called if');
-                throw { message : "Wrong password or username" , number: 1000};
+                throw { message : "No Information Provided" , number: 308};
             }
             else {
                 throw err;
@@ -48,7 +48,7 @@ export default{
         }catch(err){
             if (err.message == 'Request failed with status code 401'){
                 console.log('called if');
-                throw { message : "Wrong password or username" , number: 1000};
+                throw { message : "No Information Provided" , number: 308};
             }
             else {
                 throw err;
@@ -73,7 +73,7 @@ export default{
         }catch(err){
             if (err.message == 'Request failed with status code 401'){
                 console.log('called if');
-                throw { message : "Wrong password or username" , number: 1000};
+                throw { message : "No Information Provided" , number: 308};
             }
             else {
                 throw err;

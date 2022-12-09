@@ -46,7 +46,7 @@ export default{
         }catch(err){
             if (err.message == 'Request failed with status code 401'){
                 console.log('called if');
-                throw { message : "Wrong password or username" , number: 1000};
+                throw { message : "No music info display" , number: 308};
             }
             else {
                 throw err;
@@ -70,7 +70,7 @@ export default{
         }catch(err){
             if (err.message == 'Request failed with status code 401'){
                 console.log('called if');
-                throw { message : "Wrong password or username" , number: 1000};
+                throw { message : "No music lyrics display" , number: 308};
             }
             else {
                 throw err;
@@ -96,7 +96,7 @@ export default{
         }catch(err){
             if (err.message == 'Request failed with status code 401'){
                 console.log('called if');
-                throw { message : "Wrong password or username" , number: 1000};
+                throw { message : "No List Display" , number: 308};
             }
             else {
                 throw err;

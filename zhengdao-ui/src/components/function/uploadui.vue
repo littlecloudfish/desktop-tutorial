@@ -4,21 +4,20 @@
       <div>
         <el-row>
           <el-col :span="24">Input Music Name</el-col>
-        
           <el-col :span="20">
               <el-input v-model.trim="musicname" placeholder="Please input Music Name" />
           </el-col>
         </el-row>
       </div>
-      <!-- <div>
+      <div>
         <el-row>
           <el-col :span="24">Input Music Link</el-col>
           <el-col :span="20">
               <el-input v-model="musiclink" placeholder="Please input Music Link" />
           </el-col>
         </el-row>
-      </div>  -->
-         <!-- <el-row>
+      </div> 
+         <el-row>
           <el-col :span="24">Input Music Performers(DiscordId)</el-col>
           <el-col :span="24">
               <el-input v-model="musicperformer" placeholder="Please input Performers" />
@@ -45,13 +44,13 @@
           <el-col :span="24">
               <el-input v-model="input" placeholder="Please input Producer" />
           </el-col>
-        </el-row> -->
+        </el-row>
        <div>
         <el-row>
           <el-col :span="24">Input Music Release Date</el-col>
-          <!-- <el-col :span="20">
+          <el-col :span="20">
               <el-input v-model="releasedate" placeholder="Please input" />
-          </el-col> -->
+          </el-col>
         <div class="demo-date-picker">
           <div class="block">
             <el-date-picker

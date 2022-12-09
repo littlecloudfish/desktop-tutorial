@@ -1,6 +1,6 @@
 <template>
     <div class="affix-container">
-      <el-affix target=".affix-container" :offset="80">
+      <el-affix >
         <!-- <el-button type="primary">Target container</el-button> -->
         <el-autocomplete
             v-model="state"
@@ -9,9 +9,9 @@
             @select="handleSelect">
             <template #prepend>
                 <el-select v-model="select" placeholder="Select" style="width: 115px">
-                <el-option label="Restaurant" value="1" />
-                <el-option label="Order No." value="2" />
-                <el-option label="Tel" value="3" />
+                <el-option label="Music Name" value="1" />
+                <el-option label="User Name" value="2" />
+                <el-option label="Any" value="3" />
                 </el-select>
             </template>
             <template #append>
@@ -19,15 +19,15 @@
             </template>
         </el-autocomplete>    
       </el-affix>
-      <b style="color:#FFFFFF">
-        <router-link to="/about" style="text-decoration: none; color: inherit;" >
+      <d style="color:white" >
+        <router-link :to="{name:'MusicUserLogin'}" style="text-decoration: none; color: inherit;" >
           Login
         </router-link>
         /
-        <router-link to="/about" style="text-decoration: none; color: inherit;" >
+        <router-link :to="{name:'MusicUserRegister'}" style="text-decoration: none; color: inherit;" >
           Register
         </router-link>
-      </b>
+      </d>
     </div>
     
 </template>
@@ -85,6 +85,8 @@
     onMounted(() => {
       links.value = loadAll()
     })
+    
+
     </script>
 
   <style scoped>
@@ -95,7 +97,10 @@
     /* background: var(--el-color-primary-light-9); */
     background-color: rgba(0,0,0,0.2);
   }
-  b{
+  el-affix{
+    top:50%;
+  }
+  d{
     padding-left: 70%;
   }
   </style>

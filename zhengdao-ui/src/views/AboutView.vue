@@ -1,27 +1,8 @@
 <template>
-
-  <image-compressor
-    :done="getFiles"
-    :scale="scale"
-    :quality="quality">
-  </image-compressor>
-
+ <div>{{BASE_URL}}</div>
 </template>
 
+<script async lang="ts" setup>
 
-<script>
-
-  import imageCompressor from 'vue-image-compressor';
-
-  export default {
-
-    components: { imageCompressor },
-
-    methods: {
-      getFiles(obj){
-        console.log(obj);
-      }
-    }
-  };
-
+const BASE_URL = process.env.NODE_HOST
 </script>

@@ -15,10 +15,10 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-          <el-input v-model="password" placeholder="Please input Password" />
+          <el-input v-model="password" type="password" placeholder="Please input Password" />
       </el-col>
     </el-row>
-    <p v-if="!validpassword">Username or Password are invalid. Please check your provided data.</p>
+    <!-- <p v-if="!validpassword">Username or Password are invalid. Please check your provided data.</p> -->
   
     <div>
       <el-row>
@@ -26,7 +26,11 @@
         <!-- <el-button type="Success" round @click="forgetpassword" >Forget Passwords</el-button> -->
       </el-row>
       <el-row>
-        <el-button type="Success" round  ><a href="/MusicUserRegister">Signup</a></el-button>  
+        <el-button type="Success" round  >
+          <router-link :to="{name:'MusicUserRegister'}" style="text-decoration: none; color: inherit;" >
+          SignUp
+          </router-link>
+        </el-button>  
       </el-row> 
     </div>
   </template>
@@ -38,7 +42,7 @@
         username: '',
         validusername:true,
         password:'',
-        validpassword:true,
+        // validpassword:true,
         isloading:false,
         error: null,
         mode: 'Login',

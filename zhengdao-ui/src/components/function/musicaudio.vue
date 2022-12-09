@@ -2,15 +2,14 @@
     <!-- <div class="about">
       <h1>Not Found</h1>
     </div> -->
-    
         <div>
           <p style = "color:beige">Music Name:</p>
           <p style = "color:beige; padding-bottom:3px;">{{ currentAudioName || audioList[0].name }}</p>
-        <audio-player
-            ref="audioPlayer"
-            :audio-list="this.audioList.map(elm => elm.url)"
-            theme-color="#ffff"
-        />
+          <audio-player
+              ref="audioPlayer"
+              :audio-list="this.audioList.map(elm => elm.url)"
+              theme-color="#ffff"
+          />
         </div>
     <!-- {{audioList[0].url}} -->
 </template>
