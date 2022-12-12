@@ -1,172 +1,133 @@
 <template>
-    <h2>Upload Music</h2>
-    <form>
-      <div>
-        <el-row>
-          <el-col :span="24">Input Music Name</el-col>
-          <el-col :span="20">
-              <el-input v-model.trim="musicname" placeholder="Please input Music Name" />
-          </el-col>
-        </el-row>
-      </div>
-      <div>
-        <el-row>
-          <el-col :span="24">Input Music Link</el-col>
-          <el-col :span="20">
-              <el-input v-model="musiclink" placeholder="Please input Music Link" />
-          </el-col>
-        </el-row>
-      </div> 
-         <el-row>
-          <el-col :span="24">Input Music Performers(DiscordId)</el-col>
-          <el-col :span="24">
-              <el-input v-model="musicperformer" placeholder="Please input Performers" />
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">Input Music Composer(DiscordId)</el-col>
-          <el-col :span="24">
-              <el-input v-model="input" placeholder="Please input Composer" />
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">Input Music Editor(DiscordId)</el-col>
-          <el-col :span="24">
-              <el-input v-model="input" placeholder="Please input Editor" />
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">Input Music Songwriter(DiscordId)</el-col>
-          <el-col :span="24">
-              <el-input v-model="input" placeholder="Please input Songwriter" />
-          </el-col>
-          <el-col :span="24">Input Music Producer(DiscordId)</el-col>
-          <el-col :span="24">
-              <el-input v-model="input" placeholder="Please input Producer" />
-          </el-col>
-        </el-row>
-       <div>
-        <el-row>
-          <el-col :span="24">Input Music Release Date</el-col>
-          <el-col :span="20">
-              <el-input v-model="releasedate" placeholder="Please input" />
-          </el-col>
-        <div class="demo-date-picker">
-          <div class="block">
-            <el-date-picker
-              v-model="value1"
-              type="date"
-              placeholder="Pick a day"
-              size="large"
-              format="YYYY/MM/DD"
-              value-format="YYYY-MM-DD"
-            />
-          </div>
-        </div>
-        </el-row>
-      </div>
-      <div>
-        <el-row>
-          <el-col :span="24">Input Music Lyrics</el-col>
-          <el-col :span="20">
-            <el-input v-model="musiclyrics" 
-              :autosize="{ minRows: 5, maxRows: 100 }"
-              placeholder="Please Input Lyrics"
-              type="textarea"
-               />
-          </el-col>
-        </el-row>
-      </div>
-      <div>
-        <el-row>
-          <el-col :span="24">Input Music Cover Picture</el-col>
-          <input type="file"  @change="onFileSelected">
-        </el-row>
-        <el-row>
-          <el-col :span="24">Input Music Mp3 file</el-col>
-          <input type="file" @change="onMusicFileSelected">
-        </el-row>
-      </div>
-      <div>
-        <el-row>
-          <el-button type="primary" round @click="submitresult" >Submit</el-button>  
-        </el-row>
-      </div>
-    </form>
-  </template>
-  
-  <script>
-  import axios from 'axios';
-  
-  export default{
-    data(){
-      return{
-        musicname: '',
-        validmusicname:true,
-        musiclink:'',
-        validmusiclink:true,
-        musiclyrics:'',
-        validelyrics:true,
-        musicperformer:'',
-        validmusicperformer:true,
-        releasedate:'',
-        error: null,
-        value1: null,
-      };
+  <Form :validation-schema="schema" @submit="onSubmit">
+    <el-row>
+      <el-col :span="24">Input Music Name</el-col>
+    </el-row>
+    <Field name="musicname" type="musicname" />
+    <ErrorMessage name="musicname" />
+    <el-row>
+          <el-col style="color:white" :span="24">Input Music Link</el-col>
+    </el-row>
+    <Field name="musiclink" />
+    <ErrorMessage name="musiclink" />
+    <el-row>
+          <el-col style="color:white" :span="24">Input Music Performer</el-col>
+    </el-row>
+    <Field name="performers" />
+    <!-- <button onclick="switchVisibility()">show / hide</button> -->
+    <ErrorMessage name="performers" />
+    <el-row>
+          <el-col style="color:white" :span="24">Input Music Composer</el-col>
+    </el-row>
+    <Field name="Composer"  />
+    <ErrorMessage name="Composer" />
+    <el-row>
+          <el-col style="color:white" :span="24">Input Music Editor</el-col>
+    </el-row>
+    <Field name="Editor" />
+    <!-- <button onclick="switchVisibility()">show / hide</button> -->
+    <ErrorMessage name="Editor" />
+    <el-row>
+          <el-col style="color:white" :span="24">Input Music Songwriter</el-col>
+    </el-row>
+    <Field name="Songwriter" />
+    <!-- <button onclick="switchVisibility()">show / hide</button> -->
+    <ErrorMessage name="Songwriter" />
+    <el-row>
+          <el-col style="color:white" :span="24">Input Music Producer</el-col>
+    </el-row>
+    <Field name="Producer" />
+    <!-- <button onclick="switchVisibility()">show / hide</button> -->
+    <ErrorMessage name="Producer" />
+    <el-row>
+          <el-col style="color:white" :span="24">Input Music Lyrics</el-col>
+    </el-row>
+    <Field name="Lyrics" type="text"/>
+    <!-- <button onclick="switchVisibility()">show / hide</button> -->
+    <ErrorMessage name="Lyrics" />
+    <button>Submit</button>
+
+  </Form>
+</template>
+<script lang="ts" setup>
+import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+import YupPassword from 'yup-password';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import type { Action } from 'element-plus';
+import router from '@/router';
+YupPassword(yup)
+
+
+const schema = yup.object().shape({
+  musicname: yup.string().required('Please Enter Your Music Name'),
+  musiclink: yup.string().required('Please Enter Your Link'),
+  performers: yup.string(),
+  Composer:yup.string(),
+  Editor:yup.string(),
+  Songwriter:yup.string(),
+  Producer:yup.string(),
+  Lyrics:yup.string(),
+});
+
+//try successful button 
+const open = () => {
+  ElMessageBox.alert('This is a message', 'Title', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    
+    confirmButtonText: 'Login',
+    // cancel-button-text:'oncemore',	
+    cancelButtonText:'oncemore',
+    callback: (action: Action) => {
+      if (action === 'confirm'){
+        router.push({name:'MusicUserLogin'})
+      }
     },
-    methods:{
-      // async submitresult(){
-      //   const fd = new FormData();
-      //   fd.append('pic', this.selectedFile, this.selectedFile.name)
-      //   fd.append('mp3', this.musicfile, this.musicfile.name)
-      //   try{
-      //     await this.$store.dispatch('request/uploadmusic',fd);
-      //   }catch(err){
-      //     this.error = err.message || "Fail to enter try again";
-      //   };
-      async submitresult(){
-        console.log(this.musiclyrics)
-        //   const fd = new FormData();
-        //   fd.append('pic', this.selectedFile, this.selectedFile.name)
-        //   fd.append('mp3', this.musicfile, this.musicfile.name)
-        //   fd.append('musicname',this.musicname)
-        //   fd.append('releasedate',this.value1)
-        //   try{
-        //     await this.$store.dispatch('request/uploadmusic',fd);
-        //   }catch(err){
-        //     this.error = err.message || "Fail to enter try again";
-        //   }
-      },
-      onFileSelected(event){
-              this.selectedFile = event.target.files[0]
-          },
-      onMusicFileSelected(event){
-          this.musicfile = event.target.files[0]  //not sure 0 or 1
-      },
-  
-      },
-  
-  };
-  </script>
-  
-  <style lang="scss">
-  .el-row {
-    margin-bottom: 3px;
-  }
-  .el-row:last-child {
-    margin-bottom: 0;
-  }
-  .el-col {
-    color:bisque ;
-    padding-top: 0px;
-    padding-bottom: 0px;;
-  }
-  .el-input{
-    padding-bottom: 0px;
-    padding-top:0px;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  </style>
+  })
+};
+// const passwordField = document.querySelector('#password')
+
+// function switchVisibility() {
+//   if (passwordField.getAttribute('type') === 'password') passwordField.setAttribute('type', 'text')
+//   else passwordField.setAttribute('type', 'password')
+// }
+function onSubmit(values) {
+  ElMessageBox.alert(values.name, 'Successfully Uploaded', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    confirmButtonText:'One More Song',
+    cancelButtonText:'oncemore',
+    callback: (action: Action) => {
+      if (action === 'confirm'){
+        router.push({name:'MusicHome'})
+      }
+    },
+  })
+
+}
+</script>
+
+
+
+<style lang="scss">
+.el-row {
+  margin-bottom: 3px;
+}
+.el-row:last-child {
+  margin-bottom: 0;
+}
+.el-col {
+  color:bisque ;
+  padding-top: 0px;
+  padding-bottom: 0px;;
+}
+.el-input{
+  padding-bottom: 0px;
+  padding-top:0px;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+</style>

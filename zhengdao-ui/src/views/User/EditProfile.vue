@@ -9,16 +9,16 @@
             <el-aside >
               <sidenavi></sidenavi>
             </el-aside>
-            <el-main class="inside-main"> 
+            <el-main class="inside-main">
               <div>
-                <!-- <div v-if="dataready">
-                  <display-music :posts="posts"></display-music>
-                </div> -->
-                <div>
-                  Type of Music enjoy
-                </div>
-                <showlabel/>
+                <el-button color="#103057"  @click = "open">Edit</el-button>
               </div>
+              <div>
+                <suspense timeout="100">
+                  <userinfo></userinfo>
+                </suspense>
+              </div>
+              
             </el-main>
           </el-container>
         </el-main>
@@ -28,47 +28,19 @@
       </el-container>
     </div>
   </template>
-<script lang="ts" setup>
-import sidenavi from '../../components/layout/sidenavi.vue';
-import webhead from '../../components/layout/webhead.vue';
-import bfooter from '../../components/layout/bottomfooter.vue';
-import showlabel from '../../components/layout/Showlabel.vue';
-
-</script>
-
-  <!-- <script>
+  <script lang="ts" setup>
   import sidenavi from '../../components/layout/sidenavi.vue';
   import webhead from '../../components/layout/webhead.vue';
   import bfooter from '../../components/layout/bottomfooter.vue';
+  import userinfo from '../../components/layout/userinfo.vue';
+  import router from '@/router';
   
-  export default ({
-      components:{
-          sidenavi,
-          webhead,
-          bfooter,
-      },
-  
-      setup() {
-          
-      },
-      data() {
-          return{
-             
-                posts: null,
-                dataready:false
-              
-          }
-      },
-      async beforeCreate(){
-          this.$store.dispatch('music/musiclistinfo').then(() => {
-              this.posts = this.$store.getters['music/listofMusic'];
-              this.dataready = true;
-          })
-      },
-  })
+  const open = () =>{
+    router.push({name:'PersonalEdit'})
+  }
   
   
-  </script> -->
+  </script>
   <style scoped>
   .el-aside{
     background-color: #0b1c2c;
@@ -111,3 +83,4 @@ import showlabel from '../../components/layout/Showlabel.vue';
     }
   
   </style>
+  

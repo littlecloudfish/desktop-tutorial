@@ -6,54 +6,31 @@
             </el-col>
             <el-col :span="12" class="textinfo">
                 <p style = "color:white">Player Name:{{userinfomation.fullname}}</p>
-                <p style = "color:white">Player DiscordId:</p>
+                <p style = "color:white">Player DiscordId:{{userinfomation.discordId}}</p>
                 <p style = "color:white">Account Created Day:{{userinfomation.create_date}}</p>
             </el-col>
             
         </el-row>
         <div v-if="dataready">
             <!-- <div> -->
-                <display-music :posts=userpublish></display-music>
+                <!-- <display-music :posts=userpublish></display-music> -->
             </div>
         <el-row>
         
         </el-row>   
     </div>
 </template>
- <script> 
-  import {useStore} from 'vuex'
-  import {inject} from 'vue'
-  
-  export default {
-    inject:['userid'],
-    async setup (){
-        const userid = inject('userid')
-        const store = useStore()
-        await store.dispatch('userInfo/personinfo', userid)
-        const userinfomation = await store.getters['userInfo/personinfo']
-        await store.dispatch('userInfo/personmusic', userid)
-        const userpublish = await store.getters['userInfo/personalmusic']   
-        const dataready = true
-        return{
-            userinfomation,
-            userpublish,
-            dataready
-        }
-    },
-    data() {
-      return {
-        currentAudioName: '',
-        otherList:[],
-      }
-    },
-    methods: {
-     
-    },
-    async beforeUpdate(){
-      },
-    
-  }
-  </script>
+
+<script lang="ts" setup>
+const userinfomation = {fullname:'hello fucker', create_date:'hello date', discordId :'9001'};
+const dataready = false
+
+
+
+</script>
+
+
+ 
 
   <style scoped>
  .infocard{

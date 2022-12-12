@@ -41,15 +41,26 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/User/MusicUserUpload.vue') 
   },
   {
+    path: '/Personal',
+    name: 'Personal',
+    component: () => import('../views/User/MyProfile.vue') 
+  },
+  {
+    path: '/PersonalEdit',
+    name: 'PersonalEdit',
+    component: () => import('../views/User/EditProfile.vue') 
+  },
+  {
     path: '/MusicPlay/:id',
     name: 'MusicPlay',
     component: () => import('../views/Music/MusicPlay.vue') 
   },
-  {
-    path: '/MusicSearch',
-    name: 'MusicSearch',
-    component: () => import('../views/Music/MusicSearch.vue') 
-  },
+  
+  // {
+  //   path: '/MusicSearch',
+  //   name: 'MusicSearch',
+  //   component: () => import('../views/Music/MusicSearch.vue') 
+  // },
   {
     path: '/MusicLatest',
     name: 'MusicLatest',
