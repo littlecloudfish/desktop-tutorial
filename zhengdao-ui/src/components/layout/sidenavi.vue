@@ -13,7 +13,7 @@
         <router-link to="/" style="text-decoration: none; color: inherit;">
           <el-menu-item index="1">
             <span>
-                  <el-button color="#103057"  type="primary" >
+                  <el-button color="#103057"  type="primary" :class = "{'activate-red':homeisActive}" >
                     <el-icon><House /></el-icon>
                     Home
                   </el-button>
@@ -23,7 +23,7 @@
           <el-sub-menu index="2">
             <template #title>
               <span>
-                  <el-button color="#103057" type="primary" >
+                  <el-button color="#103057" type="primary" :class = "{'activate-red':userisActivate}" >
                     <el-icon><location /></el-icon>
                     <router-link to="/MusicUser" style="text-decoration: none; color: inherit;">User</router-link>
                   </el-button>
@@ -59,10 +59,10 @@
             </el-menu-item-group>
             <el-menu-item index="1-4">
               <template #title>
-                <router-link to="/about" style="text-decoration: none; color: inherit;">
+                <router-link :to="{name:'MusicUserUpload'}" style="text-decoration: none; color: inherit;">
                   <el-button color="#103057" type="primary" >
                     <el-icon><Medal /></el-icon>
-                    My Publish
+                    Up Load Music
                   </el-button>
                 </router-link>
               </template>
@@ -71,8 +71,8 @@
           </el-sub-menu>
           
           <el-menu-item index="3">
-            <router-link to="/MusicScoreBoard" style="text-decoration: none; color: inherit;">
-                  <el-button color="#103057" type="primary" >
+            <router-link :to="{name:'MusicScoreBoard'}" style="text-decoration: none; color: inherit;">
+                  <el-button color="#103057" type="primary" :class = "{'activate-red':scoreisActivate}" >
                     <el-icon><Medal /></el-icon>
                     Score Board
                   </el-button>
@@ -81,17 +81,17 @@
           <el-menu-item index="4">
             <span>
               <router-link to="/about" style="text-decoration: none; color: inherit;">
-                  <el-button color="#103057" type="primary" >
+                  <el-button color="#103057" type="primary" :class = "{'activate-red':singerisActivate}" >
                     <el-icon><Sugar /></el-icon>
                     Singer
                   </el-button>
               </router-link>
             </span>
           </el-menu-item>
-          <el-menu-item index="5">
+          <el-menu-item index="5" >
             <span>
               <router-link to="/MusicType" style="text-decoration: none; color: inherit;">
-                  <el-button color="#103057" type="primary" >
+                  <el-button type="primary" color="#103057" :class = "{'activate-red':typeisActivate}" >
                     <el-icon><Grid /></el-icon>
                     Music Type
                   </el-button>
@@ -101,20 +101,46 @@
         </el-menu>
       </el-col>
     </el-row>
-  </template>
+</template>
   
-  <script lang="ts" setup>
-  
-  const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-  }
-  const handleClose = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-  }
-  </script>
+<script lang="ts" setup>
+import router from '@/router'
+
+const handleOpen = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+const handleClose = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+const currentrouteinfo = router.currentRoute.value.name
+var homeisActive = false
+var userisActivate = false
+var scoreisActivate = false
+var singerisActivate = false 
+var typeisActivate = false 
+if ( currentrouteinfo == 'home'){
+  homeisActive = true
+}
+else if (currentrouteinfo == 'MusicHome') {
+  userisActivate = true
+}
+else if (currentrouteinfo == 'MusicScoreBoard' ){
+  scoreisActivate = true
+}
+else if (currentrouteinfo == 'MusicUserLogin'){
+  singerisActivate = true
+}
+else if (currentrouteinfo == 'MusicType'){
+  typeisActivate = true
+}
+</script>
 
 <style>
 .el-menu{
   border-right: 0px;
 }
+.activate-red{
+  background-color: orange;
+}
+
 </style>

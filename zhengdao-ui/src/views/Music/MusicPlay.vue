@@ -17,7 +17,7 @@
               <el-row class="audioborder">
                 <!-- <play-music ></play-music> -->
                 <el-col :span="200" >
-                    <el-image style="width: 150px; height: 150px" src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg" fit="fill" />
+                    <el-image style="width: 150px; height: 150px" :src="'http://127.0.0.1:1943/showmusicimage/'+this.$route.params.id" fit="fill" />
                 </el-col>
                 <el-col :span="12">
                     <suspense timeout="100">
@@ -30,6 +30,7 @@
                     <suspense timeout="100">
                       <showmusicinfo></showmusicinfo>
                     </suspense>
+                    <ratemusic></ratemusic>
                   </el-col>
                   <el-col :span="12">
                     <suspense timeout="100">
@@ -53,6 +54,7 @@
   import musicaudio from '../../components/function/musicaudio.vue';
   import showmusicinfo from '../../components/function/showmusicinfo.vue'
   import showlyris from '../../components/function/showlyris.vue'
+  import ratemusic from '../../components/function/ratemusic.vue'
 
   export default ({
       components:{
@@ -61,7 +63,8 @@
           bfooter,
           musicaudio,
           showmusicinfo,
-          showlyris
+          showlyris,
+          ratemusic
       },
   
       setup() {

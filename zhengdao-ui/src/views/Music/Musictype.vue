@@ -11,9 +11,13 @@
             </el-aside>
             <el-main class="inside-main"> 
               <div>
-                <div v-if="dataready">
+                <!-- <div v-if="dataready">
                   <display-music :posts="posts"></display-music>
+                </div> -->
+                <div>
+                  Type of Music enjoy
                 </div>
+                <showlabel/>
               </div>
             </el-main>
           </el-container>
@@ -24,7 +28,15 @@
       </el-container>
     </div>
   </template>
-  <script>
+<script lang="ts" setup>
+import sidenavi from '../../components/layout/sidenavi.vue';
+import webhead from '../../components/layout/webhead.vue';
+import bfooter from '../../components/layout/bottomfooter.vue';
+import showlabel from '../../components/layout/Showlabel.vue';
+
+</script>
+
+  <!-- <script>
   import sidenavi from '../../components/layout/sidenavi.vue';
   import webhead from '../../components/layout/webhead.vue';
   import bfooter from '../../components/layout/bottomfooter.vue';
@@ -56,7 +68,7 @@
   })
   
   
-  </script>
+  </script> -->
   <style scoped>
   .el-aside{
     background-color: #0b1c2c;

@@ -1,22 +1,8 @@
 <template>
-  <div class="hello">
-    <h1>{{ count }}</h1>
-  </div>
+ <div>{{BASE_URL}}</div>
 </template>
 
+<script async lang="ts" setup>
 
-<script>
-export default {
-  name: "HelloWorld", 
-  data() {
-    return {
-      shopNumber: 2
-    }
-  },
-  computed: {
-    count: function() {
-      return 'The shop number is ' 
-    }
-  }
-};
+const BASE_URL = process.env.NODE_HOST
 </script>

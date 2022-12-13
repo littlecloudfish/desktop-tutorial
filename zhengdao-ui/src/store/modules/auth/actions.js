@@ -39,7 +39,6 @@ export default {
     },
 
     async signup(context, payload){
-        console.log(payload.password);
         const url = 'http://127.0.0.1:1943/register'
         const data ={
             username: payload.username,

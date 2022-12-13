@@ -26,7 +26,6 @@ import { inject } from 'vue'
 
 // defineComponent({
 //     setup() {
-        
 //     },
 // })
 const store = useStore();
