@@ -11,11 +11,8 @@
             </el-aside>
             <el-main class="inside-main">
               <div>
-                <el-button color="#103057"  @click = "open">Edit</el-button>
-              </div>
-              <div>
                 <suspense timeout="100">
-                  <userinfo></userinfo>
+                  <EditProfile></EditProfile>
                 </suspense>
               </div>
               
@@ -32,7 +29,7 @@
   import sidenavi from '../../components/layout/sidenavi.vue';
   import webhead from '../../components/layout/webhead.vue';
   import bfooter from '../../components/layout/bottomfooter.vue';
-  import userinfo from '../../components/layout/userinfo.vue';
+  import EditProfile from '../../components/function/ProfileEdit.vue';
   import router from '@/router';
   
   const open = () =>{
