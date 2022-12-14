@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -62,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path:'try',
-        component: () => import('../views/Music/TryAlwaysPlay.vue'),
+        component: () => import('../components/function/musicaudio.vue'),
       }
     ] 
   },

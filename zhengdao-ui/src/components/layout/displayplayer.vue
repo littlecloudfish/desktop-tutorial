@@ -1,6 +1,5 @@
 <template>
     <el-scrollbar>
-        
             <div class="scrollbar-flex-content">
                 <p v-for="item in listofuser" :key="item" class="scrollbar-demo-item">
                   <router-link :to="'MusicUser/'+item.id">
@@ -15,7 +14,6 @@
                   </router-link>
                 </p>
             </div>
-        
     </el-scrollbar>
 </template>
 
