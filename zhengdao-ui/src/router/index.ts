@@ -53,14 +53,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/MusicPlay/:id',
     name: 'MusicPlay',
-    component: () => import('../views/Music/MusicPlay.vue') 
+    component: () => import('../views/Music/MusicPlay.vue')
+  },  
+  {
+    path: '/MusicSearch',
+    name: 'MusicSearch',
+    component: () => import('../views/Music/MusicSearch.vue'),
+    children: [
+      {
+        path:'try',
+        component: () => import('../views/Music/TryAlwaysPlay.vue'),
+      }
+    ] 
   },
-  
-  // {
-  //   path: '/MusicSearch',
-  //   name: 'MusicSearch',
-  //   component: () => import('../views/Music/MusicSearch.vue') 
-  // },
   {
     path: '/MusicLatest',
     name: 'MusicLatest',
