@@ -24,20 +24,20 @@
         </bfooter>
       </el-container>
     </div>
-  </template>
-  <script lang="ts" setup>
-  import sidenavi from '../../components/layout/sidenavi.vue';
-  import webhead from '../../components/layout/webhead.vue';
-  import bfooter from '../../components/layout/bottomfooter.vue';
-  import EditProfile from '../../components/function/ProfileEdit.vue';
-  import router from '@/router';
-  
-  const open = () =>{
-    router.push({name:'PersonalEdit'})
-  }
-  
-  
-  </script>
+</template>
+<script lang="ts" setup>
+import sidenavi from '../../components/layout/sidenavi.vue';
+import webhead from '../../components/layout/webhead.vue';
+import bfooter from '../../components/layout/bottomfooter.vue';
+import EditProfile from '../../components/function/ProfileEdit.vue';
+import router from '@/router';
+
+const open = () =>{
+router.push({name:'PersonalEdit'})
+}
+
+
+</script>
   <style scoped>
   .el-aside{
     background-color: #0b1c2c;

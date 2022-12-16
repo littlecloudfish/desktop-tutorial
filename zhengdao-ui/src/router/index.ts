@@ -59,12 +59,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/MusicSearch',
     name: 'MusicSearch',
     component: () => import('../views/Music/MusicSearch.vue'),
-    children: [
-      {
-        path:'try',
-        component: () => import('../components/function/musicaudio.vue'),
-      }
-    ] 
+    // children: [
+    //   {
+    //     path:'try',
+    //     component: () => import('../components/function/musicaudio.vue'),
+    //   }
+    // ] 
   },
   {
     path: '/MusicLatest',

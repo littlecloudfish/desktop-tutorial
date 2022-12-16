@@ -11,12 +11,10 @@
         </el-row>
         <Field name="name" />
         <ErrorMessage name="name" />
-        <el-row>
-            <el-col :span="24">Input Music Cover Picture</el-col>
-            
-        </el-row>
-
         <button>Submit</button>
+        <el-row>
+            <el-col style="color:white" :span="24">Input Music Cover Picture</el-col>
+        </el-row>
         </Form>
         <div>
             <DropZone class="drop-area" @files-dropped="addFiles" #default="{ dropZoneActive }">
@@ -38,7 +36,7 @@
                     <FilePreview v-for="file of files" :key="file.id" :file="file" tag="li" @remove="removeFiles" />
                 </ul>
             </DropZone>
-		    <button @click.prevent="uploadFiles(files)" class="upload-button">Upload</button>
+		    <button @click.prevent="uploadFiles(files)" class="upload-button">Upload Picture</button>
         </div>
     </div>
 </template>
