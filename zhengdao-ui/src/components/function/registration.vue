@@ -22,7 +22,8 @@
     <Field name="passwordConfirmation" type="password" />
     <ErrorMessage name="passwordConfirmation" />
     <button>Submit</button>
-    <el-button text @click="open">Click to open the Message Box</el-button>
+
+
 
   </Form>
 </template>
@@ -46,20 +47,8 @@ const schema = yup.object().shape({
 
 });
 
-//try successful button 
-const open = () => {
-  ElMessageBox.alert('This is a message', 'Title', {
-    // if you want to disable its autofocus
-    // autofocus: false,
-    confirmButtonText: 'Login',
-    callback: (action: Action) => {
-      if (action === 'confirm'){
-        router.push({name:'MusicUserLogin'})
 
-      }
-    },
-  })
-};
+
 // const passwordField = document.querySelector('#password')
 
 // function switchVisibility() {
