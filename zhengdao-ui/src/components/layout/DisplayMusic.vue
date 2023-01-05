@@ -16,9 +16,9 @@
                 <el-row :gutter="20">
                 <el-col :span="6" v-for="n in 4" :key="n" >
                     
-                      <el-skeleton style="width: 240px" :loading="loading" animated>
+                      <el-skeleton style="width: 245px" :loading="loading" animated>
                           <template #template >
-                              <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
+                              <el-skeleton-item variant="image" style="width: 220px; height: 200px" />
                               <div style="padding: 14px">
                               <el-skeleton-item variant="h3" style="width: 50%" />
                               <div
@@ -47,7 +47,7 @@
                                     <div class="time">{{ postposition(posts,4*(i-1)+n-1).post_date }}</div>
                                     <el-button text class="button">
                                       <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(i-1)+n-1).id}}">
-                                        open
+                                        Listen
                                       </router-link>
                                     </el-button>
                                     </div>
@@ -61,7 +61,7 @@
               <!-- <div v-if="i == lengthofpost + 1 && remainder !=0" class="list-single-item">
                 <el-row :gutter="20">
                     <el-col :span="6" v-for="n in remainder" :key="n" >
-                          <el-skeleton style="width: 240px" :loading="loading" animated>
+                          <el-skeleton style="width: 245px" :loading="loading" animated>
                               <template #template >
                                   <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
                                   <div style="padding: 14px">
@@ -111,9 +111,9 @@
                     <el-row :gutter="20">
                     <el-col :span="3"></el-col>
                     <el-col :span="6" v-for="n in remainder" :key="n" >
-                          <el-skeleton style="width: 240px" :loading="loading" animated>
+                          <el-skeleton style="width: 245px" :loading="loading" animated>
                               <template #template >
-                                  <el-skeleton-item variant="image" style="width: 200px; height: 200px" />
+                                  <el-skeleton-item variant="image" style="width: 220px; height: 200px" />
                                   <div style="padding: 14px">
                                   <el-skeleton-item variant="h3" style="width: 50%" />
                                   <div
@@ -143,7 +143,7 @@
                                         <div class="time">{{ postposition(posts,4*(count)+n-1).post_date }}</div>
                                         <el-button text class="button">
                                           <router-link :to="{name:'MusicPlay',params:{id:postposition(posts,4*(count)+n-1).id}}">
-                                            open
+                                            Listen
                                           </router-link>
                                         </el-button>
                                         </div>

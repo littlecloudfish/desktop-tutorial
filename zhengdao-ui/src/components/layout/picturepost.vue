@@ -1,18 +1,19 @@
 <template>
-  
-    <el-carousel :interval="4000" type="card" height="500px" >
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3 text="2xl" justify="center">
-          <el-image style="width: 1000px; height: 500px" src="https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg" fit="fill" />
-        </h3>
-      </el-carousel-item>
-    </el-carousel>
-  </template>
-  
-  <script>
-    
 
-  </script>
+  <el-carousel :interval="4000" type="card" height="500px" >
+    <el-carousel-item v-for="item in 4" :key="item">
+      <h3 text="2xl" justify="center">
+        <el-image style="width: 950px; height: 500px" :src="imageurl[item-1]" fit="fill" />
+      </h3>
+    </el-carousel-item>
+
+  </el-carousel>
+</template>
+  
+<script lang="ts" setup>
+const imageurl = ["./Post/image0.png","./Post/image1.png","./Post/image2.png","./Post/image3.png"]
+
+</script>
 
   <style scoped>
   .el-carousel__item h3 {

@@ -21,8 +21,9 @@
     </el-row>
     <Field name="passwordConfirmation" type="password" />
     <ErrorMessage name="passwordConfirmation" />
+    <el-row>
     <button>Submit</button>
-
+    </el-row>
 
 
   </Form>
@@ -66,7 +67,7 @@ function onSubmit(values) {
       //   message: `action: ${action}`,
       // })
       if (action === 'confirm'){
-
+        router.push('MusicUserLogin')
       }
     },
   })
@@ -191,7 +192,7 @@ function onSubmit(values) {
   }
   </script>
    -->
-  <style lang="scss">
+  <style scoped lang="scss">
   .el-row {
     margin-bottom: 20px;
   }

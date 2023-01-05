@@ -1,97 +1,60 @@
 <template>
-    <base-dialog :show="!!error" title="An error occurred" @close="handleError">
-        <p>{{ error }}</p>
-    </base-dialog>
+  <Form :validation-schema="schema" @submit="onSubmit">
     <el-row>
-      <el-col :span="24">Input Username</el-col>
+          <el-col style="color:white" :span="24">Input Username</el-col>
     </el-row>
+    <Field name="username" type="username" />
+    <ErrorMessage name="username" />
     <el-row>
-      <el-col :span="24">
-          <el-input v-model="username" placeholder="Please input Username" />
-      </el-col>
+          <el-col style="color:white" :span="24">Input Password</el-col>
     </el-row>
+    <Field name="passwordConfirmation" type="password" />
+    <ErrorMessage name="passwordConfirmation" />
     <el-row>
-      <el-col :span="24">Input Password</el-col>
+    <button>Submit</button>
     </el-row>
-    <el-row>
-      <el-col :span="24">
-          <el-input v-model="password" type="password" placeholder="Please input Password" />
-      </el-col>
-    </el-row>
-    <!-- <p v-if="!validpassword">Username or Password are invalid. Please check your provided data.</p> -->
-  
-    <div>
-      <el-row>
-        <el-button type="Success" round @click="submitresult" >Login</el-button>  
-        <!-- <el-button type="Success" round @click="forgetpassword" >Forget Passwords</el-button> -->
-      </el-row>
-      <el-row>
-        <el-button type="Success" round  >
-          <router-link :to="{name:'MusicUserRegister'}" style="text-decoration: none; color: inherit;" >
-          SignUp
-          </router-link>
-        </el-button>  
-      </el-row> 
-    </div>
-  </template>
-  
-  <script>
-  export default{
-    data(){
-      return{
-        username: '',
-        validusername:true,
-        password:'',
-        // validpassword:true,
-        isloading:false,
-        error: null,
-        mode: 'Login',
-      };
+
+  </Form>
+</template>
+<!-- 1aA@aaaaaaaa -->
+<script lang="ts" setup>
+import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+import YupPassword from 'yup-password';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import type { Action } from 'element-plus';
+import router from '@/router';
+YupPassword(yup)
+
+
+const schema = yup.object().shape({
+  username: yup.string().required('Please Enter Your username'),
+  passwordConfirmation: yup.string().required('Please Enter Your Password')  
+
+});
+
+
+function onSubmit(values) {
+  ElMessageBox.alert(values.name, 'Successfully Sign Up', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    
+    callback: (action: Action) => {
+      // ElMessage({
+      //   type: 'info',
+      //   message: `action: ${action}`,
+      // })
+      if (action === 'confirm'){
+        router.push({name:'MusicHome'})
+      }
     },
-    computed:{
-      // submitButtonCaption(){
-      //   if(this.mode === 'Login'){
-      //     return 'Login';
-      //   }else {
-      //     return 'Signup';
-      //   }
-      // },
-    },
-    methods:{
-      async submitresult(){
-          this.isloading = true;
-          const actionPaylod = {
-            username: this.username,
-            password: this.password,
-          };
-          try{
-            await this.$store.dispatch('login',actionPaylod);
-            // if (this.mode === 'Login'){
-            //   await this.$store.dispatch('login',actionPaylod);}
-            // else{
-              // await this.$store.dispatch('signup', actionPayload); redirect to signup 
-            // }
-          }catch(err){
-            this.error = err.message || 'Failed to authenticate, try later';
-          }
-          // token if not null then change page
-          if (this.$store.getters.Token != null ){
-            this.$router.push({name: 'MusicUser'});
-          }
-          this.isloading= false;
-  
-    },
-    handleError(){
-      this.error = null;
-    },
-    // forgetpassword(){
-  
-    //   }
-    },
-  }
-  </script>
-  
-  <style lang="scss">
+  })
+  // alert(JSON.stringify(values.name, null, 2),'1aA@aaaaaaaa');
+}
+</script>
+
+
+  <style scoped lang="scss">
   .el-row {
     margin-bottom: 20px;
   }
@@ -104,7 +67,6 @@
   
   .grid-content {
     border-radius: 4px;
-    min-height: 36px;
+    min-height: 12px;
   }
   </style>
-  
