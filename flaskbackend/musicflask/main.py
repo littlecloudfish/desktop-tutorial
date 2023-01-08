@@ -1,38 +1,15 @@
 import mimetypes
-from flask import Flask, jsonify, url_for,escape,request,make_response, send_file, Response
-from flask_cors import CORS
 from sqlalchemy.orm import scoped_session, selectinload
 from sqlalchemy.sql import func, extract
 
-import models
-from database import SessionLocal, engine
+from musicflask import models
 
-from flask_jwt_extended import create_access_token,jwt_required,JWTManager,set_access_cookies,unset_jwt_cookies,current_user
+from flask_jwt_extended import create_access_token,jwt_required,set_access_cookies,unset_jwt_cookies,current_user
 
 from datetime import date, datetime
 from werkzeug.utils import secure_filename
 
-models.Base.metadata.create_all(bind=engine, checkfirst=True)
-
-app = Flask(__name__)
-CORS(app)
-app.session = scoped_session(SessionLocal)
-
-UPLOAD_FOLDER = '/home/little/Documents/music_web/startproj/flaskbackend/savefile'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','mp3'}
-
-app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
-#change later
-app.config["JWT_COOKIE_SECURE"] = False
-
-app.config["JWT_SECRET_KEY"] = "GWDV4lTNj0UAuRm+pK1dao/Ol+Ik5ibP"
-app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
-jwt = JWTManager(app)
-
-
+from musicflask import app,jsonify, url_for,escape,request,make_response, send_file, Response,models, jwt
 
 
 
@@ -318,7 +295,7 @@ def add_record(name):
         return "Wrong"
     return 'Add %s record successfully' % name
 
-#
+
 
 # return image file 
 # @app.route('/get_image')
@@ -334,7 +311,7 @@ def remove_session(*args, **kwargs):
     app.session.remove()
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    app.run(host = '127.0.0.1',port=1943,debug=True)
+#     app.run(host = '127.0.0.1',port=1943,debug=True)
 

@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey,DateTime, Float, Text
 from sqlalchemy.types import Date
 from sqlalchemy.orm import  relationship
 from sqlalchemy.sql import func
-from database import Base
+from musicflask.database import Base
 import datetime
 # user_login package
 from flask_login import UserMixin  
