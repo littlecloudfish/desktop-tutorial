@@ -88,6 +88,8 @@ class Music(Base,DictMixIn):
     coverimg = relationship("Img", back_populates="music")
     musicfeedback = relationship("Music_Feedback", back_populates="music",cascade = "all, delete-orphan")
     music_store = relationship("StoreMusic", back_populates = "music" )
+    music_lyrics = relationship("MusicLyris",back_populates = "music")
+    music_info = relationship("MusicInfo",back_populates = "music")
 
     def __repr__(self):
         return f"Address(id={self.id!r}, name={self.name!r},user={self.user!r})"
@@ -129,4 +131,24 @@ class StoreMusic(Base):
     mimetypes = Column(VARCHAR(150), nullable = False)
     music_id = Column(Integer, ForeignKey("music.id"))
     music = relationship("Music", back_populates="music_store")
-    
+
+class MusicLyris(Base,DictMixIn):
+    __tablename__='musicLyris'
+    id = Column(Integer, primary_key=True)
+    lyris = Column(VARCHAR(6000),nullable = False)
+    music_id = Column(Integer, ForeignKey("music.id"), nullable=False)
+    music = relationship("Music", back_populates="music_lyrics")
+
+class MusicInfo(Base,DictMixIn):
+    __tablename__='musicinfo'
+    id = Column(Integer, primary_key=True)
+    gettr_link = Column(VARCHAR(100),nullable = False)
+    singername = Column(VARCHAR(30),nullable = False)
+    Composer = Column(VARCHAR(30),nullable = True)
+    create_date = Column(DateTime(timezone=True), nullable=False,server_default=func.now())
+    Editor = Column(VARCHAR(30),nullable = True)
+    Songwriter = Column(VARCHAR(30),nullable = True)
+    Producer = Column(VARCHAR(30),nullable = True)
+    music_id = Column(Integer, ForeignKey("music.id"))
+    music = relationship("Music", back_populates="music_info")
+

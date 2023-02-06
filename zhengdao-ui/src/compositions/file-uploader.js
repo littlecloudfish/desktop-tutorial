@@ -1,16 +1,19 @@
 export async function uploadFile(file, url) {
+	console.log('calluploadfile')
 	// set up the request data
 	let formData = new FormData()
-	formData.append('file', file.file)
+	console.log('hello'+file.file)
+	// formData.append('file', file.file)
 
-	// track status and upload file
-	file.status = 'loading'
-	let response = await fetch(url, { method: 'POST', body: formData })
+	// // track status and upload file
+	// file.status = 'loading'
+	// let response = await fetch(url, { method: 'POST', body: formData })
 
-	// change status to indicate the success of the upload request
-	file.status = response.ok
+	// // change status to indicate the success of the upload request
+	// file.status = response.ok
 
-	return response
+	// return response
+	return
 }
 
 export function uploadFiles(files, url) {
@@ -18,7 +21,8 @@ export function uploadFiles(files, url) {
 }
 
 export default function createUploader(url) {
-	return {
+	console.log('call')
+	return{
 		uploadFile: function (file) {
 			return uploadFile(file, url)
 		},
@@ -26,4 +30,5 @@ export default function createUploader(url) {
 			return uploadFiles(files, url)
 		},
 	}
+
 }

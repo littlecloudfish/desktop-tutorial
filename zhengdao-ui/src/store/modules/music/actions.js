@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+// import createUploader from '../../../compositions/file-uploader';
+const backapi = process.env.VUE_APP_APIURL;
 export default{
     // async musicinfo(context, payload){
     // const backapi = 'http://127.0.0.1:1943';
@@ -29,8 +30,33 @@ export default{
     //     }
     // }
     // },
+    //feb 1
+    // async musicinfo(context, payload){
+    //     const backapi = 'http://127.0.0.1:1943';
+    //     const musicnumber = payload;
+    //     try{
+    //         const errmes =await axios({
+    //             method: 'get',
+    //             url: backapi+'/music/'+musicnumber
+    //         }
+    //         ).then(function(response){
+    //             context.commit('setlistofmusicinfo',{
+    //                 listofmusicinfo : response.data,
+                    
+    //             });
+    //         });
+    //     }catch(err){
+    //         if (err.message == 'Request failed with status code 401'){
+    //             console.log('called if');
+    //             throw { message : "No music info display" , number: 308};
+    //         }
+    //         else {
+    //             throw err;
+    //         }
+    //     }
+    // },
     async musicinfo(context, payload){
-        const backapi = 'http://127.0.0.1:1943';
+        
         const musicnumber = payload;
         try{
             const errmes =await axios({
@@ -52,6 +78,46 @@ export default{
                 throw err;
             }
         }
+    },
+    async uploadmusic(context, payload){
+    //    console.log('commit action'+ typeof payload.musicinfo,typeof payload.upfiles.value[0])
+       const fd = new FormData()
+       fd.append('musicinfo',JSON.stringify(payload.musicinfo))
+       fd.append('createdate', payload.createdate.value)
+       console.log(payload.upfiles.value[0].file)
+       fd.append('imagefile',payload.upfiles.value[0].file,payload.upfiles.value[0].file.name)
+       axios({
+        method: 'post',
+        url: backapi+'/uploadmusicinfo',
+        data: fd,
+        headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json;charset=UTF-8",
+                  },
+       }).then((response)=>{
+        console.log(response)
+       },(error)=>{
+        console.log(error)
+       })
+    //    // const data ={
+        //     username: payload.username,
+        //     password: payload.password,
+        // }
+        // axios({
+        //     method: 'post',
+        //     url: backapi+'/uploadmusicinfo/',
+        //     data:data,
+        //     headers: {
+        //         Accept: "application/json",
+        //         "Content-Type": "application/json;charset=UTF-8",
+        //       },
+         
+        // }).then((response) => {
+        //     console.log(response);
+        // }, (error) => {
+        //     console.log(error);
+        // });
+   
     },
     async musiclyrics(context, payload){
         const backapi = 'http://127.0.0.1:1943';

@@ -15,5 +15,11 @@ export default{
     },
     setmusiclyrics(state, payload){
         state.musiclyrics = payload.musiclyrics;
-    }
+    },
+    // setmusicscore(state, payload){
+    //     state.musicscore=payload.musicscore
+    // }
+    // setuploadmusic(state, payload){
+    //     state.uploadmusicinfo = payload.uploadmusicinfo;
+    // }
 }

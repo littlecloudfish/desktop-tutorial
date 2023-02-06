@@ -1,7 +1,7 @@
 import mimetypes
 from sqlalchemy.orm import scoped_session, selectinload
 from sqlalchemy.sql import func, extract
-
+import os
 from musicflask import models
 
 from flask_jwt_extended import create_access_token,jwt_required,set_access_cookies,unset_jwt_cookies,current_user
@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 
 from musicflask import app,jsonify, url_for,escape,request,make_response, send_file, Response,models, jwt
 
-
+import json
 
 @app.route("/")
 def main():
@@ -83,55 +83,24 @@ def who_am_i():
 
 @app.route("/register", methods = ['POST'])
 def register():
-    
+    print(request.json) 
     try:
-        name = request.json.get("username",None)
+        name = request.json.get("name",None)
         password = request.json.get('password',None)
+        email = request.json.get('email',None)
     except Exception as e:
         return make_response('wrong',202)
     
     try:
-        newre=models.User(username=name,password=password)
+        newre=models.User(username=name,password=password,email=email)
         app.session.add(newre)
         app.session.commit()
     except Exception as e:
         return make_response('wrong',202)
-
+    
     return make_response('success',201)
 
 
-
-# @app.route('/uploadimg', methods=['POST'])
-# def uploadimg():
-#     if request.method == 'POST':
-#         print(request.files)
-#         pic = request.files['pic']
-#     if not pic:
-#         return 'No pic uploaded!', 400
-#     filename = secure_filename(pic.filename)
-#     mimetype = pic.mimetype
-#     if not filename or not mimetype:
-#         return 'Bad upload!', 400
-#     img = models.Img(img=pic.read(), name=filename, mimetype=mimetype)
-#     app.session.add(img)
-#     app.session.commit()
-#     return 'Img Uploaded!', 200
-
-# @app.route('/uploadmp3', methods = ['POST'])
-# def uploadmp3():
-#     if request.method == 'POST':
-#         print(request.files)
-#         mp3 = request.files['mp3']      
-#     if not mp3:
-#         return 'No pic uploaded!', 400
-#     filename = secure_filename(mp3.filename)
-#     mimetype = mp3.mimetype
-#     if not filename or not mimetype:
-#         return 'Bad upload!', 400
-#     mp3 = models.StoreMusic(mp3=mp3.read(), name=filename, mimetypes=mimetype)
-#     app.session.add(mp3)
-#     app.session.commit()
-#     return 'Music Uploaded!', 200
 
 #upload music page
 @app.route("/uploadmusic", methods = ['POST'])
@@ -143,7 +112,7 @@ def uploadmusic():
     musicfile = request.files['mp3']
     musicname = request.form['musicname']
     release_date =datetime.strptime(request.form['releasedate'], '%Y-%m-%d')
-    print(type(release_date))
+    # print(type(release_date))
     if not pic or not musicfile:
         return make_response('No pic uploaded!', 400)
     imagename = secure_filename(pic.filename)
@@ -164,6 +133,39 @@ def uploadmusic():
     except Exception as e:
         return make_response(e,500)
     return make_response('Add %s and date record successfully' % musicname, 200) 
+#combine with uploadmusic later request.json.get maybe use it later
+@app.route("/uploadmusicinfo",methods = ['POST'])
+def uploadmusicinfo():
+    musicinfo=json.loads(request.form.get('musicinfo'))
+    imfile = request.files['imagefile']
+    imfiletyep = imfile.mimetype
+    newfileid = datetime.now().strftime("%m:%d:%Y:%H:%M:%S")+secure_filename(imfile.filename)
+    print(imfiletyep)
+    # imfile.save(os.path.join(app.config['UPLOAD_FOLDER'],newfileid))
+    # imfile.save(filename=imfile.filename)
+    # createdate = datetime.strptime(request.form.get('createdate')[4:23],'%b %d %Y %H:%M:%S')    
+    # name = musicinfo['musicname']
+    # gettrlink = musicinfo['musiclink']
+    # singer = musicinfo['performers']
+    # composer = musicinfo['Composer']
+    # editor = musicinfo['Editor']
+    # songwriter = musicinfo['Songwriter']
+    # producer = musicinfo['Producer']
+    # musiclyrics = musicinfo['Lyrics']
+    # infoofmusic = models.MusicInfo(gettr_link=gettrlink,singername=singer,Composer=composer,create_date=createdate,Editor=editor,Songwriter=songwriter,Producer=producer)
+    # addlyrics = models.MusicLyris(lyris = musiclyrics)
+    # newre = models.Music(name = name, user_id = 1, coverimg=[])
+    # try:
+    #     app.session.add(infoofmusic)
+    #     app.session.add(addlyrics)
+    #     app.session.add(newre)
+    #     app.session.commit()
+    #     print(gettrlink)
+    # except Exception as e:
+    #     return make_response(e,500)
+    # return make_response('Add %s and date record successfully' % gettrlink, 200) 
+    return 'hello'
+
 
 # today:0,thisweek:1,thismonth:2,thisyear:3,all:4
 @app.route("/listmusics/<int:timeperiod>")
@@ -202,6 +204,19 @@ def ratemusic():
     app.session.add(scoremusic)
     app.session.commit()
     return make_response('Add %s score successfully' % musicid, 200)
+
+@app.route("/commentmusic",methods = ['POST'])
+# @jwt_required
+def commentmusic():
+    # user_id = current_user.id
+    musicid=request.json.get("musicid",None)
+    musiccomment = request.json.get("comment",None)
+    user_id =1 
+    commentmusic = models.Music_Feedback(feedbackcomment = musiccomment, user_id=user_id,music_id=musicid)
+    app.session.add(commentmusic)
+    app.session.commit()
+    return make_response('Add %s score successfully' % musicid, 200)
+
 @app.route('/enjoymusic/<int:id>')
 def enjoymusic(id):
     try:
@@ -284,7 +299,6 @@ def usernamesearch(user_name):
     return jsonify([record.to_dict() for record in records])
 
 
-
 @app.route("/add/<name>")
 def add_record(name):
     newre=models.Record(country=name)
@@ -294,7 +308,6 @@ def add_record(name):
     except Exception as e:
         return "Wrong"
     return 'Add %s record successfully' % name
-
 
 
 # return image file 

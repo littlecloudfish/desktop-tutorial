@@ -15,6 +15,7 @@ export default{
             musiclyrics:null,
             listofmusic: [],
             listofmusicinfo:[],
+            // uploadmusicinfo:null,
         };
     },
     mutations,

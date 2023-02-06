@@ -2,13 +2,20 @@
     <div>
         <el-footer>
             <b style="color:#FFFFFF">
+                
                 <router-link to="/about" style="text-decoration: none; color: inherit;" >
                 About
                 </router-link>
+                
             </b>
         </el-footer>
     </div>
 </template>
+<script lang="ts" setup>
+// const testvar = process.env.VUE_APP_APIURL
+
+</script>
+
 <style scoped>
 .el-footer{
   background-color: #103057;

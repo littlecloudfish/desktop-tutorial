@@ -15,7 +15,6 @@
         <el-row>
             <el-col style="color:white" :span="24">Input Music Cover Picture</el-col>
         </el-row>
-        </Form>
         <div>
             <DropZone class="drop-area" @files-dropped="addFiles" #default="{ dropZoneActive }">
                 <label for="file-input">
@@ -33,11 +32,14 @@
                     <input type="file" id="file-input" multiple @change="onInputChange" />
                 </label>
                 <ul class="image-list" v-show="files.length">
-                    <FilePreview v-for="file of files" :key="file.id" :file="file" tag="li" @remove="removeFiles" />
+                    <FilePreview v-for="file of files" :key="file.id" :file="file" tag="li" @remove="(thefile)=>removeFile(thefile)" />
                 </ul>
             </DropZone>
-		    <button @click.prevent="uploadFiles(files)" class="upload-button">Upload Picture</button>
+		    <!-- <button @click.prevent="uploadFiles(files)" class="upload-button">Upload Picture</button> -->
         </div>
+        <button  class="upload-button">Submit</button>
+        </Form>
+        
     </div>
 </template>
 <script lang="ts" setup>
@@ -48,15 +50,16 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import type { Action } from 'element-plus';
 import DropZone from './DropZone.vue';
 import useFileList from '../../compositions/file-list';
-import createUploader from '../../compositions/file-uploader'
+import createUploader from '../../compositions/file-uploader';
 
-import FilePreview from './FilePreview.vue'
+import FilePreview from './FilePreview.vue';
 
 YupPassword(yup)
 
-const {files, addFiles, removeFiles} = useFileList()
+const {files, addFiles, removeFile} = useFileList()
 function onInputChange(e) {
 	addFiles(e.target.files)
+    console.log(files)
 	e.target.value = null // reset so that selecting the same file again will still cause it to fire this change
 }
 const { uploadFiles } = createUploader('YOUR URL HERE')

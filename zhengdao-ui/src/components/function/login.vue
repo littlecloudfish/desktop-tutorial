@@ -24,6 +24,9 @@ import YupPassword from 'yup-password';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import type { Action } from 'element-plus';
 import router from '@/router';
+import { useStore } from 'vuex';
+const store = useStore()
+
 YupPassword(yup)
 
 
@@ -35,20 +38,22 @@ const schema = yup.object().shape({
 
 
 function onSubmit(values) {
-  ElMessageBox.alert(values.name, 'Successfully Sign Up', {
+  store.dispatch('login',{try:values})
+
+  // ElMessageBox.alert(values.name, 'Successfully Sign Up', {
     // if you want to disable its autofocus
     // autofocus: false,
     
-    callback: (action: Action) => {
-      // ElMessage({
-      //   type: 'info',
-      //   message: `action: ${action}`,
-      // })
-      if (action === 'confirm'){
-        router.push({name:'MusicHome'})
-      }
-    },
-  })
+    // callback: (action: Action) => {
+    //   // ElMessage({
+    //   //   type: 'info',
+    //   //   message: `action: ${action}`,
+    //   // })
+    //   if (action === 'confirm'){
+    //     router.push({name:'MusicHome'})
+    //   }
+    // },
+  // })
   // alert(JSON.stringify(values.name, null, 2),'1aA@aaaaaaaa');
 }
 </script>

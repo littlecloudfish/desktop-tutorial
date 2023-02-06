@@ -1,4 +1,5 @@
 <template>
+  <!-- <Form :validation-schema="schema" @submit.prevent="onSubmit"> -->
   <Form :validation-schema="schema" @submit="onSubmit">
     <el-row>
       <el-col :span="24">Input Music Name</el-col>
@@ -6,7 +7,7 @@
     <Field name="musicname" type="musicname" />
     <ErrorMessage name="musicname" />
     <el-row>
-          <el-col style="color:white" :span="24">Input Music Link</el-col>
+          <el-col style="color:white" :span="24">Input Music Gettr Link</el-col>
     </el-row>
     <Field name="musiclink" />
     <ErrorMessage name="musiclink" />
@@ -14,7 +15,6 @@
           <el-col style="color:white" :span="24">Input Music Performer</el-col>
     </el-row>
     <Field name="performers" />
-    <!-- <button onclick="switchVisibility()">show / hide</button> -->
     <ErrorMessage name="performers" />
     <el-row>
           <el-col style="color:white" :span="24">Input Music Composer</el-col>
@@ -25,31 +25,25 @@
           <el-col style="color:white" :span="24">Input Music Editor</el-col>
     </el-row>
     <Field name="Editor" />
-    <!-- <button onclick="switchVisibility()">show / hide</button> -->
     <ErrorMessage name="Editor" />
     <el-row>
           <el-col style="color:white" :span="24">Input Music Songwriter</el-col>
     </el-row>
     <Field name="Songwriter" />
-    <!-- <button onclick="switchVisibility()">show / hide</button> -->
     <ErrorMessage name="Songwriter" />
     <el-row>
           <el-col style="color:white" :span="24">Input Music Producer</el-col>
     </el-row>
     <Field name="Producer" />
-    <!-- <button onclick="switchVisibility()">show / hide</button> -->
     <ErrorMessage name="Producer" />
     <el-row>
           <el-col style="color:white" :span="24">Input Music Lyrics</el-col>
     </el-row>
     <Field name="Lyrics" type="text"/>
-    <!-- <button onclick="switchVisibility()">show / hide</button> -->
     <ErrorMessage name="Lyrics" />
-    <button>Submit</button>
     <el-row>
         <el-col style="color:white" :span="24">Input Music Cover Picture</el-col>
     </el-row>
-    
     <div>
         <DropZone class="drop-area" @files-dropped="addFiles" #default="{ dropZoneActive }">
             <label for="file-input">
@@ -67,83 +61,80 @@
                 <input type="file" id="file-input" multiple @change="onInputChange" />
             </label>
             <ul class="image-list" v-show="files.length">
-                <FilePreview v-for="file of files" :key="file.id" :file="file" tag="li" @remove="removeFiles" />
+                <FilePreview v-for="file of files" :key="file.id" :file="file" tag="li" @remove="(thefile)=>removeFile(thefile)" />
             </ul>
         </DropZone>
-    <button @click.prevent="uploadFiles(files)" class="upload-button">Upload Picture</button>
-    </div>    
+    <!-- <button @click.prevent="uploadFiles(files)" class="upload-button">Submit</button> -->
+    </div>
+    <div class="block">
+      <span class="demonstration">
+        <el-row>
+          <el-col style="color:white" :span="24">Music Created Date</el-col>
+        </el-row>
+      </span>
+      <el-date-picker
+        v-model="createdate"
+        type="date"
+        placeholder="Pick a day"
+        size="large"
+      />
+    </div>
+    <button class="upload-button">Submit</button>
   </Form>
+  <!-- <button @click.prevent="onSubmit(schema)" class="upload-button">Submit</button> -->
 </template>
 <script lang="ts" setup>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
-import YupPassword from 'yup-password';
-import { ElMessage, ElMessageBox } from 'element-plus';
+import { ref } from 'vue'
+import { ElMessageBox } from 'element-plus';
 import type { Action } from 'element-plus';
 import DropZone from './DropZone.vue';
 import useFileList from '../../compositions/file-list';
-import createUploader from '../../compositions/file-uploader'
-
 import router from '@/router';
-YupPassword(yup)
-
-const {files, addFiles, removeFiles} = useFileList()
+import FilePreview from './FilePreview.vue';
+import { useStore } from 'vuex';
+const createdate = ref('')
+const store = useStore()
+const {files, addFiles, removeFile} = useFileList()
 function onInputChange(e) {
 	addFiles(e.target.files)
 	e.target.value = null // reset so that selecting the same file again will still cause it to fire this change
 }
-const { uploadFiles } = createUploader('YOUR URL HERE')
-
-
-
-
 const schema = yup.object().shape({
   musicname: yup.string().required('Please Enter Your Music Name'),
-  musiclink: yup.string().required('Please Enter Your Link'),
-  performers: yup.string(),
-  Composer:yup.string(),
-  Editor:yup.string(),
-  Songwriter:yup.string(),
-  Producer:yup.string(),
-  Lyrics:yup.string(),
+  musiclink: yup.string().required('Please Enter Your Link').matches(/gettr.com/,'Must be gettr link'),
+  performers: yup.string().default('null'),
+  Composer:yup.string().default('null'),
+  Editor:yup.string().default('null'),
+  Songwriter:yup.string().default('null'),
+  Producer:yup.string().default('null'),
+  Lyrics:yup.string().default('null'),
 });
 
-//try successful button 
-const open = () => {
-  ElMessageBox.alert('This is a message', 'Title', {
-    // if you want to disable its autofocus
-    // autofocus: false,
-    
-    confirmButtonText: 'Login',
-    // cancel-button-text:'oncemore',	
-    cancelButtonText:'oncemore',
-    callback: (action: Action) => {
-      if (action === 'confirm'){
-        router.push({name:'MusicUserLogin'})
-      }
-    },
-  })
-};
-// const passwordField = document.querySelector('#password')
 
-// function switchVisibility() {
-//   if (passwordField.getAttribute('type') === 'password') passwordField.setAttribute('type', 'text')
-//   else passwordField.setAttribute('type', 'password')
-// }
 function onSubmit(values) {
-  ElMessageBox.alert(values.name, 'Successfully Uploaded', {
-    // if you want to disable its autofocus
-    // autofocus: false,
-    confirmButtonText:'One More Song',
-    cancelButtonText:'oncemore',
-    callback: (action: Action) => {
-      if (action === 'confirm'){
-        router.push({name:'MusicHome'})
-      }
-    },
-  })
+  
+  console.log('ppe'+values.musicname)
+  store.dispatch('music/uploadmusic',{musicinfo:values, upfiles: files, createdate: createdate})
+  
+  // uploadFiles// upload file
+
+  // ElMessageBox.alert(values.name, 'Successfully Uploaded', {
+  //   // if you want to disable its autofocus
+  //   // autofocus: false,
+  //   confirmButtonText:'One More Song',
+  //   cancelButtonText:'oncemore',
+  //   callback: (action: Action) => {
+  //     if (action === 'confirm'){
+  //       router.push({name:'MusicHome'})
+  //     }
+  //   },
+  // })
 
 }
+
+
 </script>
 
 

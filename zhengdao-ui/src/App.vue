@@ -2,8 +2,6 @@
   <div>
     <HomeHead></HomeHead>
   </div>
-  
-  
 </template>
 
 <script>

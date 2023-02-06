@@ -13,7 +13,7 @@
     <el-row>
           <el-col style="color:white" :span="24">Input Account Password(Password must at least 8 characters, and contains lowercase letter,uppercase letter,number and symbol)</el-col>
     </el-row>
-    <Field name="password" />
+    <Field name="password" type="password"/>
     <!-- <button onclick="switchVisibility()">show / hide</button> -->
     <ErrorMessage name="password" />
     <el-row>
@@ -36,9 +36,10 @@ import YupPassword from 'yup-password';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import type { Action } from 'element-plus';
 import router from '@/router';
+import { useStore } from 'vuex';
+const store = useStore()
+
 YupPassword(yup)
-
-
 const schema = yup.object().shape({
   email: yup.string().email().required('Please Enter Your Email'),
   name: yup.string().required('Please Enter Your Name'),
@@ -47,9 +48,6 @@ const schema = yup.object().shape({
   passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')  
 
 });
-
-
-
 // const passwordField = document.querySelector('#password')
 
 // function switchVisibility() {
@@ -57,20 +55,22 @@ const schema = yup.object().shape({
 //   else passwordField.setAttribute('type', 'password')
 // }
 function onSubmit(values) {
-  ElMessageBox.alert(values.name, 'Successfully Sign Up', {
-    // if you want to disable its autofocus
-    // autofocus: false,
+  store.dispatch('signup',values)
+
+  // ElMessageBox.alert(values.name, 'Successfully Sign Up', {
+  //   // if you want to disable its autofocus
+  //   // autofocus: false,
     
-    callback: (action: Action) => {
-      // ElMessage({
-      //   type: 'info',
-      //   message: `action: ${action}`,
-      // })
-      if (action === 'confirm'){
-        router.push('MusicUserLogin')
-      }
-    },
-  })
+  //   callback: (action: Action) => {
+  //     // ElMessage({
+  //     //   type: 'info',
+  //     //   message: `action: ${action}`,
+  //     // })
+  //     if (action === 'confirm'){
+  //       router.push('MusicUserLogin')
+  //     }
+  //   },
+  // })
   // alert(JSON.stringify(values.name, null, 2),'1aA@aaaaaaaa');
 }
 </script>
